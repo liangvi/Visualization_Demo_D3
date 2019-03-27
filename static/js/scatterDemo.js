@@ -14,7 +14,7 @@ var svg = d3.select("#scatterDemo").attr("width", width).attr("height", height);
 
 var data = [{x:10, y:10},
             {x:20, y:20},
-            {x:30, y:30},
+            {x:20, y:30},
             {x:40, y:40},
             {x:50, y:50},
             {x:60, y:60}];
