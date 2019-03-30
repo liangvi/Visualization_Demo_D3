@@ -16,9 +16,9 @@ def index():
 def compare():
 	return render_template('compare.html')
 
-@app.route('/explore/', methods=['GET'])
+@app.route('/analysis/', methods=['GET'])
 def explore():
-	return render_template('explore.html')
+	return render_template('analysis.html')
 
 @app.route('/categories/', methods=['GET'])
 def categories():
