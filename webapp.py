@@ -12,7 +12,7 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
-@app.route('/compare', methods=['GET'])
+@app.route('/compare/', methods=['GET'])
 def index():
 	return render_template('compare.html')
 
