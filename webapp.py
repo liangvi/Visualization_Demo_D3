@@ -12,6 +12,10 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
+@app.route('/compare', methods=['GET'])
+def index():
+	return render_template('compare.html')
+
 @app.route('/categories/', methods=['GET'])
 def categories():
 	city_restaurants = pd.read_csv('data/lasvegas_restaurants.csv')
