@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Compare!</title>
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  	<!--d3 Import -->
+  	<script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script type="text/javascript" src="static/js/main.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+
+    <!--https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link -->
+    <button class="favorite styled"
+            type="button"
+            onclick="location.href='http://google.com';"
+            >
+        Explore
+    </button>
+    <button class="favorite styled"
+            type="button">
+        Compare
+    </button>
+    <button class="favorite styled"
+            type="button">
+        Analysis
+    </button>
+
+  </head>
+
+  <body>
+
+    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
+
+    <svg id="barDemo"> </svg>
+
+    <svg id="scatterDemo"> </svg>
+
+  </body>
+  <script type="text/javascript" src="static/js/barDemo.js"></script>
+  <script type="text/javascript" src="static/js/scatterDemo.js"></script>
+</html>
