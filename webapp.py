@@ -13,7 +13,7 @@ def index():
 	return render_template('index.html')
 
 @app.route('/compare/', methods=['GET'])
-def index():
+def compare():
 	return render_template('compare.html')
 
 @app.route('/categories/', methods=['GET'])
