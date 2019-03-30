@@ -6,6 +6,7 @@ var margin = {
   left: 10,
   right: 10,
   bottom: 10
+  
 };
 
 var svg = d3.select("#barDemo").attr("width", width).attr("height", height);
