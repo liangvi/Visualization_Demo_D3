@@ -13,11 +13,11 @@ var color = d3.scaleOrdinal(d3.schemeCategory10);
 var svg = d3.select("#scatterDemo").attr("width", width).attr("height", height);
 
 var data = [{x:10, y:10},
-            {x:20, y:20},
-            {x:20, y:30},
-            {x:40, y:40},
-            {x:50, y:50},
-            {x:60, y:60}];
+            {x:10, y:20},
+            {x:10, y:30},
+            {x:10, y:40},
+            {x:10, y:50},
+            {x:10, y:60}];
 
 var xScale = d3.scaleLinear()
 .domain([0, 100])
