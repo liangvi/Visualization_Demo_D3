@@ -16,6 +16,10 @@ def index():
 def compare():
 	return render_template('compare.html')
 
+@app.route('/explore/', methods=['GET'])
+def explore():
+	return render_template('explore.html')
+
 @app.route('/categories/', methods=['GET'])
 def categories():
 	city_restaurants = pd.read_csv('data/lasvegas_restaurants.csv')
