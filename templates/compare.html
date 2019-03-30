@@ -1,9 +1,9 @@
 <!doctype html>
 
 <html>
-  <head>
-    <title>Compare!</title>
-	<!-- jQuery library -->
+  	<head>
+    	<title>Foodie3</title>
+    		<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 	<!-- Latest compiled and minified CSS -->
@@ -18,36 +18,13 @@
   	<!--d3 Import -->
   	<script src="https://d3js.org/d3.v5.min.js"></script>
 
-    <script type="text/javascript" src="static/js/compare.js"></script>
-    <link rel="stylesheet" type="text/css" href="static/css/main.css">
+  	</head>
+	<body>
+		<svg id="categories_chart"> </svg>
+	</body>
+	<script type="text/javascript" src="/static/js/categories.js"></script>
 
-    <!--https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link -->
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='http://google.com';"
-            >
-        Explore
-    </button>
-    <button class="favorite styled"
-            type="button">
-        Compare
-    </button>
-    <button class="favorite styled"
-            type="button">
-        Analysis
-    </button>
-
-  </head>
-
-  <body>
-
-    <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
-
-    <svg id="barDemo"> </svg>
-
-    <svg id="scatterDemo"> </svg>
-
-  </body>
-  <script type="text/javascript" src="static/js/barDemo.js"></script>
-  <script type="text/javascript" src="static/js/scatterDemo.js"></script>
+	<script type="text/javascript">
+		drawChart({{ totals }});
+	</script>
 </html>
