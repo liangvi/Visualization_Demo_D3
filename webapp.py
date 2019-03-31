@@ -21,7 +21,7 @@ def compare():
 def analysis():
 	return render_template('analysis.html')
 
-@app.route('/predict')
+@app.route('/predict/')
 def predict():
     print "Hello"
     return "nothing"
