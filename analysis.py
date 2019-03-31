@@ -33,6 +33,7 @@ import pickle
 from sklearn.decomposition import LatentDirichletAllocation
 
 business = pd.read_json('yelp_dataset/business.json', lines=True)
+print("loaded business")
 
 def text_process(text):
     """
@@ -141,3 +142,36 @@ def predict(text):
 print(predict(["this is a review"]))
 print(predict(["This is a great restaurant!"]))
 print(predict(["This is a bad restaurant!"]))
+
+#pickle
+#https://scikit-learn.org/stable/modules/model_persistence.html
+#https://xcitech.github.io/tutorials/heroku_tutorial/
+#s = pickle.dump(en_final, en_final)
+with open('enc.pkl', 'wb') as enc_file:
+    pickle.dump(enc, enc_file)
+
+with open('vec.pkl', 'wb') as vec_file:
+    pickle.dump(vectorizer, vec_file)
+
+with open('model.pkl', 'wb') as file:
+    pickle.dump(en_final, file)
+#p = pickle.loads('model.pkl')
+pkl_file = open('model.pkl', 'rb')
+p = pickle.load(pkl_file)
+
+def pickle_predict(text):
+
+    text_tf = vectorizer.transform(text)
+
+    #text_lower = text.str.lower()
+    text_lower = text[0].lower()
+
+    #text_enc = enc.transform(text_lower.reshape(-1,1))
+    text_enc = enc.transform([[text_lower]])
+
+    text_joined = hstack([text_tf, text_enc], format="csr")
+    return p.predict(text_joined)
+
+print(pickle_predict(["this is a review"]))
+print(pickle_predict(["This is a great restaurant!"]))
+print(pickle_predict(["This is a bad restaurant!"]))
