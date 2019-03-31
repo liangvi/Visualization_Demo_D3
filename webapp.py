@@ -6,28 +6,6 @@ import numpy as np
 import json
 import math
 
-from sklearn import linear_model
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.linear_model import ElasticNet
-from sklearn.metrics import r2_score
-from sklearn.feature_extraction import stop_words
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-
-
-from scipy.sparse import csr_matrix, hstack, coo_matrix
-
-import string
-
-from nltk.stem.snowball import EnglishStemmer
-import nltk
-
-import pickle
-
 
 app = Flask(__name__)
 
