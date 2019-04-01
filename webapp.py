@@ -55,8 +55,9 @@ def analysis():
 	text_enc = enc.transform([[text_lower]])
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
-	print(p.predict(text_joined))
-	return render_template('analysis.html')
+	score = p.predict(text_joined)
+	print(score)
+	return render_template('analysis.html' score=score)
 
 
 @app.route('/categories/', methods=['GET'])
