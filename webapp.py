@@ -19,13 +19,26 @@ def compare():
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
-	return render_template('analysis.html')
+	pkl_file = open('model.pkl', 'rb')
+	p = pickle.load(pkl_file)
 
-#https://stackoverflow.com/questions/42601478/flask-calling-python-function-on-button-onclick-event
-@app.route('/predict/')
-def predict():
-    print("Hello")
-    return "nothing"
+	enc_file = open('enc.pkl', 'rb')
+	enc = pickle.load(enc_file)
+
+	vec_file = open('vec.pkl', 'rb')
+	vectorizer = pickle.load(vec_file)
+
+	text = ["This is a review"]
+
+	text_tf = vectorizer.transform(text)
+
+	text_lower = text[0].lower()
+
+	text_enc = enc.transform([[text_lower]])
+
+	text_joined = hstack([text_tf, text_enc], format="csr")
+	console.log(p.predict(text_joined))
+	return render_template('analysis.html')
 
 
 @app.route('/categories/', methods=['GET'])
