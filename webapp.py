@@ -7,6 +7,20 @@ import json
 import math
 import pickle
 
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.feature_extraction.text import CountVectorizer
+
+from sklearn.linear_model import ElasticNet
+
+from sklearn.metrics import r2_score
+
+from sklearn.feature_extraction import stop_words
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction import DictVectorizer
+
+from scipy.sparse import csr_matrix, hstack, coo_matrix
+
 
 app = Flask(__name__)
 
