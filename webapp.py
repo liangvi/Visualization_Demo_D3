@@ -37,7 +37,6 @@ def compare():
 @app.route('/analysis/', methods=['GET'])
 def analysis():
 
-
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -56,7 +55,6 @@ def analysis():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-	print(score)
 	return render_template('analysis.html', score=score)
 
 
