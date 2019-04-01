@@ -20,8 +20,7 @@ def compare():
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
-	pkl_file = open('model.pkl', 'rb')
-	p = pickle.load(pkl_file)
+
 
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
@@ -29,6 +28,8 @@ def analysis():
 	vec_file = open('vec.pkl', 'rb')
 	vectorizer = pickle.load(vec_file)
 
+	pkl_file = open('model.pkl', 'rb')
+	p = pickle.load(pkl_file)
 	text = ["This is a review"]
 
 	text_tf = vectorizer.transform(text)
