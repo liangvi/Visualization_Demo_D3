@@ -21,6 +21,12 @@ def compare():
 def analysis():
 	return render_template('analysis.html')
 
+#https://stackoverflow.com/questions/42601478/flask-calling-python-function-on-button-onclick-event
+@app.route('/predict/')
+def predict():
+    print("Hello")
+    return "nothing"
+
 
 @app.route('/categories/', methods=['GET'])
 def categories():
