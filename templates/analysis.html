@@ -51,23 +51,4 @@
 	</body>
 	<script type="text/javascript" src="/static/js/explore.js"></script>
 
-  <script type=text/javascript>
-        $(function() {
-          $('a#test').bind('click', function() {
-            $.getJSON('/predict/',
-                function(data) {
-              //do nothing
-            });
-            return false;
-          });
-        });
-      </script>
-      <div class='container'>
-          <h3>Test</h3>
-              <form>
-                  <a href=# id=test><button class='btn btn-default'>Test</button></a>
-              </form>
-
-      </div>
-
 </html>
