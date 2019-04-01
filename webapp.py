@@ -7,6 +7,8 @@ import json
 import math
 import pickle
 
+import sklearn
+
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.feature_extraction.text import CountVectorizer
 
