@@ -55,7 +55,7 @@ def analysis():
 	text_enc = enc.transform([[text_lower]])
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
-	console.log(p.predict(text_joined))
+	print(p.predict(text_joined))
 	return render_template('analysis.html')
 
 
