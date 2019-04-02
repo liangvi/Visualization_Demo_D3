@@ -57,6 +57,10 @@ def analysis():
 	score = p.predict(text_joined)
 	return render_template('analysis.html', score=score)
 
+@app.route('/review', methods=['GET', 'POST'])
+def review():
+    return render_template('analysis.html', text=request.form['text'])
+
 
 @app.route('/categories/', methods=['GET'])
 def categories():

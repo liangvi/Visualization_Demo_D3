@@ -23,10 +23,14 @@
 		This is the analysis page - Test
     <h1> This is the score: {{ score }} </h1>
     <!-- https://www.w3schools.com/html/html_forms.asp -->
-    <form action="/review.php">
-      Review:<br>
-      <input type="text" name="review"><br><br>
-      <input type="submit" value="Submit">
+    <form action="http://foo.com" method="post">
+      <div>
+        <label text="text">Who do you want to say it to?</label>
+        <input name="text" id="text" value="Mom">
+      </div>
+      <div>
+        <button>Send my greetings</button>
+      </div>
     </form>
 
     <!--https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link -->
