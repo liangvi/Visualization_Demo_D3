@@ -59,7 +59,7 @@ def analysis():
 
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
-    return render_template('review.html', text=request.form['text'])
+    return render_template('analysis.html')
 
 
 @app.route('/categories/', methods=['GET'])
