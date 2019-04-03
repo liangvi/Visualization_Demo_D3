@@ -119,6 +119,11 @@ def analysis():
 	return render_template('analysis.html')
 
 def genCity(city):
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
     row = pd.DataFrame(columns=cities)
     row.loc[0] = [0]*len(cities)
     row.loc[:, city] = 1
@@ -130,8 +135,6 @@ def genCity(city):
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
 
-
-
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -142,11 +145,6 @@ def review():
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
 	city=request.form['city']
-
-	cities = []
-	for t in enc.categories_:
-		for c in t:
-			cities.append(c)
 
 	text_tf = vectorizer.transform(text)
 
