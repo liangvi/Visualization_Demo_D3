@@ -51,19 +51,16 @@ def review():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
+	city=[request.form['city']]
+
 	text_tf = vectorizer.transform(text)
 
-	text_lower = text[0].lower()
-
-	text_enc = enc.transform([[text_lower]])
+	text_enc = enc.transform([city])
+	#treats all cities the same - probably should only allow certain cities otherwise all new cities will give the same value
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', text=request.form['text'], score=score)
-
-'''
-    return render_template('review.html', text=request.form['text'], score=score)
-'''
+	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
 
 @app.route('/categories/', methods=['GET'])
 def categories():
