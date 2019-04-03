@@ -139,7 +139,7 @@ def review():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
-	city=[request.form['city']]
+	city=request.form['city']
 
 	text_tf = vectorizer.transform(text)
 
