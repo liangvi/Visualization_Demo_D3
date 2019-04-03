@@ -33,7 +33,7 @@ def index():
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
 def compare(cat, loc):
-	restaurants_file = open('pickle/restaurants.pkl', 'rb')
+	restaurants_file = open('pickle/restaurants_min.pkl', 'rb')
 	restaurants = pickle.load(restaurants_file)
 	restaurants_file.close()
 
