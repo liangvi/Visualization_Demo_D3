@@ -57,9 +57,10 @@ def analysis():
 	score = p.predict(text_joined)
 	return render_template('analysis.html', score=score)
 
+#https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
-    return render_template('analysis.html')
+    return render_template('review.html', text=request.form['text'])
 
 
 @app.route('/categories/', methods=['GET'])
