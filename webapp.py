@@ -36,7 +36,11 @@ def compare():
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
+	return render_template('analysis.html')
 
+#https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
+@app.route('/review/', methods=['GET', 'POST'])
+def review():
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -45,8 +49,7 @@ def analysis():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
-	text = ["This is a review"]
-
+	text=request.form['text']
 	text_tf = vectorizer.transform(text)
 
 	text_lower = text[0].lower()
@@ -55,12 +58,7 @@ def analysis():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-	return render_template('analysis.html', score=score)
-
-#https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
-@app.route('/review/', methods=['GET', 'POST'])
-def review():
-    return render_template('review.html', text=request.form['text'])
+    return render_template('review.html', score=score)
 
 
 @app.route('/categories/', methods=['GET'])
