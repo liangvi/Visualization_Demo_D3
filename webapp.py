@@ -123,8 +123,7 @@ def genCity(city):
 	for t in enc.categories_:
 		for c in t:
 			cities.append(c)
-
-    row = pd.DataFrame(columns=cities)
+	row = pd.DataFrame(columns=cities)
     row.loc[0] = [0]*len(cities)
     row.loc[:, city] = 1
     row = row.astype('int64')
