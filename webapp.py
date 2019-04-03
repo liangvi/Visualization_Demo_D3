@@ -41,6 +41,9 @@ def analysis():
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
+	return render_template('review.html', text=request.form['text'], score="5")
+
+	'''
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -58,8 +61,9 @@ def review():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-    return render_template('review.html', text=request.form['text'], score=score)
 
+    return render_template('review.html', text=request.form['text'], score=score)
+'''
 
 @app.route('/categories/', methods=['GET'])
 def categories():
