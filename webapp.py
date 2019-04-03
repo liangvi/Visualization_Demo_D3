@@ -58,7 +58,7 @@ def review():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-    return render_template('review.html', score=score)
+    return render_template('review.html', text=request.form['text'], score=score)
 
 
 @app.route('/categories/', methods=['GET'])
