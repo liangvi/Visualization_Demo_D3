@@ -50,7 +50,7 @@ def review():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
-	#text=request.form['text']
+	text=request.form['text']
 	text_tf = vectorizer.transform(text)
 
 	text_lower = text[0].lower()
@@ -59,7 +59,7 @@ def review():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', text=request.form['text'], score="5")
+	return render_template('review.html', text, score="5")
 
 '''
     return render_template('review.html', text=request.form['text'], score=score)
