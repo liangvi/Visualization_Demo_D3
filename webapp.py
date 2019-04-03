@@ -59,7 +59,7 @@ def review():
 
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', text, score="5")
+	return render_template('review.html', text=request.form['text'], score="5")
 
 '''
     return render_template('review.html', text=request.form['text'], score=score)
