@@ -7,6 +7,7 @@ import json
 import math
 import pickle
 
+import copy
 import sklearn
 
 from sklearn.preprocessing import OneHotEncoder
@@ -30,8 +31,87 @@ app = Flask(__name__)
 def index():
 	return render_template('index.html')
 
-@app.route('/compare/', methods=['GET'])
-def compare():
+@app.route('/compare/<cat>/<loc>', methods=['GET'])
+def compare(cat, loc):
+	restaurants_file = open('pickle/restaurants.pkl', 'rb')
+	restaurants = pickle.load(restaurants_file)
+	restaurants_file.close()
+
+	all_topic_keywords_file = open('pickle/all_topic_keywords.pkl', 'rb')
+	all_topic_keywords = pickle.load(all_topic_keywords_file)
+	all_topic_keywords_file.close()
+
+	all_document_topic_file = open('pickle/all_document_topic.pkl', 'rb')
+	all_document_topic = pickle.load(all_document_topic_file)
+	all_document_topic_file.close()
+
+	all_topic_distribution_file = open('pickle/all_topic_distribution.pkl', 'rb')
+	all_topic_distribution = pickle.load(all_topic_distribution_file)
+	all_topic_distribution_file.close()
+
+	good_topic_keywords_file = open('pickle/good_topic_keywords.pkl', 'rb')
+	good_topic_keywords = pickle.load(good_topic_keywords_file)
+	good_topic_keywords_file.close()
+
+	good_document_topic_file = open('pickle/good_document_topic.pkl', 'rb')
+	good_document_topic = pickle.load(good_document_topic_file)
+	good_document_topic_file.close()
+
+	good_topic_distribution_file = open('pickle/good_topic_distribution.pkl', 'rb')
+	good_topic_distribution = pickle.load(good_topic_distribution_file)
+	good_topic_distribution_file.close()
+
+	bad_topic_keywords_file = open('pickle/bad_topic_keywords.pkl', 'rb')
+	bad_topic_keywords = pickle.load(bad_topic_keywords_file)
+	bad_topic_keywords_file.close()
+
+	bad_document_topic_file = open('pickle/bad_document_topic.pkl', 'rb')
+	bad_document_topic = pickle.load(bad_document_topic_file)
+	bad_document_topic_file.close()
+
+	bad_topic_distribution_file = open('pickle/bad_topic_distribution.pkl', 'rb')
+	bad_topic_distribution = pickle.load(bad_topic_distribution_file)
+	bad_topic_distribution_file.close()
+
+	if not (loc == 'all'):
+		restaurants = restaurants[restaurants['city']==loc]
+
+	if not (cat == 'all'):
+		category = restaurants['categories'].str.contains(cat, regex=False)
+		category = category.fillna(False)
+		restaurants = restaurants[category]
+	
+	indexes = restaurants.index.values
+	docnames = ["Doc" + str(i) for i in indexes]
+
+	sub_restaurants = copy.deepcopy(all_document_topic.reindex(docnames))
+	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
+	sub_topic_distribution.columns = ['Topic Num', 'Num Documents']
+	sub_topic_distribution = sub_topic_distribution.sort_values(by=['Topic Num'])
+	sub_topic_distribution['Topic'] = all_topic_keywords['topic'].values
+	sub_topic_distribution = sub_topic_distribution.sort_values(by=['Num Documents'], ascending=False)
+
+	sub_restaurants_good = copy.deepcopy(good_document_topic.reindex(docnames))
+	sub_topic_distribution_good = sub_restaurants_good['dominant_topic'].value_counts().reset_index(name="Num Documents")
+	sub_topic_distribution_good.columns = ['Topic Num', 'Num Documents']
+	for i in range(10):
+		if not (i in sub_topic_distribution_good['Topic Num']):
+			sub_topic_distribution_good = sub_topic_distribution_good.append({'Topic Num': i, 'Num Documents': 0}, ignore_index=True)
+
+	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['Topic Num'])
+	sub_topic_distribution_good['Topic'] = good_topic_keywords['topic'].values
+	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['Num Documents'], ascending=False)
+
+	sub_restaurants_bad = copy.deepcopy(bad_document_topic.reindex(docnames))
+	sub_topic_distribution_bad = sub_restaurants_bad['dominant_topic'].value_counts().reset_index(name="Num Documents")
+	sub_topic_distribution_bad.columns = ['Topic Num', 'Num Documents']
+	for i in range(10):
+		if not (i in sub_topic_distribution_bad['Topic Num']):
+			sub_topic_distribution_bad = sub_topic_distribution_bad.append({'Topic Num': i, 'Num Documents': 0}, ignore_index=True)
+
+	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['Topic Num'])
+	sub_topic_distribution_bad['Topic'] = bad_topic_keywords['topic'].values
+	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['Num Documents'], ascending=False)
 	return render_template('compare.html')
 
 @app.route('/analysis/', methods=['GET'])
