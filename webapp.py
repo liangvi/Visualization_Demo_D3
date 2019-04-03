@@ -124,11 +124,11 @@ def genCity(city):
 		for c in t:
 			cities.append(c)
 	row = pd.DataFrame(columns=cities)
-    row.loc[0] = [0]*len(cities)
-    row.loc[:, city] = 1
-    row = row.astype('int64')
-    row = csr_matrix(row.values)
-    return row
+	row.loc[0] = [0]*len(cities)
+	row.loc[:, city] = 1
+	row = row.astype('int64')
+	row = csr_matrix(row.values)
+	return row
 
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
