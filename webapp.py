@@ -141,14 +141,13 @@ def review():
 	text=[request.form['text']]
 	city=request.form['city']
 
-	text_tf = vectorizer.transform(text)
+	#text_tf = vectorizer.transform(text)
 
-	#text_enc = enc.transform([city])
-	#treats all cities the same - probably should only allow certain cities otherwise all new cities will give the same value
-	text_enc = genCity(city)
-	text_joined = hstack([text_tf, text_enc], format="csr")
-	score = p.predict(text_joined)
-	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
+
+	#text_enc = genCity(city)
+	#text_joined = hstack([text_tf, text_enc], format="csr")
+	#score = p.predict(text_joined)
+	return render_template('review.html', text=request.form['text'], city=request.form['city'], score="5")
 
 @app.route('/categories/', methods=['GET'])
 def categories():
