@@ -126,22 +126,25 @@ en_final.fit(X_trainJ, y_train)
 y_pred = en_final.predict(X_testJ)
 r2_score(y_test, y_pred)
 
-def predict(text):
+def predict(text, city):
 
     text_tf = vectorizer.transform(text)
 
     #text_lower = text.str.lower()
-    text_lower = text[0].lower()
+    #text_lower = text[0].lower()
 
     #text_enc = enc.transform(text_lower.reshape(-1,1))
-    text_enc = enc.transform([[text_lower]])
+    text_enc = enc.transform([[city]])
 
     text_joined = hstack([text_tf, text_enc], format="csr")
     return en_final.predict(text_joined)
 
-print(predict(["this is a review"]))
-print(predict(["This is a great restaurant!"]))
-print(predict(["This is a bad restaurant!"]))
+print(predict(["this is a review"], "Phoenix"))
+print(predict(["this is a review"], "Las Vegas"))
+print(predict(["This is a great restaurant!"], "Phoenix"))
+print(predict(["This is a great restaurant!"], "Las Vegas"))
+print(predict(["This is a bad restaurant!"], "Phoenix"))
+print(predict(["This is a bad restaurant!"], "Las Vegas"))
 
 #pickle
 #https://scikit-learn.org/stable/modules/model_persistence.html
@@ -159,19 +162,24 @@ with open('model.pkl', 'wb') as file:
 pkl_file = open('model.pkl', 'rb')
 p = pickle.load(pkl_file)
 
-def pickle_predict(text):
+def pickle_predict(text, city):
 
     text_tf = vectorizer.transform(text)
 
     #text_lower = text.str.lower()
-    text_lower = text[0].lower()
+    #text_lower = text[0].lower()
 
     #text_enc = enc.transform(text_lower.reshape(-1,1))
-    text_enc = enc.transform([[text_lower]])
+    #text_enc = enc.transform([[text_lower]])
+    text_enc = enc.transform([[city]])
+
 
     text_joined = hstack([text_tf, text_enc], format="csr")
     return p.predict(text_joined)
 
-print(pickle_predict(["this is a review"]))
-print(pickle_predict(["This is a great restaurant!"]))
-print(pickle_predict(["This is a bad restaurant!"]))
+print(pickle_predict(["this is a review"], "Phoenix"))
+print(pickle_predict(["this is a review"], "Las Vegas"))
+print(pickle_predict(["This is a great restaurant!"], "Phoenix"))
+print(pickle_predict(["This is a great restaurant!"], "Las Vegas"))
+print(pickle_predict(["This is a bad restaurant!"], "Phoenix"))
+print(pickle_predict(["This is a bad restaurant!"], "Las Vegas"))
