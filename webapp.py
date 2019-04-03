@@ -50,7 +50,7 @@ def review():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
-	text=request.form['text']
+	#text=request.form['text']
 	text_tf = vectorizer.transform(text)
 
 	text_lower = text[0].lower()
