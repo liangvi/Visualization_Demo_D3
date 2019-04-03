@@ -1,8 +1,8 @@
 <!doctype html>
 
-<html>
+<html lang="en">
   <head>
-    <title>This is the title of the webpage!</title>
+  <title>This is the title of the webpage!</title>
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -16,41 +16,38 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
   	<!--d3 Import -->
-  	<script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <script type="text/javascript" src="static/js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/main.css">
 
-    <!--https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link -->
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/';"
-            >
-        Explore
-    </button>
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/compare/';"
-            >
-        Compare
-    </button>
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/analysis';"
-            >
-        Analysis
-    </button>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta charset="utf-8">
   </head>
-
   <body>
+
+<div class="container-flud">
+
+    <!--https://getbootstrap.com/docs/4.0/components/buttons/-->
+
+ <div class="btn-group btn-group-lg" role="group" aria-label="...">
+    <a class="btn btn-primary" href="/" role="button">
+        Explore
+    </a>
+    <a class="btn btn-primary" href="/compare/all/all" role="button">
+        Compare
+    </a>
+    <a class="btn btn-primary" href="/analysis" role="button">
+        Analysis
+    </a>
+  </div>
 
     <p>This is an example paragraph. Anything in the <strong>body</strong> tag will appear on the page, just like this <strong>p</strong> tag and its contents.</p>
 
     <svg id="barDemo"> </svg>
 
     <svg id="scatterDemo"> </svg>
-
+</div>
   </body>
   <script type="text/javascript" src="static/js/barDemo.js"></script>
   <script type="text/javascript" src="static/js/scatterDemo.js"></script>
