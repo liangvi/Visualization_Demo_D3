@@ -118,11 +118,7 @@ def compare(cat, loc):
 def analysis():
 	return render_template('analysis.html')
 
-def genCity(city):
-	cities = []
-	for t in enc.categories_:
-		for c in t:
-			cities.append(c)
+def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)
 	row.loc[0] = [0]*len(cities)
 	row.loc[:, city] = 1
@@ -133,6 +129,7 @@ def genCity(city):
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
+
 
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
@@ -145,10 +142,15 @@ def review():
 	text=[request.form['text']]
 	city=request.form['city']
 
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
 	text_tf = vectorizer.transform(text)
 
 
-	text_enc = genCity(city)
+	text_enc = genCity(city, cities)
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
