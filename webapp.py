@@ -80,7 +80,7 @@ def compare(cat, loc):
 		category = restaurants['categories'].str.contains(cat, regex=False)
 		category = category.fillna(False)
 		restaurants = restaurants[category]
-	
+
 	indexes = restaurants.index.values
 	docnames = ["Doc" + str(i) for i in indexes]
 
@@ -118,6 +118,14 @@ def compare(cat, loc):
 def analysis():
 	return render_template('analysis.html')
 
+def genCity(city):
+    row = pd.DataFrame(columns=cities)
+    row.loc[0] = [0]*len(cities)
+    row.loc[:, city] = 1
+    row = row.astype('int64')
+    row = csr_matrix(row.values)
+    return row
+
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
@@ -135,9 +143,9 @@ def review():
 
 	text_tf = vectorizer.transform(text)
 
-	text_enc = enc.transform([city])
+	#text_enc = enc.transform([city])
 	#treats all cities the same - probably should only allow certain cities otherwise all new cities will give the same value
-
+	text_enc = genCity(city)
 	text_joined = hstack([text_tf, text_enc], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
