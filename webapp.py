@@ -128,7 +128,7 @@ def genCity(city, cities):
 	return row
 
 def genCat(cat):
-	common_cats = ['Nightlife', 'Pizza', 'Burger', 'Chinese', 'Steak', 'Sandwiches', 'Fast Food']
+	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'American (Traditional)', 'Vietnamese']
 	row = pd.DataFrame(columns=common_cats)
 	row.loc[0] = [0]*len(common_cats)
 	row.loc[:, cat] = 1
@@ -152,7 +152,7 @@ def review():
 	text=[request.form['text']]
 	city=request.form['city']
 	category=request.form['category']
-	
+
 #encode city
 	cities = []
 	for t in enc.categories_:
