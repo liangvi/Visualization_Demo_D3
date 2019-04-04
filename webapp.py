@@ -128,7 +128,7 @@ def genCity(city, cities):
 	return row
 
 def genCat(cat):
-	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'American (Traditional)', 'Vietnamese']
+	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']
 	row = pd.DataFrame(columns=common_cats)
 	row.loc[0] = [0]*len(common_cats)
 	row.loc[:, cat] = 1
