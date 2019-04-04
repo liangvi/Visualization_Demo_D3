@@ -86,37 +86,38 @@ def compare(cat, loc):
 
 	sub_restaurants = copy.deepcopy(all_document_topic.reindex(docnames))
 	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
-	sub_topic_distribution.columns = ['Topic Num', 'Num Documents']
-	sub_topic_distribution = sub_topic_distribution.sort_values(by=['Topic Num'])
-	sub_topic_distribution['Topic'] = all_topic_keywords['topic'].values
-	sub_topic_distribution = sub_topic_distribution.sort_values(by=['Num Documents'], ascending=False)
+	sub_topic_distribution.columns = ['topic_num', 'freq']
+	sub_topic_distribution = sub_topic_distribution.sort_values(by=['topic_num'])
+	sub_topic_distribution['topic'] = all_topic_keywords['topic'].values
+	sub_topic_distribution = sub_topic_distribution.sort_values(by=['freq'], ascending=False)
 
 	sub_restaurants_good = copy.deepcopy(good_document_topic.reindex(docnames))
 	sub_topic_distribution_good = sub_restaurants_good['dominant_topic'].value_counts().reset_index(name="Num Documents")
-	sub_topic_distribution_good.columns = ['Topic Num', 'Num Documents']
+	sub_topic_distribution_good.columns = ['topic_num', 'freq']
 	for i in range(10):
-		if not (i in sub_topic_distribution_good['Topic Num']):
-			sub_topic_distribution_good = sub_topic_distribution_good.append({'Topic Num': i, 'Num Documents': 0}, ignore_index=True)
+		if not (i in sub_topic_distribution_good['topic_num']):
+			sub_topic_distribution_good = sub_topic_distribution_good.append({'topic_num': i, 'freq': 0}, ignore_index=True)
 
-	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['Topic Num'])
-	sub_topic_distribution_good['Topic'] = good_topic_keywords['topic'].values
-	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['Num Documents'], ascending=False)
+	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['topic_num'])
+	sub_topic_distribution_good['topic'] = good_topic_keywords['topic'].values
+	sub_topic_distribution_good = sub_topic_distribution_good.sort_values(by=['freq'], ascending=False)
 
 	sub_restaurants_bad = copy.deepcopy(bad_document_topic.reindex(docnames))
 	sub_topic_distribution_bad = sub_restaurants_bad['dominant_topic'].value_counts().reset_index(name="Num Documents")
-	sub_topic_distribution_bad.columns = ['Topic Num', 'Num Documents']
+	sub_topic_distribution_bad.columns = ['topic_num', 'freq']
 	for i in range(10):
-		if not (i in sub_topic_distribution_bad['Topic Num']):
-			sub_topic_distribution_bad = sub_topic_distribution_bad.append({'Topic Num': i, 'Num Documents': 0}, ignore_index=True)
+		if not (i in sub_topic_distribution_bad['topic_num']):
+			sub_topic_distribution_bad = sub_topic_distribution_bad.append({'topic_num': i, 'freq': 0}, ignore_index=True)
 
-	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['Topic Num'])
-	sub_topic_distribution_bad['Topic'] = bad_topic_keywords['topic'].values
-	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['Num Documents'], ascending=False)
-	return render_template('compare.html')
+	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['topic_num'])
+	sub_topic_distribution_bad['topic'] = bad_topic_keywords['topic'].values
+	sub_topic_distribution_bad = sub_topic_distribution_bad.sort_values(by=['freq'], ascending=False)
+
+	return render_template('compare.html', topic_dist=(sub_topic_distribution.to_json(orient='records')))
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
-	return render_template('analysis.html')
+	return render_template('analysis.html', )
 
 def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)
