@@ -150,7 +150,7 @@ def review():
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
 	city=request.form['city']
-	#category=request.form['category']
+	category=request.form['category']
 
 #encode city
 	cities = []
