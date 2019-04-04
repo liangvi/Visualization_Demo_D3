@@ -126,6 +126,15 @@ def genCity(city, cities):
 	row = csr_matrix(row.values)
 	return row
 
+def genCat(cat):
+	common_cats = ['Nightlife', 'Pizza', 'Burger', 'Chinese', 'Steak', 'Sandwiches', 'Fast Food']
+	row = pd.DataFrame(columns=common_cats)
+	row.loc[0] = [0]*len(common_cats)
+	row.loc[:, cat] = 1
+	row = row.astype('int64')
+	row = csr_matrix(row.values)
+	return row
+
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
@@ -141,19 +150,24 @@ def review():
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
 	city=request.form['city']
+	category=request.form['category']
 
+#encode city
 	cities = []
 	for t in enc.categories_:
 		for c in t:
 			cities.append(c)
 
+#encode Category
+	cat_row = genCat(category)
+
 	text_tf = vectorizer.transform(text)
 
 
 	text_enc = genCity(city, cities)
-	text_joined = hstack([text_tf, text_enc], format="csr")
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
+	return render_template('review.html', text=request.form['text'], city=request.form['city'], category=request.form['category'], score=score)
 
 @app.route('/categories/', methods=['GET'])
 def categories():
