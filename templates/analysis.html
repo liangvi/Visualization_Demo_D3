@@ -31,7 +31,7 @@
       <select name="city">
        <option value="phoenix">Phoenix</option>
        <option value="las vegas">Las Vegas</option>
-       <option value="charlotte">charlotte</option>
+       <option value="charlotte">Charlotte</option>
       </select>
       <!-- 	common_cats = ['Nightlife', 'Pizza', 'Burger', 'Chinese', 'Steak', 'Sandwiches', 'Fast Food'] -->
       <select name="category">
@@ -49,25 +49,17 @@
     </form>
 
 
-    <!--https://stackoverflow.com/questions/2906582/how-to-create-an-html-button-that-acts-like-a-link -->
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/';"
-            >
-        Explore
-    </button>
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/compare/';"
-            >
-        Compare
-    </button>
-    <button class="favorite styled"
-            type="button"
-            onclick="location.href='https://foodie3-mdvl.herokuapp.com/analysis/';"
-            >
-        Analysis
-    </button>
+    <div class="btn-group btn-group-lg" role="group" aria-label="...">
+     <a class="btn btn-primary" href="/" role="button">
+         Explore
+     </a>
+     <a class="btn btn-primary" href="/compare/all/all" role="button">
+         Compare
+     </a>
+     <a class="btn btn-primary" href="/analysis" role="button">
+         Analysis
+     </a>
+   </div>
 	</body>
 	<script type="text/javascript" src="/static/js/explore.js"></script>
 
