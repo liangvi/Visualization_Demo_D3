@@ -150,7 +150,7 @@ def review():
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
 	city=request.form['city']
-	category=request.form['category']
+	#category=request.form['category']
 
 #encode city
 	cities = []
@@ -158,14 +158,16 @@ def review():
 		for c in t:
 			cities.append(c)
 
+	text_enc = genCity(city, cities)
+
+
 #encode Category
-	cat_row = genCat(category)
+	#cat_row = genCat(category)
 
 	text_tf = vectorizer.transform(text)
 
-
-	text_enc = genCity(city, cities)
-	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	text_joined = hstack([text_tf, text_enc], format="csr")
+	#text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', text=request.form['text'], city=request.form['city'], category=request.form['category'], score=score)
 
