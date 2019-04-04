@@ -152,7 +152,7 @@ def review():
 	text=[request.form['text']]
 	city=request.form['city']
 	category=request.form['category']
-
+	
 #encode city
 	cities = []
 	for t in enc.categories_:
@@ -170,7 +170,7 @@ def review():
 	#text_joined = hstack([text_tf, text_enc], format="csr")
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', drop=request.form['drop'], text=request.form['text'], city=request.form['city'], category=request.form['category'], score=score)
+	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
 
 @app.route('/categories/', methods=['GET'])
 def categories():
