@@ -1,5 +1,7 @@
-var width = 500;
-var height = 500;
+function drawChart(data) {
+  
+var width = 1000;
+var height = 1000;
 
 var margin = {
   top: 10,
@@ -10,21 +12,18 @@ var margin = {
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
-var svg = d3.select("#scatterDemo").attr("width", width).attr("height", height);
+var svg = d3.select("#compare_chart").attr("width", width).attr("height", height);
 
-var data = [{x:10, y:10},
-            {x:10, y:20},
-            {x:10, y:30},
-            {x:10, y:40},
-            {x:10, y:50},
-            {x:10, y:60}];
+console.log(data)
+data = JSON.parse(data)
 
-var xScale = d3.scaleLinear()
-.domain([0, 100])
-.range([margin.left, width-margin.right]);
+var xScale = d3.scaleBand()
+.domain(data.map((d) => d.topic))
+.rangeRound([margin.left, width-margin.right])
+.padding(0.5);
 
 var yScale = d3.scaleLinear()
-.domain([0, 100])
+.domain([0, 6000])
 .range([height - margin.bottom, margin.top]);
 
 var xAxis = svg.append("g")
@@ -37,11 +36,14 @@ var yAxis = svg.append("g")
 .call(d3.axisLeft()
       .scale(yScale));
 
-var bar = svg.selectAll("circle")
+var bar = svg.selectAll("rect")
 .data(data)
 .enter()
-.append("circle")
-.attr("cx", function(d) {return xScale(d.x);})
-.attr("cy", function(d) {return yScale(d.y);})
-.attr("r", 10)
-.attr("fill", function(d,i){return color(i/10);});
+.append("rect")
+.attr("x", function(d) {return xScale(d.topic);})
+.attr("y", function(d) {return yScale(d.freq);})
+.attr("width", xScale.bandwidth())
+.attr("height", function(d) {
+  return height - margin.bottom - yScale(d.freq);});
+
+};

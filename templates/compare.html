@@ -26,18 +26,23 @@
     <a class="btn btn-primary" href="/" role="button">
         Explore
     </a>
-    <a class="btn btn-primary" href="/compare" role="button">
+    <a class="btn btn-primary" href="/compare/all/all" role="button">
         Compare
     </a>
     <a class="btn btn-primary" href="/analysis" role="button">
         Analysis
     </a>
   </div>
-  This is the compare page
-	</body>
-	<script type="text/javascript" src="/static/js/compare.js"></script>
 
-	<script type="text/javascript">
-		drawChart({{ totals }});
-	</script>
+  <div>
+    <svg id="compare_chart"> </svg>
+  </div>
+	</body>
+	<script type="text/javascript" src="/static/js/compare.js?1234">
+    
+    </script>
+    <script type="text/javascript">
+        console.log("and the current time is:", Date.now());
+        drawChart({{ topic_dist|tojson }});   
+    </script>
 </html>
