@@ -80,7 +80,7 @@ def compare(cat, loc):
 		category = restaurants['categories'].str.contains(cat, regex=False)
 		category = category.fillna(False)
 		restaurants = restaurants[category]
-	
+
 	indexes = restaurants.index.values
 	docnames = ["Doc" + str(i) for i in indexes]
 
@@ -119,9 +119,27 @@ def compare(cat, loc):
 def analysis():
 	return render_template('analysis.html', )
 
+def genCity(city, cities):
+	row = pd.DataFrame(columns=cities)
+	row.loc[0] = [0]*len(cities)
+	row.loc[:, city] = 1
+	row = row.astype('int64')
+	row = csr_matrix(row.values)
+	return row
+
+def genCat(cat):
+	common_cats = ['Nightlife', 'Pizza', 'Burger', 'Chinese', 'Steak', 'Sandwiches', 'Fast Food']
+	row = pd.DataFrame(columns=common_cats)
+	row.loc[0] = [0]*len(common_cats)
+	row.loc[:, cat] = 1
+	row = row.astype('int64')
+	row = csr_matrix(row.values)
+	return row
+
 #https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
 @app.route('/review/', methods=['GET', 'POST'])
 def review():
+
 
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
@@ -132,16 +150,27 @@ def review():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	text=[request.form['text']]
-	city=[request.form['city']]
+	city=request.form['city']
+	category=request.form['category']
+
+#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+
+#encode Category
+	cat_row = genCat(category)
 
 	text_tf = vectorizer.transform(text)
 
-	text_enc = enc.transform([city])
-	#treats all cities the same - probably should only allow certain cities otherwise all new cities will give the same value
-
-	text_joined = hstack([text_tf, text_enc], format="csr")
+	#text_joined = hstack([text_tf, text_enc], format="csr")
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', text=request.form['text'], city=request.form['city'], score=score)
+	return render_template('review.html', text=request.form['text'], city=request.form['city'], category=request.form['category'], score=score)
 
 @app.route('/categories/', methods=['GET'])
 def categories():
