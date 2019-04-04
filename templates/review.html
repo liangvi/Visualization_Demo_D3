@@ -27,17 +27,26 @@
 
     <h1> This is the score: {{ score }} </h1>
 
-    <!-- https://www.w3schools.com/html/html_forms.asp -->
     <form action="https://foodie3-mdvl.herokuapp.com/review/" method="post">
       <div>
         <label text="text">Enter Review</label>
         <input name="text" id="text" value="Review">
       </div>
-      <div>
-        <label city="city">City</label>
-        <input city="city" id="city" value="City">
-      </div>
-      <div>
+      <select name="city">
+       <option value="phoenix">Phoenix</option>
+       <option value="las vegas">Las Vegas</option>
+       <option value="charlotte">Charlotte</option>
+      </select>
+      <!-- 	common_cats = ['Nightlife', 'Pizza', 'Burger', 'Chinese', 'Steak', 'Sandwiches', 'Fast Food'] -->
+      <select name="category">
+       <option value="Nightlife">Nightlife</option>
+       <option value="Pizza">Pizza</option>
+       <option value="Burger">Burger</option>
+       <option value="Chinese">Chinese</option>
+       <option value="Steak">Steak</option>
+       <option value="Sandwiches">Sandwiches</option>
+       <option value="Fast Food">Fast Food</option>
+      </select>
       <div>
         <button>Evaluate</button>
       </div>
