@@ -6,7 +6,8 @@
 	<!-- jQuery library -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<!-- Latest compiled and minified CSS -->
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Optional theme -->
@@ -17,6 +18,11 @@
 
   	<!--d3 Import -->
   <script src="https://d3js.org/d3.v5.min.js"></script>
+
+  <!-- map -->
+  <!-- https://bl.ocks.org/mbostock/4206573-->
+  <!-- http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/ -->
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
 
     <script type="text/javascript" src="static/js/main.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/main.css">
@@ -49,6 +55,42 @@
     <svg id="scatterDemo"> </svg>
 </div>
   </body>
+
+      <script>
+          var width = 700;
+          var height = 580;
+          // Create SVG
+          var fill = d3.scale.log()
+              .domain([10, 500])
+              .range(["brown", "steelblue"]);
+
+          var path = d3.geo.path();
+
+          var svg = d3.select("body").append("svg")
+              .attr("width", width)
+              .attr("height", height);
+
+          d3.json("/mbostock/raw/4090846/us.json", function(error, us) {
+            if (error) throw error;
+
+            svg.append("g")
+                .attr("class", "counties")
+              .selectAll("path")
+                .data(topojson.feature(us, us.objects.counties).features)
+              .enter().append("path")
+                .attr("d", path)
+                .style("fill", function(d) { return fill(path.area(d)); });
+
+            svg.append("path")
+                .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a.id !== b.id; }))
+                .attr("class", "states")
+                .attr("d", path);
+          });
+
+
+      </script>
+  <!-- samples
   <script type="text/javascript" src="static/js/barDemo.js"></script>
   <script type="text/javascript" src="static/js/scatterDemo.js"></script>
+  -->
 </html>
