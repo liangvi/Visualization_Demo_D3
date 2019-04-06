@@ -29,6 +29,9 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
+	cities = open('cities.csv', 'rb')
+	cities = pickle.load(cities)
+	cities.close()
 	return render_template('index.html')
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
