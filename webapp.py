@@ -24,14 +24,12 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
-import json
-
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
 	cities = pd.read_csv("data/cities.csv")
-	cities = cities.to_csv(index=False)
+	cities = cities.to_csv
 	us = json.load(open("data/us.json"))
 	return render_template('index.html', data=cities, json=us)
 
