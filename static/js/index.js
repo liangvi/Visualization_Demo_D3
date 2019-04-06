@@ -1,4 +1,4 @@
-function drawMap(data, json) {
+function drawMap(data, json_file) {
 
         var w = 500;
         var h = 300;
@@ -69,7 +69,7 @@ function drawMap(data, json) {
           }
 */
           svg.selectAll("path")
-            .data(json.features)
+            .data(json_file.features)
             .enter()
             .append("path")
             .attr("d", path)
