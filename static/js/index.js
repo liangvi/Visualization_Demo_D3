@@ -8,7 +8,7 @@ function drawMap(data) {
     .scale(1000)
     .legend(true);
 
-    d3.csv('venture_capital.csv', function(error, data) {
+    //d3.csv('venture_capital.csv', function(error, data) {
     map.draw(d3.select('#map').datum(data));
-  });
+  //});
 }
