@@ -1,4 +1,4 @@
-function drawMap(data) {
+function drawMap(data, json) {
 
         var w = 500;
         var h = 300;
@@ -40,7 +40,7 @@ function drawMap(data) {
             d3.max(data, function(d){ return d.value; })
             ]);
 */
-        d3.json("data/us.json", function(json){
+      //  d3.json("data/us.json", function(json){
 
           //Merge the agriculture and GeoJSON data
           //Loop through once for each agriculture data value
@@ -89,6 +89,6 @@ function drawMap(data) {
             });
 
 
-        });
+        //});
 
   }
