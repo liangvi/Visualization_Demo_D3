@@ -55,7 +55,7 @@
     <script type="text/javascript" src="/static/js/index.js"></script>
     <script type="text/javascript">
         console.log("and the current time is:", Date.now());
-        drawMap({{ data }} {{ json }} );
+        drawMap({{ data }} {{ json|tojson }} );
     </script>
                 <!-- samples
   <script type="text/javascript" src="static/js/barDemo.js"></script>
