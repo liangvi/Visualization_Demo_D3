@@ -1,7 +1,7 @@
 function drawMap(data) {
 
   var map = d3.geomap.choropleth()
-    .geofile('/d3-geomap/topojson/countries/USA.json')
+    .geofile('/data/us.json')
     .projection(d3.geoAlbersUsa)
     .column('2012')
     .unitId('fips')
