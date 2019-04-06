@@ -28,10 +28,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-	cities = pd.read_csv("data/cities.csv")
-	cities = cities.to_csv
+#	cities = pd.read_csv("data/cities.csv")
 	us = json.load(open("data/us.json"))
-	return render_template('index.html', data=cities, json=us)
+	return render_template('index.html', json=us)
+#	return render_template('index.html', data=cities, json=us)
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
 def compare(cat, loc):

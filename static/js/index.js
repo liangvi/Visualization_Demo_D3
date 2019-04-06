@@ -41,7 +41,7 @@ function drawMap(data, json) {
             ]);
 */
       //  d3.json("data/us.json", function(json){
-
+/*
           //Merge the agriculture and GeoJSON data
           //Loop through once for each agriculture data value
           for(var i = 0; i < data.length; i++){
@@ -67,7 +67,7 @@ function drawMap(data, json) {
               }
             }
           }
-
+*/
           svg.selectAll("path")
             .data(json.features)
             .enter()
