@@ -24,14 +24,15 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
+import csv
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-	cities = open('data/cities.csv', 'rb')
-	cities = pickle.load(cities)
-	cities.close()
+	with open('data/cities.csv', 'rb') as csvfile:
+     	cities = csv.reader(csvfile, delimiter=' ', quotechar='|')
+
 	'''
 	us = open('data/us.json', 'rb')
 	us = pickle.load(us)
