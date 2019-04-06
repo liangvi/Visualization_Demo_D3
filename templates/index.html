@@ -77,7 +77,8 @@ https://observablehq.com/@d3/u-s-state-capitals
               .attr("width", width)
               .attr("height", height);
 <!-- https://observablehq.com/@d3/u-s-map-->
-          d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, us) {
+<!-- https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json -->
+          d3.json("json/10m.json", function(error, us) {
             if (error) throw error;
 
             svg.append("g")
