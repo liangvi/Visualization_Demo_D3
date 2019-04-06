@@ -30,8 +30,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-	with open('data/cities.csv', 'rb') as csvfile:
-     	cities = csv.reader(csvfile, delimiter=' ', quotechar='|')
+	cities = pd.read_csv("data/cities.csv")
 
 	'''
 	us = open('data/us.json', 'rb')
