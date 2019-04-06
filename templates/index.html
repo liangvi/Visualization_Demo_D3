@@ -49,6 +49,20 @@
 
   </body>
 
+<!--
+LOOK AT THIS
+
+https://observablehq.com/@d3/u-s-state-capitals
+
+
+
+
+-->
+
+
+
+
+
       <script>
           var width = 700;
           var height = 580;
@@ -63,7 +77,7 @@
               .attr("width", width)
               .attr("height", height);
 
-          d3.json("/mbostock/raw/4090846/us.json", function(error, us) {
+          d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, us) {
             if (error) throw error;
 
             svg.append("g")
