@@ -36,7 +36,7 @@ def index():
 	us = open('data/us.json', 'rb')
 	us = pickle.load(us)
 	us.close()'''
-	return render_template('index.html', cities=cities)
+	return render_template('index.html', cities=(cities.to_json(orient='records')))
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
 def compare(cat, loc):
