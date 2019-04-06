@@ -49,36 +49,11 @@
 
   </body>
 
-<!--
-LOOK AT THIS
+<!--https://observablehq.com/@d3/u-s-state-capitals-->
 
-https://observablehq.com/@d3/u-s-state-capitals
-
-
-
-
--->
-
-
-
-
-
-      <script>
-          var map = d3.geomap.choropleth()
-              .geofile('/d3-geomap/topojson/countries/USA.json')
-              .projection(d3.geoAlbersUsa)
-              .column('2012')
-              .unitId('fips')
-              .scale(1000)
-              .legend(true);
-
-          d3.csv('venture_capital.csv', function(error, data) {
-              map.draw(d3.select('#map').datum(data));
-          });
-
-
-      </script>
-  <!-- samples
+      <svg id="choropleth" width="400" height="400"></svg>
+      <script type="text/javascript" src="/static/js/choropleth.js"></script>
+        <!-- samples
   <script type="text/javascript" src="static/js/barDemo.js"></script>
   <script type="text/javascript" src="static/js/scatterDemo.js"></script>
   -->
