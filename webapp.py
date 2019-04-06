@@ -32,7 +32,7 @@ app = Flask(__name__)
 def index():
 	cities = pd.read_csv("data/cities.csv")
 	us = json.load(open("data/us.json"))
-	return render_template('index.html', cities=(cities.to_json(orient='records')), us=(us.to_json(orient='records')))
+	return render_template('index.html', cities=(cities.to_json(orient='records')), us=us))
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
 def compare(cat, loc):
