@@ -60,8 +60,33 @@ def index():
 	score = p.predict(text_joined)
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
-	
+
+	t.loc[t['id'] == '01', ['rate']] = score
+	t.loc[t['id'] == '02', ['rate']] = score
+	t.loc[t['id'] == '03', ['rate']] = score
+	t.loc[t['id'] == '04', ['rate']] = score
 	t.loc[t['id'] == '05', ['rate']] = score
+	t.loc[t['id'] == '06', ['rate']] = score
+	t.loc[t['id'] == '07', ['rate']] = score
+	t.loc[t['id'] == '08', ['rate']] = score
+	t.loc[t['id'] == '09', ['rate']] = score
+	t.loc[t['id'] == '10', ['rate']] = score
+	t.loc[t['id'] == '11', ['rate']] = score
+	t.loc[t['id'] == '12', ['rate']] = score
+	t.loc[t['id'] == '13', ['rate']] = score
+	t.loc[t['id'] == '14', ['rate']] = score
+	t.loc[t['id'] == '15', ['rate']] = score
+	t.loc[t['id'] == '16', ['rate']] = score
+	t.loc[t['id'] == '17', ['rate']] = score
+	t.loc[t['id'] == '18', ['rate']] = score
+	t.loc[t['id'] == '19', ['rate']] = score
+	t.loc[t['id'] == '20', ['rate']] = score
+	t.loc[t['id'] == '21', ['rate']] = score
+	t.loc[t['id'] == '22', ['rate']] = score
+	t.loc[t['id'] == '23', ['rate']] = score
+	t.loc[t['id'] == '24', ['rate']] = score
+	t.loc[t['id'] == '25', ['rate']] = score
+
 	#t.loc[t['id'] == '01', ['rate']] = 2
 
 	#cities = ["las vegas", "phoenix", "charlotte"]
