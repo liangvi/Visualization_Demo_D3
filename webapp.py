@@ -31,6 +31,8 @@ def index():
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	t.loc[t['id'] == '05', ['rate']] = 5
 	t.loc[t['id'] == '01', ['rate']] = 2
+	t.to_csv("static/data/states.csv", sep=',')
+	return render_template('index.html')
 '''
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
@@ -61,8 +63,7 @@ def index():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	'''
-	t.to_csv("static/data/states.csv", sep=',')
-	return render_template('index.html')
+
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
 def compare(cat, loc):
