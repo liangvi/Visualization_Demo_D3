@@ -37,7 +37,7 @@ def index():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
-	category=request.form['category']
+	#category=request.form['category']
 
 	t.loc[t['id'] == '05', ['rate']] = 5
 	t.loc[t['id'] == '01', ['rate']] = 2
