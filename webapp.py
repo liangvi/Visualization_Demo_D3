@@ -28,11 +28,11 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-	t = pd.read_csv("Visualization_Demo_D3/static/data/states_in.csv", dtype= {'id': str})
+	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	t.loc[t['id'] == '05', ['rate']] = 5
 	t.loc[t['id'] == '01', ['rate']] = 2
 
-	t.to_csv("Visualization_Demo_D3/static/data/states.csv", sep=',')
+	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('index.html')
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
