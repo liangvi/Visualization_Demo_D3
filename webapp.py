@@ -28,7 +28,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -60,6 +59,8 @@ def index():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 
+	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	
 	t.loc[t['id'] == '05', ['rate']] = score
 	#t.loc[t['id'] == '01', ['rate']] = 2
 
