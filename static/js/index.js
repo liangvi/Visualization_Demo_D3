@@ -26,7 +26,6 @@ function drawMap(json_file) {
   var geoPath = d3.geoPath()
       .projection( albersProjection );
 
-  var neighborhoods_json = JSON.parse(neighboorhoods_json)
       // Classic D3... Select non-existent elements, bind the data, append the elements, and apply attributes
   g.selectAll( "path" )
       .data(neighborhoods_json.features )
