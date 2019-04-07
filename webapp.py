@@ -38,15 +38,10 @@ def index():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	#category=request.form['category']
+	category = "pizza"
+	city = "phoenix"
 
-	t.loc[t['id'] == '05', ['rate']] = 5
-	t.loc[t['id'] == '01', ['rate']] = 2
-	t.to_csv("static/data/states.csv", sep=',')
-	return render_template('index.html')
-'''
 
-	text=[request.form['text']]
-	city=request.form['city']
 
 #encode city
 	cities = []
@@ -56,7 +51,6 @@ def index():
 
 	text_enc = genCity(city, cities)
 
-
 #encode Category
 	cat_row = genCat(category)
 
@@ -64,6 +58,23 @@ def index():
 
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
+
+	t.loc[t['id'] == '05', ['rate']] = score
+	#t.loc[t['id'] == '01', ['rate']] = 2
+
+	#cities = ["las vegas", "phoenix", "charlotte"]
+	#for city in cities:
+
+
+	t.to_csv("static/data/states.csv", sep=',')
+	return render_template('index.html')
+'''
+
+	text=[request.form['text']]
+	city=request.form['city']
+
+
+
 	'''
 
 
