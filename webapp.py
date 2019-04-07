@@ -29,11 +29,6 @@ app = Flask(__name__)
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
-	t.loc[t['id'] == '05', ['rate']] = 5
-	t.loc[t['id'] == '01', ['rate']] = 2
-	t.to_csv("static/data/states.csv", sep=',')
-	return render_template('index.html')
-'''
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -42,9 +37,16 @@ def index():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
+	category=request.form['category']
+
+	t.loc[t['id'] == '05', ['rate']] = 5
+	t.loc[t['id'] == '01', ['rate']] = 2
+	t.to_csv("static/data/states.csv", sep=',')
+	return render_template('index.html')
+'''
+
 	text=[request.form['text']]
 	city=request.form['city']
-	category=request.form['category']
 
 #encode city
 	cities = []
