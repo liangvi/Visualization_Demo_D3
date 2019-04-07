@@ -61,7 +61,7 @@ def index():
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 
-	t.loc[t['id'] == '07', ['rate']] = score
+	t.loc[t['id'] == '08', ['rate']] = score
 
 	#t.loc[t['id'] == '01', ['rate']] = 2
 
