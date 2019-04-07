@@ -40,6 +40,7 @@ def index():
 	#category=request.form['category']
 	category = "pizza"
 	city = "phoenix"
+	text = "this is a good review"
 
 
 
