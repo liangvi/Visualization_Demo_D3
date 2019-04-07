@@ -87,18 +87,9 @@ def index():
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score1
 
-	t.loc[t['id'] == '25', ['rate']] = 3
-	t.loc[t['id'] == '26', ['rate']] = 4
-	t.loc[t['id'] == '27', ['rate']] = 5
-	t.loc[t['id'] == '28', ['rate']] = 3
-	t.loc[t['id'] == '29', ['rate']] = 4
-	t.loc[t['id'] == '30', ['rate']] = 5
-	t.loc[t['id'] == '31', ['rate']] = 3
-	t.loc[t['id'] == '32', ['rate']] = 4
-	t.loc[t['id'] == '33', ['rate']] = 5
-	t.loc[t['id'] == '34', ['rate']] = 3
-	t.loc[t['id'] == '35', ['rate']] = 5
-	t.loc[t['id'] == '36', ['rate']] = 3
+	t.loc[t['id'] == '26', ['rate']] = 1
+	t.loc[t['id'] == '29', ['rate']] = 2
+	t.loc[t['id'] == '32', ['rate']] = 3
 	t.loc[t['id'] == '37', ['rate']] = 4
 
 
