@@ -58,9 +58,7 @@
     <!--<svg id="choropleth" width="400" height="300"></svg>-->
     <!-- http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/ -->
     <!--<script type="text/javascript" src="/static/js/index.js"></script> -->
-    <!--<script src="static/data/unemployment.tsv"></script>-->
-    <script src="static/data/unemployment.csv"></script>
-
+    <script src="static/data/unemployment.tsv"></script>
     <svg width="960" height="600"></svg>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
@@ -118,8 +116,7 @@
 
         var promises = [
           d3.json("https://d3js.org/us-10m.v1.json"),
-          //d3.tsv("static/data/unemployment.tsv", function(d) { unemployment.set(d.id, +d.rate); })
-          d3.csv("static/data/unemployment.csv", function(d) { unemployment.set(d.id, +d.rate); })
+          d3.tsv("static/data/unemployment.tsv", function(d) { unemployment.set(d.id, +d.rate); })
         ]
 
         Promise.all(promises).then(ready)
