@@ -57,7 +57,7 @@ def index():
 	text_tf = vectorizer.transform(text)
 
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
-	score1 = p.predict(text_joined)
+	score_phoenix = p.predict(text_joined)
 
 
 
@@ -81,16 +81,14 @@ def index():
 	text_tf = vectorizer.transform(text)
 
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
-	score = p.predict(text_joined)
+	score_lv = p.predict(text_joined)
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	#phoenix
-	t.loc[t['id'] == '04', ['rate']] = score1
+	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
-	t.loc[t['id'] == '26', ['rate']] = 1
-	t.loc[t['id'] == '29', ['rate']] = 2
-	t.loc[t['id'] == '32', ['rate']] = 3
-	t.loc[t['id'] == '37', ['rate']] = 4
+	#las vegas
+	t.loc[t['id'] == '32', ['rate']] = score_lv
 
 
 
