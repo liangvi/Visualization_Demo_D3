@@ -60,12 +60,46 @@ def index():
 	score = p.predict(text_joined)
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score
 
-	#t.loc[t['id'] == '01', ['rate']] = 2
+	category = "Pizza"
+	city = "las vegas"
+	text = ["this is a good review"]
 
-	#cities = ["las vegas", "phoenix", "charlotte"]
-	#for city in cities:
+
+
+#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score = p.predict(text_joined)
+
+	t.loc[t['id'] == '25', ['rate']] = 3
+	t.loc[t['id'] == '26', ['rate']] = 4
+	t.loc[t['id'] == '27', ['rate']] = 5
+	t.loc[t['id'] == '28', ['rate']] = 3
+	t.loc[t['id'] == '29', ['rate']] = 4
+	t.loc[t['id'] == '30', ['rate']] = 5
+	t.loc[t['id'] == '31', ['rate']] = 3
+	t.loc[t['id'] == '32', ['rate']] = 4
+	t.loc[t['id'] == '33', ['rate']] = 5
+	t.loc[t['id'] == '34', ['rate']] = 3
+	t.loc[t['id'] == '35', ['rate']] = 5
+	t.loc[t['id'] == '36', ['rate']] = 3
+	t.loc[t['id'] == '37', ['rate']] = 4
+
+
 
 
 	t.to_csv("static/data/states.csv", sep=',')
