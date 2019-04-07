@@ -28,7 +28,8 @@ function drawMap(json_file) {
 
       // Classic D3... Select non-existent elements, bind the data, append the elements, and apply attributes
   g.selectAll( "path" )
-      .data(neighborhoods_json.features )
+      //.data(neighborhoods_json.features )
+      .data(neighborhoods_json )
       .enter()
       .append( "path" )
       .attr( "fill", "#ccc" )
