@@ -67,6 +67,20 @@
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
 
+    <form action="https://foodie3-mdvl.herokuapp.com/index/" method="post">
+      <!-- 	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']-->
+      <select name="category">
+       <option value="Pizza">Pizza</option>
+       <option value="Mexican">Mexican</option>
+       <option value="Chinese">Chinese</option>
+       <option value="Italian">Italian</option>
+       <option value="Vietnamese">Vietnamese</option>
+      </select>
+      <div>
+        <button>Evaluate</button>
+      </div>
+    </form>
+
     <script>
 
         var svg = d3.select("svg"),

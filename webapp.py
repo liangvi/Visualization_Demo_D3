@@ -26,11 +26,42 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+'''
+	enc_file = open('enc.pkl', 'rb')
+	enc = pickle.load(enc_file)
+
+	vec_file = open('vec.pkl', 'rb')
+	vectorizer = pickle.load(vec_file)
+
+	pkl_file = open('model.pkl', 'rb')
+	p = pickle.load(pkl_file)
+	text=[request.form['text']]
+	city=request.form['city']
+	category=request.form['category']
+
+#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+
+#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score = p.predict(text_joined)
+	'''
 	t.loc[t['id'] == '05', ['rate']] = 5
 	t.loc[t['id'] == '01', ['rate']] = 2
+
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('index.html')
