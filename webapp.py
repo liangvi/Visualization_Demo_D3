@@ -60,11 +60,8 @@ def index():
 	score = p.predict(text_joined)
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
-	t.loc[t['id'] == '04', ['rate']] = 1
-	t.loc[t['id'] == '05', ['rate']] = 2
-	t.loc[t['id'] == '06', ['rate']] = 3
-	t.loc[t['id'] == '07', ['rate']] = 4
-	
+	t.loc[t['id'] == '04', ['rate']] = score
+
 	#t.loc[t['id'] == '01', ['rate']] = 2
 
 	#cities = ["las vegas", "phoenix", "charlotte"]
