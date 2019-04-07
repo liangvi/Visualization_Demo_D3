@@ -67,12 +67,6 @@ def index():
 	t.loc[t['id'] == '04', ['rate']] = score
 	t.loc[t['id'] == '05', ['rate']] = score
 	t.loc[t['id'] == '06', ['rate']] = score
-	t.loc[t['id'] == '07', ['rate']] = score
-	t.loc[t['id'] == '08', ['rate']] = score
-	t.loc[t['id'] == '09', ['rate']] = score
-	t.loc[t['id'] == '10', ['rate']] = score
-	t.loc[t['id'] == '11', ['rate']] = score
-	t.loc[t['id'] == '12', ['rate']] = score
 
 	#t.loc[t['id'] == '01', ['rate']] = 2
 
