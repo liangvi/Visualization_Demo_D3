@@ -122,7 +122,7 @@
             .attr("fill", "#000")
             .attr("text-anchor", "start")
             .attr("font-weight", "bold")
-            .text("Unemployment rate");
+            .text("Stars");
 
         g.call(d3.axisBottom(x)
             .tickSize(13)
@@ -134,7 +134,7 @@
         var promises = [
           d3.json("https://d3js.org/us-10m.v1.json"),
           //d3.tsv("static/data/unemployment.tsv", function(d) { unemployment.set(d.id, +d.rate); })
-          d3.csv("static/data/states.csv", function(d) { unemployment.set(d.id, +d.rate); })
+          d3.csv("static/data/states.csv", function(d) { stars.set(d.id, +d.rate); })
         ]
 
         Promise.all(promises).then(ready)
@@ -146,7 +146,7 @@
             //.data(topojson.feature(us, us.objects.counties).features)
             .data(topojson.feature(us, us.objects.states).features)
             .enter().append("path")
-              .attr("fill", function(d) { return color(d.rate = unemployment.get(d.id)); })
+              .attr("fill", function(d) { return color(d.rate = stars.get(d.id)); })
               .attr("d", path)
             .append("title")
               .text(function(d) { return d.rate + "%"; });
