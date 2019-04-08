@@ -21,7 +21,7 @@
   	</head>
 	<body>
 		
-
+<div class="container">
    <div class="btn-group btn-group-lg" role="group" aria-label="...">
     <a class="btn btn-primary" href="/" role="button">
         Explore
@@ -33,16 +33,24 @@
         Analysis
     </a>
   </div>
+  <div class="row">
+<!--    <div class="container" id="chartArea1"></div> -->
 
-  <div>
-    <svg id="compare_chart"> </svg>
+    <!-- <div class="col-lg-2" id="chartArea1"></div> -->
+    <div class="col-md-10" id="overallChart"></div>
   </div>
-	</body>
-	<script type="text/javascript" src="/static/js/compare.js?1234">
+
+  <div class="row">
+    <div class="col-md-5" id="goodChart"></div>
+    <div class="col-md-5" id="badChart"></div>
+  </div>
+</div>
+  	</body>
+	<script type="text/javascript" src="/static/js/compare.js?2s">
     
     </script>
     <script type="text/javascript">
         console.log("and the current time is:", Date.now());
-        drawChart({{ topic_dist|tojson }});   
+        drawPage({{ topic_dist|tojson }}, {{topic_dist_good|tojson}}, {{topic_dist_bad|tojson}});   
     </script>
 </html>
