@@ -167,32 +167,21 @@ def category():
 
 	#pittsburgh
 	#madison
-	t.loc[t['id'] == '20', ['rate']] = 3
-	t.loc[t['id'] == '21', ['rate']] = 4
-	t.loc[t['id'] == '22', ['rate']] = 5
-	t.loc[t['id'] == '23', ['rate']] = 6
-	t.loc[t['id'] == '25', ['rate']] = 7
+
+	t.loc[t['id'] == '23', ['rate']] = 4
+
 	t.loc[t['id'] == '26', ['rate']] = 6
-	t.loc[t['id'] == '27', ['rate']] = 5
-	t.loc[t['id'] == '28', ['rate']] = 4
 
 
 
-
-	t.loc[t['id'] == '39', ['rate']] = 3
-	t.loc[t['id'] == '40', ['rate']] = 4
-	t.loc[t['id'] == '41', ['rate']] = 5
-	t.loc[t['id'] == '42', ['rate']] = 6
-	t.loc[t['id'] == '43', ['rate']] = 7
-	t.loc[t['id'] == '44', ['rate']] = 6
-	t.loc[t['id'] == '45', ['rate']] = 5
-	t.loc[t['id'] == '46', ['rate']] = 4
-	t.loc[t['id'] == '47', ['rate']] = 3
-	t.loc[t['id'] == '48', ['rate']] = 4
 	t.loc[t['id'] == '49', ['rate']] = 5
 	t.loc[t['id'] == '50', ['rate']] = 6
 	t.loc[t['id'] == '51', ['rate']] = 7
 	t.loc[t['id'] == '52', ['rate']] = 6
+	t.loc[t['id'] == '54', ['rate']] = 5
+	t.loc[t['id'] == '55', ['rate']] = 4
+	t.loc[t['id'] == '56', ['rate']] = 3
+
 
 
 	t.to_csv("static/data/states.csv", sep=',')

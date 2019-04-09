@@ -60,10 +60,11 @@
     <!-- http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/ -->
     <!-- https://bl.ocks.org/adamjanes/6cf85a4fd79e122695ebde7d41fe327f -->
     <!-- https://bl.ocks.org/chucklam/f628765b873d707a3d0e44ffc78deab8 -->
+    <!-- https://stackoverflow.com/questions/41940439/display-multiple-d3-js-charts-in-a-single-html-page -->
     <!--<script src="static/data/unemployment.tsv"></script> -->
     <script src="/static/data/states.csv"></script>
     <script src="/static/data/review_types.csv"></script>
-    <svg width="960" height="600"></svg>
+    <svg width="960" height="600" id="choropleth"></svg>
     <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     <script src="https://d3js.org/topojson.v2.min.js"></script>
 
@@ -82,7 +83,7 @@
 
     <script>
 
-        var svg = d3.select("svg"),
+        var svg = d3.select("#choropleth"),
             width = +svg.attr("width"),
             height = +svg.attr("height");
 
@@ -157,6 +158,7 @@
               .attr("d", path);
         }
     </script>
+    <svg width="200" height="200" id="bar"></svg>
     <script src="/static/js/bar.js"></script>
 
 </html>
