@@ -23,10 +23,10 @@
     var yAxis = d3.axisLeft()
                        .scale(yScale);
 
-    var svg = d3.select("#bar").attr("width", w).attr("height", h);
+    var svg_bar = d3.select("#bar").attr("width", w).attr("height", h);
 
 
-    svg.append("g")
+    svg_bar.append("g")
       .attr("fill", "steelblue")
     .selectAll("rect")
     .data(data)
@@ -35,8 +35,8 @@
       .attr("y", d => y(d.value))
       .attr("height", d => y(0) - y(d.value));
 
-  svg.append("g")
+  svg_bar.append("g")
       .call(xAxis);
 
-  svg.append("g")
+  svg_bar.append("g")
       .call(yAxis);
