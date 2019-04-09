@@ -90,11 +90,11 @@
         var path = d3.geoPath();
 
         var x = d3.scaleLinear()
-            .domain([0, 5])
+            .domain([3, 5])
             .rangeRound([600, 860]);
 
         var color = d3.scaleThreshold()
-            .domain(d3.range(0, 5))
+            .domain(d3.range(3, 5))
             .range(d3.schemeBlues[5]);
 
         var g = svg.append("g")
