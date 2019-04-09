@@ -42,21 +42,19 @@
       console.log(data.bad);
 
       console.log("TEST3");
-/*      for (var i = 0; i < data.length; i++) {
-          console.log("TEST2");
-          console.log(data.good);
-          console.log(data.bad);
-      }
-*/
+
     svg_bar.selectAll("circle")
        .data(data)
        .enter()
        .append("circle")
        .attr("cx", function(d) {
+            console.log(d.good)
             //return xScale(d.good) / 10;
             return 100;
        })
        .attr("cy", function(d) {
+            console.log(d.bad)
+
             //return yScale(d.bad) / 10;
             return 100;
        })
