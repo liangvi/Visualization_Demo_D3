@@ -167,23 +167,15 @@ def category():
 
 	#pittsburgh
 
-	t.loc[t['id'] == '32', ['rate']] = 3
-	t.loc[t['id'] == '33', ['rate']] = 4
-	t.loc[t['id'] == '34', ['rate']] = 5
-	t.loc[t['id'] == '35', ['rate']] = 6
-	t.loc[t['id'] == '36', ['rate']] = 7
-	t.loc[t['id'] == '37', ['rate']] = 6
-	t.loc[t['id'] == '38', ['rate']] = 5
-	t.loc[t['id'] == '39', ['rate']] = 4
-	t.loc[t['id'] == '40', ['rate']] = 3
-	t.loc[t['id'] == '41', ['rate']] = 4
+
+	t.loc[t['id'] == '34', ['rate']] = 3
+
+	t.loc[t['id'] == '38', ['rate']] = 4
+
 	t.loc[t['id'] == '42', ['rate']] = 5
-	t.loc[t['id'] == '43', ['rate']] = 6
-	t.loc[t['id'] == '44', ['rate']] = 7
-	t.loc[t['id'] == '45', ['rate']] = 6
-	t.loc[t['id'] == '46', ['rate']] = 5
-	t.loc[t['id'] == '47', ['rate']] = 4
-	t.loc[t['id'] == '48', ['rate']] = 3
+
+	t.loc[t['id'] == '46', ['rate']] = 6
+
 
 	#madison
 	t.loc[t['id'] == '55', ['rate']] = score_mad
