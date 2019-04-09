@@ -42,7 +42,7 @@
           console.log(data[i].good);
           console.log(data[i].bad);
       }
-    });
+
     svg_bar.selectAll("circle")
        .data(data)
        .enter()
@@ -57,7 +57,7 @@
        })
        .attr("r", 4)
        .attr("fill", "orange");
-
+});
 //https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
     svg_bar.append("g")
       .call(xAxis)
