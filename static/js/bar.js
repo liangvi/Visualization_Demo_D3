@@ -39,7 +39,7 @@
      .attr("y", function(d) {
           return yScale(d.good);
      })
-     .attr("width", (w-yA) / d.good.length - barPadding)
+     .attr("width", (w-yA) / data.good.length - barPadding)
 
      .attr("height", function(d) {
           return d.value;
