@@ -24,6 +24,8 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
+import os.path
+
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -100,6 +102,9 @@ def category():
 	score_cha = p.predict(text_joined)
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	if(os.path.exists("static/data/states.csv")):
+		temp = pd.read_csv("static/data/states.csv", dtype= {'id': str})
+		temp['rate'] = 0
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
