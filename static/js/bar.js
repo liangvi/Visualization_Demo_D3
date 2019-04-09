@@ -22,10 +22,10 @@
      .data(data.good)
      .enter()
      .attr("x", function(d, i) {
-          return i * ((w-yA) / data.good.length) + yA+10;
+          return i * ((w-yA) / d.good.length) + yA+10;
      })
      .attr("y", function(d) {
-          return h - data.good;
+          return h - d.good;
      });
 
     svg.selectAll("rect")

@@ -166,21 +166,19 @@ def category():
 	t.loc[t['id'] == '37', ['rate']] = score_cha
 
 	#pittsburgh
-	#madison
 
-	t.loc[t['id'] == '23', ['rate']] = 4
-
+	t.loc[t['id'] == '23', ['rate']] = 3
+	t.loc[t['id'] == '24', ['rate']] = 4
+	t.loc[t['id'] == '25', ['rate']] = 5
 	t.loc[t['id'] == '26', ['rate']] = 6
+	t.loc[t['id'] == '27', ['rate']] = 7
+	t.loc[t['id'] == '28', ['rate']] = 6
+	t.loc[t['id'] == '29', ['rate']] = 5
+	t.loc[t['id'] == '30', ['rate']] = 4
+	t.loc[t['id'] == '31', ['rate']] = 3
 
-
-
-	t.loc[t['id'] == '49', ['rate']] = 5
-	t.loc[t['id'] == '50', ['rate']] = 6
-	t.loc[t['id'] == '51', ['rate']] = 7
-	t.loc[t['id'] == '52', ['rate']] = 6
-	t.loc[t['id'] == '54', ['rate']] = 5
-	t.loc[t['id'] == '55', ['rate']] = 4
-	t.loc[t['id'] == '56', ['rate']] = 3
+	#madison
+	t.loc[t['id'] == '55', ['rate']] = score_mad
 
 
 
