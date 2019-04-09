@@ -4,7 +4,7 @@
     var padding=5
     var barPadding = 1;
 
-    data = d3.csv("/static/data/review_types.csv", ({bad, good, index}) => ({category: index, value: +good})).sort((a, b) => b.value - a.value)
+    data = d3.csv("/static/data/review_types.csv", ({bad, good, index}) => ({category: index, value: +good}))
       //http://learnjsdata.com/read_data.html
       //https://bl.ocks.org/caravinden/d04238c4c9770020ff6867ee92c7dac1
       //https://observablehq.com/@d3/bar-chart
