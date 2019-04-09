@@ -40,11 +40,11 @@
        .append("circle")
        .attr("cx", function(d) {
             //return xScale(d.good) / 10;
-            return xScale(50);
+            return xScale(100);
        })
        .attr("cy", function(d) {
             //return yScale(d.bad) / 10;
-            return yScale(50);
+            return yScale(100);
        })
        .attr("r", 4)
        .attr("fill", "orange");
