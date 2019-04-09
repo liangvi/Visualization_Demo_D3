@@ -24,7 +24,7 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
-import os.path
+import os
 
 app = Flask(__name__)
 
