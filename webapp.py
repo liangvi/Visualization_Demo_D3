@@ -26,8 +26,10 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 
 app = Flask(__name__)
 
-@app.route('/<cat>', methods=['GET'])
-def index(cat):
+#@app.route('/<cat>', methods=['GET'])
+#def index(cat):
+@app.route('/', methods=['GET'])
+def index():
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -111,14 +113,6 @@ def index(cat):
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('index.html')
-'''
-
-	text=[request.form['text']]
-	city=request.form['city']
-
-
-
-	'''
 
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
