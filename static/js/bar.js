@@ -45,11 +45,13 @@ svg.selectAll("circle")
 
 svg.append("g")
     .call(yAxis)
-    .attr("transform", "translate(30)");
+    .attr("transform", "translate(40)");
+    .text("Bad Review count")
 
 svg.append("g")
     .call(xAxis)
     .attr("transform", "translate(0," + (h-20) + ")")
+    .text("Good Review Count")
 
 
 });
