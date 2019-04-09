@@ -47,17 +47,19 @@
     		return x(d.index);
     	})
     	.attr("y", function (d) {
-        return y(Number(d.good));
+        return y(d.good);
 	     })
       .attr("width", x.bandwidth())
       .attr("height", function (d) {
        		return h - y(Number(d.good));
       });
-  svg_bar.append("g")
-      .call(xAxis)
-      .attr("transform", "translate(200)");
 
-  svg_bar.append("g")
+//https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
+    svg_bar.append("g")
+      .call(xAxis)
+      .attr("transform", "translate(0,200)");
+
+    svg_bar.append("g")
       .call(yAxis)
       .attr("transform", "translate(30)");
   });
