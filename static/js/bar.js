@@ -25,9 +25,9 @@
         x.domain(data.map(function (d) {
 			       return d.index;
 		    }));
-        y.domain([0, d3.max(data, function (d) {
-				     return Number(d.good);
-			  })]);
+        y.domain(data.map(function (d) {
+			       return d.good;
+		    }));
 
 
 
