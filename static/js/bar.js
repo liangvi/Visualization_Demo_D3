@@ -27,7 +27,7 @@
     d3.csv("/static/data/review_types.csv", function (data) {
 
       var svg_bar = d3.select("#bar")
-          .append("svg_bar")
+          .append("svg")
           .attr("width", w)
           .attr("height", h);
     //d3.csv("review_types.csv", function (data) {
@@ -39,7 +39,7 @@
 
       console.log("TEST3");
 
-      svg_bar.selectAll("circle")
+      svg.selectAll("circle")
          .data(data)
          .enter()
          .append("circle")
