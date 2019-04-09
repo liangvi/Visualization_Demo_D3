@@ -46,6 +46,8 @@ def category():
 
 	### Building choropleth
 
+	## add pittsurgh, cleveland, madison
+
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -111,6 +113,43 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_cha = p.predict(text_joined)
 
+	city = "pittsburgh"
+
+	#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+	#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_pitt = p.predict(text_joined)
+
+	city = "madison"
+
+	#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+	#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_mad = p.predict(text_joined)
+
+
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	if(os.path.exists("static/data/states.csv")):
 		os.remove("static/data/states.csv")
@@ -125,10 +164,25 @@ def category():
 
 	#charlotte
 	t.loc[t['id'] == '37', ['rate']] = score_cha
-	print(category)
-	print(score_phoenix)
-	print(score_lv)
-	print(score_cha)
+
+	#pittsburgh
+	#madison
+
+	t.loc[t['id'] == '25', ['rate']] = 3
+	t.loc[t['id'] == '26', ['rate']] = 4
+	t.loc[t['id'] == '27', ['rate']] = 5
+	t.loc[t['id'] == '28', ['rate']] = 6
+	t.loc[t['id'] == '29', ['rate']] = 7
+	t.loc[t['id'] == '30', ['rate']] = 6
+	t.loc[t['id'] == '31', ['rate']] = 5
+	t.loc[t['id'] == '32', ['rate']] = 4
+	t.loc[t['id'] == '33', ['rate']] = 3
+	t.loc[t['id'] == '34', ['rate']] = 4
+	t.loc[t['id'] == '35', ['rate']] = 5
+	t.loc[t['id'] == '36', ['rate']] = 6
+	t.loc[t['id'] == '37', ['rate']] = 7
+	t.loc[t['id'] == '38', ['rate']] = 6
+
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])

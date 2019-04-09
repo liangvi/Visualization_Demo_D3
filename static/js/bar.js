@@ -29,7 +29,7 @@
      });
 
     svg.selectAll("rect")
-     .data(d.good)
+     .data(data.good)
      .enter()
      .append("rect")
      .attr("fill", "orange")
