@@ -89,6 +89,6 @@ svg.append("g")
 
 svg.append("text")
     .text("Good Review Count")
-    .attr("transform", "translate(" (width/2) + " ," + (h-10) + ")");
+    .attr("transform", "translate(" (w/2) + " ," + (h-10) + ")");
 
 });
