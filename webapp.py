@@ -43,12 +43,9 @@ def category():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	category=request.form['category']
-	#category = "Pizza"
-	#category = [cat]
-	city = "phoenix"
 	text = ["this is a good review"]
 
-
+	city = "phoenix"
 
 #encode city
 	cities = []
@@ -66,10 +63,7 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_phoenix = p.predict(text_joined)
 
-	#category = "Pizza"
-	category=request.form['category']
 	city = "las vegas"
-	text = ["this is a good review"]
 
 #encode city
 	cities = []
@@ -87,6 +81,24 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_lv = p.predict(text_joined)
 
+	city = "charlotte"
+
+#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_cha = p.predict(text_joined)
+
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
@@ -95,8 +107,7 @@ def category():
 	t.loc[t['id'] == '32', ['rate']] = score_lv
 
 	#charlotte
-	t.loc[t['id'] == '37', ['rate']] = 4
-	t.loc[t['id'] == '45', ['rate']] = 6
+	t.loc[t['id'] == '37', ['rate']] = score_cha
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
@@ -229,7 +240,6 @@ def review():
 
 	text_tf = vectorizer.transform(text)
 
-	#text_joined = hstack([text_tf, text_enc], format="csr")
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
