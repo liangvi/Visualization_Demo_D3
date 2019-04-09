@@ -33,6 +33,7 @@ def index():
 	#https://www.w3schools.com/python/python_file_remove.asp
 	if(os.path.exists("static/data/states.csv")):
 		os.remove("static/data/states.csv")
+		print("Deleted")
 
 
 	return render_template('index.html')
@@ -108,6 +109,7 @@ def category():
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	if(os.path.exists("static/data/states.csv")):
+		print("Deleted")
 		os.remove("static/data/states.csv")
 
 	#phoenix
@@ -118,6 +120,10 @@ def category():
 
 	#charlotte
 	t.loc[t['id'] == '37', ['rate']] = score_cha
+	print(category)
+	print(score_phoenix)
+	print(score_lv)
+	print(score_cha)
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
