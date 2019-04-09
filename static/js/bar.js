@@ -34,8 +34,8 @@
         .selectAll("circle")
         .data(data)
         .join("circle")
-        .attr("cx", 50)
-        .attr("cy", 60)
+        .attr("cx", function (data) { return xScale(data.good) })
+        .attr("cy", function (data) { return yScale(data.bad) })
         .attr("r", 40000)
         .attr("fill", "green");
 
