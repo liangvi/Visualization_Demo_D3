@@ -8,12 +8,12 @@
       //https://bl.ocks.org/caravinden/d04238c4c9770020ff6867ee92c7dac1
       //https://observablehq.com/@d3/bar-chart
     var xScale = d3.scaleLinear()
-                       .domain([padding,w])
-                       .range([w - padding, padding]);
+                       .domain([50,500])
+                       .range([padding, w - padding]);
 
 
     var yScale = d3.scaleLinear()
-                       .domain([padding,h])
+                       .domain([40,250])
                        .range([h - padding, padding]);
 
     var xAxis = d3.axisBottom().scale(xScale);
@@ -36,10 +36,10 @@
        .enter()
        .append("circle")
        .attr("cx", function(d) {
-            return xScale(d.good);
+            return xScale(d.good) / 10;
        })
        .attr("cy", function(d) {
-            return yScale(d.bad);
+            return yScale(d.bad) / 10;
        })
        .attr("r", 4)
        .attr("fill", "orange");
