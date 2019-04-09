@@ -94,9 +94,9 @@
         var x = d3.scaleLinear()
             .domain([3, 4])
             .rangeRound([600, 860]);
-
+        <!-- https://stackoverflow.com/questions/45111265/choropleth-map-scale-and-legend -->
         var color = d3.scaleThreshold()
-            .domain(d3.range(3, 5))
+            .domain(d3.range(3, 3.2, 3.4, 3.6, 3.8))
             .range(d3.schemeBlues[5]);
 
         var g = svg.append("g")
@@ -150,7 +150,7 @@
               .attr("fill", function(d) { return color(d.rate = stars.get(d.id)); })
               .attr("d", path)
             .append("title")
-              .text(function(d) { return d.rate + "%"; });
+              .text(function(d) { return d.rate; });
 
           svg.append("path")
               .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))

@@ -34,5 +34,3 @@
 
   svg.append("g")
       .call(yAxis);
-
-  return svg.node();
