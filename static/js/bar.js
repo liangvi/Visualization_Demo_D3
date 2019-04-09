@@ -72,14 +72,14 @@ svg.selectAll("circle")
 
 
    //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
-
 svg.append("g")
     .call(yAxis)
     .attr("transform", "translate(40)");
 
 svg.append("text")
     .attr("transform", "rotate(-90)")
-    .attr("transform", "translate(40)")
+    .attr("y", 0 - 10)
+    .attr("x",0 - (h / 2))
     .text("Bad Review Count");
 
 
@@ -89,7 +89,6 @@ svg.append("g")
 
 svg.append("text")
     .text("Good Review Count")
-    .attr("transform","translate(0" + (h-20) + ")");
-
+    .attr("transform", "translate(" (width/2) + " ," + (h-10) + ")");
 
 });
