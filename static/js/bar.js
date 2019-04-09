@@ -27,7 +27,10 @@
     var y = d3.scaleLinear()
 	     .rangeRound([h, 0]);
 
-    var svg_bar = d3.select("#bar").attr("width", w).attr("height", h);
+    var svg_bar = d3.select("#bar")
+        .attr("width", w)
+        .attr("height", h)
+        .append("svg_bar");
 
     d3.csv("/static/data/review_types.csv", function (data) {
 
