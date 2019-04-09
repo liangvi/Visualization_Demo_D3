@@ -26,8 +26,8 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/<cat>/', methods=['GET', 'POST'])
+def index(cat):
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -37,7 +37,8 @@ def index():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	#category=request.form['category']
-	category = "Pizza"
+	#category = "Pizza"
+	category = cat
 	city = "phoenix"
 	text = ["this is a good review"]
 
@@ -157,17 +158,17 @@ def compare(cat, loc):
 
 	indexes = restaurants.index.values
 	docnames = ["Doc" + str(i) for i in indexes]
-	
+
 	sub_topic_distribution = generateSubtopic(docnames, all_document_topic, all_topic_keywords)
 	sub_topic_distribution_good = generateSubtopic(docnames, good_document_topic, good_topic_keywords)
 	sub_topic_distribution_bad = generateSubtopic(docnames, bad_document_topic, bad_topic_keywords)
-	return render_template('compare.html', 
+	return render_template('compare.html',
 		topic_dist=(sub_topic_distribution.to_json(orient='records')),
 		topic_dist_good=(sub_topic_distribution_good.to_json(orient='records')),
 		topic_dist_bad=(sub_topic_distribution_bad.to_json(orient='records'))
 		)
 
-def generateSubtopic(docnames, topics, keywords): 
+def generateSubtopic(docnames, topics, keywords):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
 	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
 	sub_topic_distribution.columns = ['topic_num', 'freq']
