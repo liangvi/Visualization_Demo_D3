@@ -35,14 +35,19 @@
 
     d3.csv("/static/data/review_types.csv", function (data) {
     //d3.csv("review_types.csv", function (data) {
+      console.log("TEST4");
+
       console.log(data);
+      console.log(data.good);
+      console.log(data.bad);
+
       console.log("TEST3");
-      for (var i = 0; i < data.length; i++) {
+/*      for (var i = 0; i < data.length; i++) {
           console.log("TEST2");
           console.log(data.good);
           console.log(data.bad);
       }
-
+*/
     svg_bar.selectAll("circle")
        .data(data)
        .enter()
