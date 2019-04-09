@@ -24,6 +24,7 @@
 
     var svg = d3.select("#bar")
         .append("svg")
+        .append("g")
         .attr("width", w)
         .attr("height", h);
     //d3.csv("review_types.csv", function (data) {
@@ -35,7 +36,8 @@
 
     console.log("TEST3");
 
-    svg.selectAll("circle")
+//http://bl.ocks.org/jfreels/6816504
+    var circles = svg.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
@@ -51,4 +53,11 @@
     svg.append("g")
         .call(yAxis)
         .attr("transform", "translate(30)");
+    console.log("TEST5");
+
+    console.log(data);
+    console.log(data.good);
+    console.log(data.bad);
+
+    console.log("TEST6");
   });
