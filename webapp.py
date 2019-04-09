@@ -109,8 +109,9 @@ def category():
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	if(os.path.exists("static/data/states.csv")):
-		print("Deleted")
 		os.remove("static/data/states.csv")
+		print("Deleted_compare")
+
 
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
