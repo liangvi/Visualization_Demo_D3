@@ -11,7 +11,7 @@
         good: d.good,
         bad: d.bad
       };
-    }).then(function(data)) {
+    }).then(function(data) {
 
     var yScale = d3.scaleLinear()
                        .domain([padding,h])
