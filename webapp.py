@@ -87,7 +87,7 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_lv = p.predict(text_joined)
 
-	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	t = pd.read_csv("/static/data/states_in.csv", dtype= {'id': str})
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
@@ -109,7 +109,7 @@ def category():
 	t.loc[t['id'] == '44', ['rate']] = 6
 	t.loc[t['id'] == '45', ['rate']] = 7
 
-	t.to_csv("static/data/states.csv", sep=',')
+	t.to_csv("/static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
 
 
