@@ -30,10 +30,11 @@
 
 //http://bl.ocks.org/jfreels/6816504
 //https://observablehq.com/@d3/scatterplot
-    svg.append("g")
-        .selectAll("circle")
+    svg.selectAll(".dot")
         .data(data)
-        .join("circle")
+        .enter()
+        .append("circle")
+        .attr("class","dot")
         .attr("cx", function (data) { return xScale(data.good) })
         .attr("cy", function (data) { return yScale(data.bad) })
         .attr("r", 40000)
