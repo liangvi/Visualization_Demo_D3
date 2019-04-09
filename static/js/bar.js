@@ -24,34 +24,13 @@
 
 
     svg.selectAll("text")
-     .data(d.good)
+     .data(data.good)
      .enter()
-     .append("text")
-     .text(function(d) {
-          return d.key;
-     })
-     .attr("font-size", "12px")
-     //https://website.education.wisc.edu/~swu28/d3t/concept.html
-     .on("mouseover", function(d) {
-      d3.select(this).transition()
-          .attr("font-size", "22px")
-          .text(function(d) {
-              return d.value;
-          })
-     })
-     .on("mouseout", function(d) {
-      d3.select(this).transition()
-          .attr("font-size", "12px")
-          .text(function(d) {
-              return d.key;
-          })
-      })
-     .attr("text-anchor", "right")
      .attr("x", function(d, i) {
-          return i * ((w-yA) / d.good.length) + yA+10;
+          return i * ((w-yA) / data.good.length) + yA+10;
      })
      .attr("y", function(d) {
-          return h - d.value;
+          return h - data.good;
      });
 
     svg.selectAll("rect")
@@ -63,7 +42,7 @@
           return i * ((w-yA) / d.good.length) + yA;
      })
      .attr("y", function(d) {
-          return yScale(d.value);
+          return yScale(d.good);
      })
      .attr("width", (w-yA) / d.good.length - barPadding)
 
