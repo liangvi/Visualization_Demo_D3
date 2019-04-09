@@ -43,59 +43,6 @@ def index():
 @app.route('/category/', methods=['GET', 'POST'])
 def category():
 
-	### Good/bad breakdown for given categories
-
-	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']
-
-	#Pizza
-	temp = joined['categories'].str.contains('Pizza', regex=False)
-	temp = temp.fillna(False)
-	pizza = joined[temp]
-	pizza.loc[pizza['stars_r'] > 3, 'review_type'] = "good"
-	pizza.loc[pizza['stars_r'] <= 3, 'review_type'] = "bad"
-	p_types = pizza['review_type'].value_counts()
-
-	#Mexican
-	temp = joined['categories'].str.contains('Mexican', regex=False)
-	temp = temp.fillna(False)
-	mexican = joined[temp]
-	mexican.loc[mexican['stars_r'] > 3, 'review_type'] = "good"
-	mexican.loc[mexican['stars_r'] <= 3, 'review_type'] = "bad"
-	m_types = mexican['review_type'].value_counts()
-
-	#Chinese
-	temp = joined['categories'].str.contains('Chinese', regex=False)
-	temp = temp.fillna(False)
-	chinese = joined[temp]
-	chinese.loc[chinese['stars_r'] > 3, 'review_type'] = "good"
-	chinese.loc[chinese['stars_r'] <= 3, 'review_type'] = "bad"
-	c_types = chinese['review_type'].value_counts()
-
-	#Italian
-	temp = joined['categories'].str.contains('Italian', regex=False)
-	temp = temp.fillna(False)
-	italian = joined[temp]
-	italian.loc[italian['stars_r'] > 3, 'review_type'] = "good"
-	italian.loc[italian['stars_r'] <= 3, 'review_type'] = "bad"
-	i_types = italian['review_type'].value_counts()
-
-	#Vietnamese
-	temp = joined['categories'].str.contains('Vietnamese', regex=False)
-	temp = temp.fillna(False)
-	vietnamese = joined[temp]
-	vietnamese.loc[vietnamese['stars_r'] > 3, 'review_type'] = "good"
-	vietnamese.loc[vietnamese['stars_r'] <= 3, 'review_type'] = "bad"
-	v_types = vietnamese['review_type'].value_counts()
-
-	#Build dataframe
-	d = {'bad': [p_types[1], m_types[1], c_types[1], i_types[1], v_types[1]], 'good': [p_types[0], m_types[0], c_types[0], i_types[0], v_types[0]]}
-	review_types = pd.DataFrame(data=d, index=['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese'])
-	review_types.to_csv("static/data/review_types.csv", sep=',')
-
-
-
-
-
 
 	### Building choropleth
 
