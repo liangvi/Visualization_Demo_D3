@@ -66,4 +66,4 @@
     svg_bar.append("g")
       .call(yAxis)
       .attr("transform", "translate(30)");
-  });
+  //});
