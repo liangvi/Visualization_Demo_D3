@@ -26,10 +26,14 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 
 app = Flask(__name__)
 
-#@app.route('/<cat>', methods=['GET'])
-#def index(cat):
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+	return render_template('index.html')
+
+#def index(cat):
+#@app.route('/<cat>', methods=['GET'])
+@app.route('/category/', methods=['GET', 'POST'])
+def category():
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -62,14 +66,10 @@ def index():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_phoenix = p.predict(text_joined)
 
-
-
 	#category = "Pizza"
 	category=request.form['category']
 	city = "las vegas"
 	text = ["this is a good review"]
-
-
 
 #encode city
 	cities = []
@@ -109,11 +109,8 @@ def index():
 	t.loc[t['id'] == '44', ['rate']] = 6
 	t.loc[t['id'] == '45', ['rate']] = 7
 
-
-
-
 	t.to_csv("static/data/states.csv", sep=',')
-	return render_template('index.html')
+	return render_template('category.html', category=request.form['category'])
 
 
 @app.route('/compare/<cat>/<loc>', methods=['GET'])
@@ -193,7 +190,7 @@ def generateSubtopic(docnames, topics, keywords):
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
-	return render_template('analysis.html', )
+	return render_template('analysis.html')
 
 def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)
