@@ -22,7 +22,7 @@
      .data(data.good)
      .enter()
      .attr("x", function(d, i) {
-          return i * ((w-yA) / d.good.length) + yA+10;
+          return i * ((w-yA) / d.good) + yA+10;
      })
      .attr("y", function(d) {
           return h - d.good;
@@ -34,12 +34,12 @@
      .append("rect")
      .attr("fill", "orange")
      .attr("x", function(d, i) {
-          return i * ((w-yA) / d.good.length) + yA;
+          return i * ((w-yA) / d.good) + yA;
      })
      .attr("y", function(d) {
           return yScale(d.good);
      })
-     .attr("width", (w-yA) / data.good.length - barPadding)
+     .attr("width", (w-yA) / data.good - barPadding)
 
      .attr("height", function(d) {
           return d.value;
