@@ -39,8 +39,8 @@
       console.log("TEST3");
       for (var i = 0; i < data.length; i++) {
           console.log("TEST2");
-          console.log(data[i].good);
-          console.log(data[i].bad);
+          console.log(data.good);
+          console.log(data.bad);
       }
 
     svg_bar.selectAll("circle")
