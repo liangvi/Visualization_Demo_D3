@@ -43,7 +43,7 @@ def category():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	category=request.form['category']
-	category = "Pizza"
+	#category = "Pizza"
 	#category = [cat]
 	city = "phoenix"
 	text = ["this is a good review"]
@@ -95,19 +95,8 @@ def category():
 	t.loc[t['id'] == '32', ['rate']] = score_lv
 
 	#charlotte
-	t.loc[t['id'] == '33', ['rate']] = 3
-	t.loc[t['id'] == '34', ['rate']] = 4
-	t.loc[t['id'] == '35', ['rate']] = 5
-	t.loc[t['id'] == '36', ['rate']] = 6
-	t.loc[t['id'] == '37', ['rate']] = 7
-	t.loc[t['id'] == '38', ['rate']] = 6
-	t.loc[t['id'] == '39', ['rate']] = 5
-	t.loc[t['id'] == '40', ['rate']] = 4
-	t.loc[t['id'] == '41', ['rate']] = 3
-	t.loc[t['id'] == '42', ['rate']] = 4
-	t.loc[t['id'] == '43', ['rate']] = 5
-	t.loc[t['id'] == '44', ['rate']] = 6
-	t.loc[t['id'] == '45', ['rate']] = 7
+	t.loc[t['id'] == '37', ['rate']] = 4
+	t.loc[t['id'] == '45', ['rate']] = 6
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
