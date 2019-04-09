@@ -36,10 +36,12 @@
        .enter()
        .append("circle")
        .attr("cx", function(d) {
-            return xScale(d.good) / 10;
+            //return xScale(d.good) / 10;
+            return xScale(50);
        })
        .attr("cy", function(d) {
-            return yScale(d.bad) / 10;
+            //return yScale(d.bad) / 10;
+            return yScale(50);
        })
        .attr("r", 4)
        .attr("fill", "orange");
