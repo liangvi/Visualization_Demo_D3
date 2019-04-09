@@ -57,7 +57,7 @@
        })
        .attr("r", 40)
        .attr("fill", "orange");
-});
+
 //https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
     svg_bar.append("g")
       .call(xAxis)
@@ -66,4 +66,4 @@
     svg_bar.append("g")
       .call(yAxis)
       .attr("transform", "translate(30)");
-  //});
+  });
