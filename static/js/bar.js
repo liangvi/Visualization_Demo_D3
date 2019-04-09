@@ -23,7 +23,7 @@
     var yAxis = d3.axisLeft()
                        .scale(yScale);
 
-    var svg = d3.select("#bar").attr("width", width).attr("height", height);
+    var svg = d3.select("#bar").attr("width", w).attr("height", h);
 
 
     svg.append("g")
