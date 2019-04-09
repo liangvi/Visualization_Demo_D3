@@ -42,16 +42,28 @@ svg.selectAll("circle")
    .attr("r", 4)
    .attr("fill", "orange");
 
+   //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
 
 svg.append("g")
     .call(yAxis)
     .attr("transform", "translate(40)");
     .text("Bad Review count")
 
+svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("transform", "translate(40)");
+    .style("text-anchor", "middle")
+    .text("Bad Review Count");
+
+
 svg.append("g")
     .call(xAxis)
     .attr("transform", "translate(0," + (h-20) + ")")
+
+svg.append("text")
     .text("Good Review Count")
+    .style("text-anchor", "middle")
+    .attr("transform","translate(0" + (h-20) + ")")
 
 
 });
