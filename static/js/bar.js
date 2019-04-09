@@ -22,9 +22,8 @@
 
     var yAxis = d3.axisLeft().scale(yScale);
 
-    var svg_bar = d3.select("#bar")
+    var svg = d3.select("#bar")
         .append("svg")
-        .append("g")
         .attr("width", w)
         .attr("height", h);
     //d3.csv("review_types.csv", function (data) {
@@ -36,7 +35,7 @@
 
     console.log("TEST3");
 
-    svg_bar.selectAll("circle")
+    svg.selectAll("circle")
         .data(data)
         .enter()
         .append("circle")
@@ -45,12 +44,11 @@
         .attr("r", 40)
         .attr("fill", "orange");
 
-  //https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
-      svg_bar.append("g")
+    svg.append("g")
         .call(xAxis)
         .attr("transform", "translate(0,180)");
 
-      svg_bar.append("g")
+    svg.append("g")
         .call(yAxis)
         .attr("transform", "translate(30)");
   });
