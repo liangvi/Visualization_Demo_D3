@@ -31,21 +31,18 @@
 
     d3.csv("/static/data/review_types.csv", function (data) {
 
-    svg_bar.append("g")
-      .attr("fill", "steelblue")
-      .selectAll("rect")
-      .data(data)
-      .join("rect")
-      .attr("x", function (d) {
-    		return d.index;
-    	})
-    	.attr("y", function (d) {
-        return yScale(d.good);
-	     })
-      .attr("width", x.bandwidth())
-      .attr("height", function (d) {
-       		return h - y(Number(d.good));
-      });
+    svg_bar.selectAll("circle")
+       .data(data)
+       .enter()
+       .append("circle")
+       .attr("cx", function(d) {
+            return xScale(d.good);
+       })
+       .attr("cy", function(d) {
+            return yScale(d.bad);
+       })
+       .attr("r", 4)
+       .attr("fill", "orange");
 
 //https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
     svg_bar.append("g")
