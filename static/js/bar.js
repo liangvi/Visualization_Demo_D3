@@ -38,5 +38,5 @@
       .call(xAxis);
 
   svg_bar.append("g")
-      .call(yAxis);
+      .call(yAxis)
       .attr("transform", "translate(30)");
