@@ -27,7 +27,7 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 app = Flask(__name__)
 
 @app.route('/<cat>', methods=['GET'])
-def index():
+def index(cat):
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
