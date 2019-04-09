@@ -27,20 +27,13 @@
         .append("g")
         .attr("width", w)
         .attr("height", h);
-    //d3.csv("review_types.csv", function (data) {
-    console.log("TEST4");
-
-    console.log(data);
-    console.log(data.good);
-    console.log(data.bad);
-
-    console.log("TEST3");
 
 //http://bl.ocks.org/jfreels/6816504
-    var circles = svg.selectAll("circle")
+//https://observablehq.com/@d3/scatterplot
+    svg.append("g")
+        .selectAll("circle")
         .data(data)
-        .enter()
-        .append("circle")
+        .join("circle")
         .attr("cx", 50)
         .attr("cy", 60)
         .attr("r", 40000)
