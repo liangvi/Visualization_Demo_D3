@@ -42,7 +42,7 @@
         .attr("cx", 50)
         .attr("cy", 60)
         .attr("r", 40)
-        .attr("fill", "orange");
+        .attr("fill", "green");
 
     svg.append("g")
         .call(xAxis)
