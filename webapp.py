@@ -30,9 +30,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
+	#https://www.w3schools.com/python/python_file_remove.asp
 	if(os.path.exists("static/data/states.csv")):
-		temp = pd.read_csv("static/data/states.csv", dtype= {'id': str})
-		temp['rate'] = 0
+		os.remove("static/data/states.csv")
+
 
 	return render_template('index.html')
 
@@ -107,8 +108,8 @@ def category():
 
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	if(os.path.exists("static/data/states.csv")):
-		temp = pd.read_csv("static/data/states.csv", dtype= {'id': str})
-		temp['rate'] = 0
+		os.remove("static/data/states.csv")
+
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
