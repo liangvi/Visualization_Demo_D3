@@ -41,7 +41,7 @@
         .append("circle")
         .attr("cx", 50)
         .attr("cy", 60)
-        .attr("r", 40)
+        .attr("r", 40000)
         .attr("fill", "green");
 
     svg.append("g")
