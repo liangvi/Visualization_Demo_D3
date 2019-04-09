@@ -28,15 +28,8 @@
 	     .rangeRound([h, 0]);
 
     var svg_bar = d3.select("#bar").attr("width", w).attr("height", h);
-    d3.csv("/static/data/review_types.csv").then(function (data) {
-        x.domain(data.map(function (d) {
-			       return d.index;
-		    }));
-        y.domain(data.map(function (d) {
-			       return d.good;
-		    }));
 
-
+    d3.csv("/static/data/review_types.csv", function (data) {
 
     svg_bar.append("g")
       .attr("fill", "steelblue")
@@ -44,10 +37,10 @@
       .data(data)
       .join("rect")
       .attr("x", function (d) {
-    		return x(d.index);
+    		return d.index;
     	})
     	.attr("y", function (d) {
-        return y(d.good);
+        return yScale(d.good);
 	     })
       .attr("width", x.bandwidth())
       .attr("height", function (d) {
@@ -57,7 +50,7 @@
 //https://stackoverflow.com/questions/34691285/move-x-axis-to-coordinate-0-0-on-the-chart-with-d3-js
     svg_bar.append("g")
       .call(xAxis)
-      .attr("transform", "translate(0,200)");
+      .attr("transform", "translate(0,180)");
 
     svg_bar.append("g")
       .call(yAxis)
