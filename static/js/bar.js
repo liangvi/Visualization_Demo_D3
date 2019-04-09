@@ -30,17 +30,19 @@
     var svg_bar = d3.select("#bar")
         .attr("width", w)
         .attr("height", h);
+
     console.log("TEST1");
 
-    //d3.csv("/static/data/review_types.csv", function (data) {
-    d3.csv("review_types.csv", function (data) {
+    d3.csv("/static/data/review_types.csv", function (data) {
+    //d3.csv("review_types.csv", function (data) {
+      console.log(data);
       console.log("TEST3");
       for (var i = 0; i < data.length; i++) {
           console.log("TEST2");
           console.log(data[i].good);
           console.log(data[i].bad);
       }
-
+    });
     svg_bar.selectAll("circle")
        .data(data)
        .enter()
