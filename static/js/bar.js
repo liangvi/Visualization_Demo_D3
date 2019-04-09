@@ -20,6 +20,13 @@
 
     var yAxis = d3.axisLeft().scale(yScale);
 
+    var x = d3.scaleBand()
+	     .rangeRound([0, w])
+	     .padding(padding);
+
+    var y = d3.scaleLinear()
+	     .rangeRound([h, 0]);
+
     var svg_bar = d3.select("#bar").attr("width", w).attr("height", h);
     d3.csv("/static/data/review_types.csv").then(function (data) {
         x.domain(data.map(function (d) {
