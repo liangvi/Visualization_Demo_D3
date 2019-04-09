@@ -4,11 +4,9 @@
     var padding=5
     var barPadding = 1;
 
-    data = d3.csv("/static/data/review_types.csv", ({bad, good, index}) => ({category: index, value: +good}))
       //http://learnjsdata.com/read_data.html
       //https://bl.ocks.org/caravinden/d04238c4c9770020ff6867ee92c7dac1
       //https://observablehq.com/@d3/bar-chart
-
     var xScale = d3.scaleLinear()
                        .domain([padding,w])
                        .range([w - padding, padding]);
@@ -23,19 +21,34 @@
     var yAxis = d3.axisLeft().scale(yScale);
 
     var svg_bar = d3.select("#bar").attr("width", w).attr("height", h);
+    d3.csv("/static/data/review_types.csv").then(function (data) {
+        x.domain(data.map(function (d) {
+			       return d.index;
+		    }));
+        y.domain([0, d3.max(data, function (d) {
+				     return Number(d.good);
+			  })]);
+    })
 
 
     svg_bar.append("g")
       .attr("fill", "steelblue")
-    .selectAll("rect")
-    .data(data)
-    .join("rect")
-      .attr("x", d => x(d.category))
-      .attr("y", d => y(d.value))
-      .attr("height", d => y(0) - y(d.value));
-
+      .selectAll("rect")
+      .data(data)
+      .join("rect")
+      .attr("x", function (d) {
+    		return x(d.index);
+    	})
+    	.attr("y", function (d) {
+        return y(Number(d.good));
+	     })
+      .attr("width", x.bandwidth())
+      .attr("height", function (d) {
+       		return height - y(Number(d.good));
+      });
   svg_bar.append("g")
-      .call(xAxis);
+      .call(xAxis)
+      .attr("transform", "translate(200)");
 
   svg_bar.append("g")
       .call(yAxis)
