@@ -94,10 +94,10 @@
         var x = d3.scaleLinear()
             .domain([3, 4])
             .rangeRound([600, 860]);
-        <!-- https://stackoverflow.com/questions/45111265/choropleth-map-scale-and-legend -->
+        // https://stackoverflow.com/questions/45111265/choropleth-map-scale-and-legend -->
         var color = d3.scaleThreshold()
             //.domain(d3.range(3, 4))
-            .domain(3, 3.2, 3.4, 3.6, 3.8)
+            .domain([3, 3.2, 3.4, 3.6, 3.8])
             .range(d3.schemeBlues[5]);
 
         var g = svg.append("g")

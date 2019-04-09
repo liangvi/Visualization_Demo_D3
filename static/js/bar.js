@@ -26,9 +26,8 @@
     .join("rect")
       .attr("x", d => x(d.category))
       .attr("y", d => y(d.value))
-      .attr("height", d => y(0) - y(d.value))
-      .attr("width", x.bandwidth());
-
+      .attr("height", d => y(0) - y(d.value));
+      
   svg.append("g")
       .call(xAxis);
 
