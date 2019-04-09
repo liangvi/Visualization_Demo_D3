@@ -28,7 +28,7 @@
         y.domain([0, d3.max(data, function (d) {
 				     return Number(d.good);
 			  })]);
-    })
+
 
 
     svg_bar.append("g")
@@ -53,3 +53,4 @@
   svg_bar.append("g")
       .call(yAxis)
       .attr("transform", "translate(30)");
+  });
