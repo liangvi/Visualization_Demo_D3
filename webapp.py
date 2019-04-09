@@ -166,14 +166,10 @@ def category():
 	t.loc[t['id'] == '37', ['rate']] = score_cha
 
 	#pittsburgh
-
 	t.loc[t['id'] == '42', ['rate']] = score_pitt
-
 
 	#madison
 	t.loc[t['id'] == '55', ['rate']] = score_mad
-
-
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
