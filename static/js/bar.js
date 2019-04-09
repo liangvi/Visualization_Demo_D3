@@ -51,7 +51,7 @@
 	     })
       .attr("width", x.bandwidth())
       .attr("height", function (d) {
-       		return height - y(Number(d.good));
+       		return h - y(Number(d.good));
       });
   svg_bar.append("g")
       .call(xAxis)
