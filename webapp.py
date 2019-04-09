@@ -84,7 +84,7 @@ def index(cat):
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_lv = p.predict(text_joined)
 
-	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	t = pd.read_csv("/static/data/states_in.csv", dtype= {'id': str})
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
@@ -109,7 +109,7 @@ def index(cat):
 
 
 
-	t.to_csv("static/data/states.csv", sep=',')
+	t.to_csv("/static/data/states.csv", sep=',')
 	return render_template('index.html')
 '''
 
