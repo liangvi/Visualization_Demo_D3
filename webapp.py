@@ -37,8 +37,8 @@ def index(cat):
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	#category=request.form['category']
-	#category = "Pizza"
-	category = [cat]
+	category = "Pizza"
+	#category = [cat]
 	city = "phoenix"
 	text = ["this is a good review"]
 
