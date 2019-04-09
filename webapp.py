@@ -30,6 +30,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
+	if(os.path.exists("static/data/states.csv")):
+		temp = pd.read_csv("static/data/states.csv", dtype= {'id': str})
+		temp['rate'] = 0
+
 	return render_template('index.html')
 
 #def index(cat):
