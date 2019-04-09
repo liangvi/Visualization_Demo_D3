@@ -4,14 +4,9 @@
     var padding=5
     var barPadding = 1;
 
-    d3.csv("/static/data/review_types.csv", function(d) {
+    d3.csv("/static/data/review_types.csv", function(data) {
       //http://learnjsdata.com/read_data.html
-      return {
-        type: d.index,
-        good: d.good,
-        bad: d.bad
-      };
-    }).then(function(data) {
+      //https://bl.ocks.org/caravinden/d04238c4c9770020ff6867ee92c7dac1
 
     var yScale = d3.scaleLinear()
                        .domain([padding,h])
