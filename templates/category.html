@@ -95,7 +95,7 @@
 
         var color = d3.scaleThreshold()
             .domain(d3.range(2, 10))
-            .range(d3.schemeBlues[9]);
+            .range(d3.schemeBlues[5]);
 
         var g = svg.append("g")
             .attr("class", "key")
@@ -125,7 +125,7 @@
 
         g.call(d3.axisBottom(x)
             .tickSize(13)
-            .tickFormat(function(x, i) { return i ? x : x + "%"; })
+            .tickFormat(function(x, i) { return i ? x : x; })
             .tickValues(color.domain()))
           .select(".domain")
             .remove();
