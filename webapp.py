@@ -28,7 +28,7 @@ app = Flask(__name__)
 
 #@app.route('/<cat>', methods=['GET'])
 #def index(cat):
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def index():
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
