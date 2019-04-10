@@ -139,7 +139,7 @@
           d3.csv("/static/data/states.csv", function(d) { stars.set(d.id, +d.rate); })
         ]
 
-        //Promise.all(promises).then(ready)
+        Promise.all(promises).then(ready)
 
         function ready([us]) {
           svg.append("g")
