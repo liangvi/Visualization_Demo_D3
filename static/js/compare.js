@@ -1,9 +1,9 @@
-function drawChart(data, chartID, chartName) {
+function drawChart(data, category, chartID, chartName) {
 
   var margin = {
-    top: 30,
-    right: 20,
-    bottom: 30,
+    top: 50,
+    right: 50,
+    bottom: 50,
     left: 50
   };
   var overallWidth = document.getElementById(chartID).clientWidth;
@@ -11,7 +11,11 @@ function drawChart(data, chartID, chartName) {
   var width = overallWidth - margin.left - margin.right;
   var height = overallHeight - margin.top - margin.bottom;
 
-  var color = d3.scaleOrdinal(d3.schemeCategory10);
+  console.log(data)
+  data = JSON.parse(data)
+  cols = Object.keys(data[0])
+  var keys = cols.slice(1);
+  var groupKey = cols[0];
 
   var svg = d3
     .select("#" + chartID)
@@ -21,128 +25,130 @@ function drawChart(data, chartID, chartName) {
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  console.log(data)
-  data = JSON.parse(data)
-
-  var xScale = d3.scaleBand()
-    .domain(data.map((d) => d.topic))
-    .rangeRound([0, width])
-    .padding(0.3);
+  var x0 = d3.scaleBand()
+    .domain(data.map(d => d[groupKey]))
+    .rangeRound([margin.left, width - margin.right])
+    .paddingInner(0.1)
+  var x1 = d3.scaleBand()
+    .domain(keys)
+    .rangeRound([0, x0.bandwidth()])
+    .padding(0.05)
 
   var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, function(d) {
-      return d.freq;
-    })])
+    .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
     .range([height, margin.top]);
 
   var xAxis = svg.append("g")
     .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(xScale))
+    .call(d3.axisBottom(x0).tickSizeOuter(0))
     .selectAll("text")
     .attr("transform", "rotate(-20)");
 
   var yAxis = svg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(yScale));
 
+  var color = d3.scaleOrdinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-  svg
-    .append('text')
-    .attr('class', 'label')
-    .attr('x', -(height / 2) - margin.left)
-    .attr('y', 0 - margin.left)
-    .attr('transform', 'rotate(-90)')
-    .attr('text-anchor', 'middle')
-    .text('Frequency')
-
-  svg.append('text')
-    .attr('class', 'label')
-    .attr('x', width / 2 + margin.left)
-    .attr('y', height + margin.left * 1.7)
-    .attr('text-anchor', 'middle')
-    .text('Topics')
-
-  svg.append('text')
-    .attr('class', 'title')
-    .attr('x', width / 2 + margin.left)
-    .attr('y', 40)
-    .attr('text-anchor', 'middle')
-    .text(chartName)
-
-  const barGroups = svg.selectAll()
+  svg.append("g")
+    .selectAll("g")
     .data(data)
-    .enter()
-    .append('g')
+    .join("g")
+    .attr("transform", d => `translate(${x0(d[groupKey])},0)`)
+    .selectAll("rect")
+    .data(d => keys.map(key => ({
+      key,
+      value: d[key]
+    })))
+    .join("rect")
+    .attr("x", d => x1(d.key))
+    .attr("y", d => yScale(d.value))
+    .attr("width", x1.bandwidth())
+    .attr("height", d => yScale(0) - yScale(d.value))
+    .attr("fill", d => color(d.key))
+    .on('mouseenter', function() {
+      d3.selectAll('.value')
+        .attr('opacity', 1)
 
-  barGroups.append("rect")
-    .attr('class', 'bar')
-    .attr("x", function(d) {
-      return xScale(d.topic);
+      d3.select(this)
+        .transition()
+        .duration(300)
+        .attr('opacity', 0.6)
+        .attr('x', (d) => x1(d.key) - 5)
+        .attr('width', x1.bandwidth() + 10)
+
     })
-    .attr("y", function(d) {
-      return yScale(d.freq);
-    })
-    .attr("width", xScale.bandwidth())
-    .attr("height", function(d) {
-      return height - yScale(d.freq);
-    })
-    .on('mouseenter', function(actual, i) {
+    .on('mouseleave', function() {
       d3.selectAll('.value')
         .attr('opacity', 0)
 
       d3.select(this)
         .transition()
         .duration(300)
-        .attr('opacity', 0.6)
-        .attr('x', (d) => xScale(d.topic) - 5)
-        .attr('width', xScale.bandwidth() + 10)
-
-      barGroups.append('text')
-        .attr('class', 'divergence')
-        .attr('x', (d) => xScale(d.topic) + xScale.bandwidth() / 2)
-        .attr('y', (d) => yScale(d.freq) + 30)
-        .attr('font-size',"12px")
-        .attr('fill', 'white')
-        .attr('text-anchor', 'middle')
-        .text((d, idx) => {
-          const divergence = (d.freq - actual.freq)
-          let text = ''
-          if (divergence > 0) text += '+'
-          text += `${divergence}`
-          text += `${divergence}`
-          return idx !== i ? text : '';
-        })
-
-    })
-    .on('mouseleave', function() {
-      d3.selectAll('.value')
         .attr('opacity', 1)
+        .attr('x', (d) => x1(d.key))
+        .attr('width', x1.bandwidth())
 
-      d3.select(this)
-        .transition()
-        .duration(300)
-        .attr('opacity', 1)
-        .attr('x', (d) => xScale(d.topic))
-        .attr('width', xScale.bandwidth())
-        
-      svg.selectAll('.divergence').remove()
-    })
+    });
+  legend = svg => {
+    const g = svg
+      .attr("class", "legend")
+      .attr("transform", `translate(${width}, ${margin.top})`)
+      .attr("text-anchor", "end")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 12)
+      .selectAll("g")
+      .data(color.domain().slice().reverse())
+      .join("g")
+      .attr("transform", (d, i) => `translate(0,${i * 20})`);
 
-    barGroups 
-      .append('text')
-      .attr('class', 'value')
-      .attr('x', (d) => xScale(d.topic) + xScale.bandwidth() / 2)
-      .attr('y', (d) => yScale(d.freq) + 30)
-      .attr('font-size',"12px")
-      .attr('fill', 'white')
-      .attr('text-anchor', 'middle')
-      .text((d) => `${d.freq}`)
+    g.append("rect")
+      .attr("x", -20)
+      .attr("width", 20)
+      .attr("height", 20)
+      .attr("fill", color);
+
+    g.append("text")
+      .attr("x", -25)
+      .attr("y", 10)
+      .attr("dy", "0.35em")
+      .text(d => d);
+  }
+
+  svg
+    .append('text')
+    .attr('class', 'ylabel')
+    .attr('x', -(height / 2) - margin.left)
+    .attr('y', 0)
+    .attr('transform', 'rotate(-90)')
+    .attr('text-anchor', 'middle')
+    .text('Frequency')
+
+  svg.append('text')
+    .attr('class', 'xlabel')
+    .attr('x', width / 2 + margin.left)
+    .attr('y', height + (margin.bottom-10))
+    .attr('text-anchor', 'middle')
+    .text('Topics')
+
+  svg.append('text')
+    .attr('class', 'title')
+    .attr('x', width / 2 + margin.left)
+    .attr('y', margin.top)
+    .attr('text-anchor', 'middle')
+    .text(chartName)
+
+  svg.append("g")
+      .call(legend);
 };
 
 function drawPage(overallData, goodData, badData) {
   drawChart(overallData, "overallChart", 'Review Topic Comparison');
   drawChart(goodData, "goodChart", 'Good Review Topic Comparison (4 Stars or More)');
-  drawChart(badData, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)' );
+  drawChart(badData, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)');
 };
+
 
 function resize(chartID) {
   width = document.getElementById(chartID).clientWidth;

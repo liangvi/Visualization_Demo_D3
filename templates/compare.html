@@ -34,10 +34,20 @@
     </a>
   </div>
   <div class="row">
-<!--    <div class="container" id="chartArea1"></div> -->
 
-    <!-- <div class="col-lg-2" id="chartArea1"></div> -->
     <div class="col-md-10" id="overallChart"></div>
+    <div class="col-md-2">
+        Selected Category: {{category}}
+        <form class="categorySelection" method="GET" action="/compare"> 
+        <select name= category>
+            {% for category in categories %}
+            <option value= "{{category}}">{{category}}
+            </option>"
+            {% endfor %}
+        </select>
+        <input class="btn" type="submit" value="submit">
+    </form>
+    </div>
   </div>
 
   <div class="row">
@@ -46,11 +56,13 @@
   </div>
 </div>
   	</body>
-	<script type="text/javascript" src="/static/js/compare.js?2s">
+	<script type="text/javascript" src="/static/js/compare.js?1q">
     
     </script>
     <script type="text/javascript">
-        console.log("and the current time is:", Date.now());
-        drawPage({{ topic_dist|tojson }}, {{topic_dist_good|tojson}}, {{topic_dist_bad|tojson}});   
+        drawPage({{ topic_dist|tojson }}, 
+        {{topic_dist_good|tojson}}, 
+        {{topic_dist_bad|tojson}}
+        ) 
     </script>
 </html>

@@ -103,12 +103,10 @@ def index():
 
 
 	'''
-
-
-@app.route('/compare/<cat>/<loc>', methods=['GET'])
-def compare(cat, loc):
+@app.route('/compare/', methods=['GET'])
+def compare():
 	restaurants_file = open('pickle/restaurants_min.pkl', 'rb')
-	restaurants = pickle.load(restaurants_file)
+	restaurants_min = pickle.load(restaurants_file)
 	restaurants_file.close()
 
 	all_topic_keywords_file = open('pickle/all_topic_keywords.pkl', 'rb')
@@ -147,27 +145,63 @@ def compare(cat, loc):
 	bad_topic_distribution = pickle.load(bad_topic_distribution_file)
 	bad_topic_distribution_file.close()
 
-	if not (loc == 'all'):
-		restaurants = restaurants[restaurants['city']==loc]
-
-	if not (cat == 'all'):
-		category = restaurants['categories'].str.contains(cat, regex=False)
-		category = category.fillna(False)
-		restaurants = restaurants[category]
-
-	indexes = restaurants.index.values
-	docnames = ["Doc" + str(i) for i in indexes]
+	categories = ['','Pizza', "Mexican", "Chinese", "Italian", "Vietnamese"]
+	cities = request.args.get('cities')
+	cat = request.args.get('category')
+	if (cities is None):
+		cities = "Phoenix-Las Vegas"
 	
-	sub_topic_distribution = generateSubtopic(docnames, all_document_topic, all_topic_keywords)
-	sub_topic_distribution_good = generateSubtopic(docnames, good_document_topic, good_topic_keywords)
-	sub_topic_distribution_bad = generateSubtopic(docnames, bad_document_topic, bad_topic_keywords)
-	return render_template('compare.html', 
-		topic_dist=(sub_topic_distribution.to_json(orient='records')),
-		topic_dist_good=(sub_topic_distribution_good.to_json(orient='records')),
-		topic_dist_bad=(sub_topic_distribution_bad.to_json(orient='records'))
-		)
+	city_list = cities.split("-")
+	
+	topic_distribution_cols = ['city']
+	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
+	tmpList_topic_distribution_cols.sort()
+	topic_distribution_cols = topic_distribution_cols + tmpList_topic_distribution_cols
+	topic_distribution = pd.DataFrame(columns=topic_distribution_cols)
 
-def generateSubtopic(docnames, topics, keywords): 
+	topic_distribution_good_cols = ['city']
+	tmpList_topic_distribution_good_cols = good_topic_keywords['topic'].tolist()
+	tmpList_topic_distribution_good_cols.sort()
+	topic_distribution_good_cols = topic_distribution_good_cols + tmpList_topic_distribution_good_cols
+	topic_distribution_good = pd.DataFrame(columns=topic_distribution_good_cols)
+
+	topic_distribution_bad_cols = ['city']
+	tmpList_topic_distribution_bad_cols = bad_topic_keywords['topic'].tolist()
+	tmpList_topic_distribution_bad_cols.sort()
+	topic_distribution_bad_cols = topic_distribution_bad_cols + tmpList_topic_distribution_bad_cols
+	topic_distribution_bad = pd.DataFrame(columns=topic_distribution_bad_cols)
+
+	i = 0
+	for city in city_list:
+		restaurants = copy.deepcopy(restaurants_min)
+		restaurants = restaurants[restaurants['city']==city]
+
+		if (cat and cat != ''):
+			category = restaurants['categories'].str.contains(cat, regex=False)
+			category = category.fillna(False)
+			restaurants = restaurants[category]
+		indexes = restaurants.index.values
+		docnames = ["Doc" + str(i) for i in indexes]
+
+		city_topic_distribution = generateSubtopic(docnames, all_document_topic, all_topic_keywords, city)
+		city_topic_distribution_good = generateSubtopic(docnames, good_document_topic, good_topic_keywords, city)
+		city_topic_distribution_bad = generateSubtopic(docnames, bad_document_topic, bad_topic_keywords, city)
+		topic_distribution.loc[i] = city_topic_distribution
+		topic_distribution_good.loc[i] = city_topic_distribution_good
+		topic_distribution_bad.loc[i] = city_topic_distribution_bad
+		i = i + 1
+
+	topic_distribution = reformat(topic_distribution)
+	topic_distribution_good = reformat(topic_distribution_good)
+	topic_distribution_bad = reformat(topic_distribution_bad)
+	return render_template('compare.html',
+	 topic_dist=(topic_distribution.to_json(orient='records')),
+	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
+	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
+	   categories=categories, 
+	   category = cat)	
+
+def generateSubtopic(docnames, topics, keywords, city): 
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
 	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
 	sub_topic_distribution.columns = ['topic_num', 'freq']
@@ -177,8 +211,20 @@ def generateSubtopic(docnames, topics, keywords):
 
 	sub_topic_distribution = sub_topic_distribution.sort_values(by=['topic_num'])
 	sub_topic_distribution['topic'] = keywords['topic'].values
-	sub_topic_distribution = sub_topic_distribution.sort_values(by=['freq'], ascending=False)
-	return sub_topic_distribution
+	sub_topic_distribution = sub_topic_distribution.sort_values(by=['topic'])
+	sub_topic_distribution_record = [city]
+	tmpList = sub_topic_distribution['freq'].tolist()
+	sub_topic_distribution_record = sub_topic_distribution_record + tmpList
+	return sub_topic_distribution_record
+
+def reformat(dataframe):
+	tmpcols = ['topic']
+	city_list = dataframe['city'].tolist()
+	tmpcols = tmpcols + city_list
+	dataframe_t = dataframe.iloc[:,1:].T
+	dataframe_t = dataframe_t.reset_index()
+	dataframe_t.columns = tmpcols
+	return dataframe_t
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
