@@ -24,10 +24,30 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
+import os
+
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+	#https://www.w3schools.com/python/python_file_remove.asp
+	if(os.path.exists("static/data/states.csv")):
+		os.remove("static/data/states.csv")
+		print("Deleted")
+
+
+	return render_template('index.html')
+
+#def index(cat):
+#@app.route('/<cat>', methods=['GET'])
+@app.route('/category/', methods=['GET', 'POST'])
+def category():
+
+
+	### Building choropleth
+
+	## add pittsurgh, cleveland, madison
+
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
 
@@ -36,12 +56,10 @@ def index():
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
-	#category=request.form['category']
-	category = "Pizza"
-	city = "phoenix"
+	category=request.form['category']
 	text = ["this is a good review"]
 
-
+	city = "phoenix"
 
 #encode city
 	cities = []
@@ -59,13 +77,7 @@ def index():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_phoenix = p.predict(text_joined)
 
-
-
-	category = "Pizza"
 	city = "las vegas"
-	text = ["this is a good review"]
-
-
 
 #encode city
 	cities = []
@@ -83,15 +95,81 @@ def index():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_lv = p.predict(text_joined)
 
+	city = "charlotte"
+
+#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_cha = p.predict(text_joined)
+
+	city = "pittsburgh"
+
+	#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+	#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_pitt = p.predict(text_joined)
+
+	city = "madison"
+
+	#encode city
+	cities = []
+	for t in enc.categories_:
+		for c in t:
+			cities.append(c)
+
+	text_enc = genCity(city, cities)
+
+	#encode Category
+	cat_row = genCat(category)
+
+	text_tf = vectorizer.transform(text)
+
+	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+	score_mad = p.predict(text_joined)
+
+
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
+	if(os.path.exists("static/data/states.csv")):
+		os.remove("static/data/states.csv")
+		print("Deleted_compare")
+
+
 	#phoenix
 	t.loc[t['id'] == '04', ['rate']] = score_phoenix
 
 	#las vegas
 	t.loc[t['id'] == '32', ['rate']] = score_lv
 
+	#charlotte
+	t.loc[t['id'] == '37', ['rate']] = score_cha
 
+	#pittsburgh
+	t.loc[t['id'] == '42', ['rate']] = score_pitt
 
+	#madison
+	t.loc[t['id'] == '55', ['rate']] = score_mad
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('index.html')
@@ -201,7 +279,7 @@ def compare():
 	   categories=categories, 
 	   category = cat)	
 
-def generateSubtopic(docnames, topics, keywords, city): 
+def generateSubtopic(docnames, topics, keywords):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
 	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
 	sub_topic_distribution.columns = ['topic_num', 'freq']
@@ -228,7 +306,7 @@ def reformat(dataframe):
 
 @app.route('/analysis/', methods=['GET'])
 def analysis():
-	return render_template('analysis.html', )
+	return render_template('analysis.html')
 
 def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)
@@ -278,7 +356,6 @@ def review():
 
 	text_tf = vectorizer.transform(text)
 
-	#text_joined = hstack([text_tf, text_enc], format="csr")
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
