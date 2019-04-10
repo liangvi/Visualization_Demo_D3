@@ -1,4 +1,4 @@
-function drawChart(data, category, chartID, chartName) {
+function drawChart(data, chartID, chartName) {
 
   var margin = {
     top: 50,
