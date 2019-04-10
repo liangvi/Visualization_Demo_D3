@@ -26,6 +26,7 @@ from scipy.sparse import csr_matrix, hstack, coo_matrix
 
 import nltk
 from nltk.stem.snowball import EnglishStemmer
+import string
 
 
 import os
@@ -366,7 +367,33 @@ def review():
 
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
-	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
+
+	lda_model_all_data = open("pickle/lda_model_all.pkl","rb")
+	lda_model_all = pickle.load(lda_model_all_data)
+	lda_model_all_data.close()
+
+	all_topic_keywords_file = open('pickle/all_topic_keywords.pkl', 'rb')
+	all_topic_keywords = pickle.load(all_topic_keywords_file)
+	all_topic_keywords_file.close()
+
+	count_vectorizer_data = open("pickle/count_vectorizer.pkl",'rb')
+	count_vectorizer = pickle.load(count_vectorizer_data)
+	count_vectorizer_data.close()
+
+	processed_text = text_process(text)
+	processed_text = tokenize(processed_text)
+	text_count = count_vectorizer.transform([processed_text])
+	text_count_features = count_vectorizer.get_feature_names()
+	text_count_df = pd.SparseDataFrame(text_count)
+	text_count_df.columns = text_count_features
+	text_count_df.fillna(0.0, inplace=True)
+	lda_output = lda_model_all.transform(text_count_df)
+	topicnames = ["Topic" + str(i) for i in range(lda_model_all.n_components)]
+	df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topicnames)
+	dominant_topic = np.argmax(df_document_topic.values, axis=1)
+	predict_topic = all_topic_keywords.loc['Topic ' + str(dominant_topic[0])].topic
+
+	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score, predict_topic=predict_topic)
 
 def text_process(text):
     """

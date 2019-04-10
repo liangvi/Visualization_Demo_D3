@@ -20,13 +20,14 @@
 
   	</head>
 	<body>
-		This is the review page
+    <div class="container">
     <h1> This is the text: {{ text }} </h1>
     <h1> This is the city: {{ city }} </h1>
     <h1> This is the category: {{ category }} </h1>
 
     <h1> This is the score: {{ score }} </h1>
 
+    <h1> This is the predict topic: {{ predict_topic }} </h1>
     <form action="/review/" method="post">
       <div>
         <label text="text">Enter Review</label>
@@ -64,6 +65,7 @@
          Analysis
      </a>
    </div>
+ </div>
 	</body>
 
 </html>
