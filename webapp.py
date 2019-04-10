@@ -279,7 +279,7 @@ def compare():
 	   categories=categories, 
 	   category = cat)	
 
-def generateSubtopic(docnames, topics, keywords):
+def generateSubtopic(docnames, topics, keywords, city):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
 	sub_topic_distribution = sub_restaurants['dominant_topic'].value_counts().reset_index(name="Num Documents")
 	sub_topic_distribution.columns = ['topic_num', 'freq']
