@@ -172,7 +172,7 @@ def category():
 	t.loc[t['id'] == '55', ['rate']] = score_mad
 
 	t.to_csv("static/data/states.csv", sep=',')
-	return render_template('index.html')
+	return render_template('category.html', category=request.form['category'])
 '''
 
 	text=[request.form['text']]
@@ -359,23 +359,6 @@ def review():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
-
-@app.route('/categories/', methods=['GET'])
-def categories():
-	city_restaurants = pd.read_csv('data/lasvegas_restaurants.csv')
-	totals = city_restaurants.iloc[:, 13:].sum().sort_values(ascending=False)[2:12]
-	totals_dict = pd.DataFrame({'category':totals.index, 'value':totals.values}).to_dict('records')
-	totals_json =  json.dumps(totals_dict)
-	return render_template('categories.html', totals=totals_dict)
-
-@app.route('/reviews/<category>/<city>', methods=['GET'])
-def reviews(category, city):
-	restaurants = pd.read_csv('data/reviews.csv')
-	city_restaurants = restaurants
-	if city is not None:
-		city_restaurants = restaurants_combined[restaurants_combined.city == city]
-	totals = city_restaurants.iloc[:, 13:].sum().sort_values(ascending=False)
-	return json.dumps(totals.to_dict())
 
 if __name__ == '__main__':
 	app.debug = True
