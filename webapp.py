@@ -24,6 +24,10 @@ from sklearn.feature_extraction import DictVectorizer
 
 from scipy.sparse import csr_matrix, hstack, coo_matrix
 
+import nltk
+from nltk.stem.snowball import EnglishStemmer
+
+
 import os
 
 app = Flask(__name__)
@@ -332,12 +336,16 @@ def review():
 
 	enc_file = open('enc.pkl', 'rb')
 	enc = pickle.load(enc_file)
+	enc_file.close()
 
 	vec_file = open('vec.pkl', 'rb')
 	vectorizer = pickle.load(vec_file)
+	vec_file.close()
 
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
+	pkl_file.close()
+
 	text=[request.form['text']]
 	city=request.form['city']
 	category=request.form['category']
@@ -359,6 +367,41 @@ def review():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score = p.predict(text_joined)
 	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score)
+
+def text_process(text):
+    """
+    Modified from
+    http://adataanalyst.com/scikit-learn/countvectorizer-sklearn-example/
+    Takes in a string of text, then performs the following:
+    1. Remove all punctuation, and digits 
+    2. Remove all stopwords
+    3. Returns a list of the cleaned text
+    """
+    stemmer = EnglishStemmer()
+   
+    # Check characters to see if they are in punctuation
+    clean = [char for char in text if (char not in string.punctuation) 
+            and (not char.isdigit())] 
+ 
+    clean = ''.join(clean)
+    tokens = clean.split()
+    tokens = [stemmer.stem(c) for c in tokens]
+    # Join the characters again to form the string.
+
+    tokens = ' '.join(tokens)
+    
+    # Now just remove any stopwords
+    return tokens
+#https://www.w3schools.com/python/ref_string_join.asp
+def tokenize(string):
+    d = []
+    tokens = nltk.word_tokenize(string)
+    tags = nltk.pos_tag(tokens)
+    for x in tags:
+        if x[1] == "NN" or x[1] == "NNS" or x[1] == "NNP" or x[1] == "NNPS":
+            d.append(x[0])
+    d = " ".join(d)
+    return d
 
 if __name__ == '__main__':
 	app.debug = True
