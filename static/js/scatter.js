@@ -21,7 +21,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
                        .scale(xScale);
 
 
-  var svg = d3.select("#bar")
+  var svg = d3.select("#scatter")
               .append("svg")
               .attr("width", w)
               .attr("height", h);
