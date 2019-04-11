@@ -48,9 +48,6 @@ def index():
 @app.route('/category/', methods=['GET', 'POST'])
 def category():
 
-
-	### Building choropleth
-
 	## add pittsurgh, cleveland, madison
 
 	enc_file = open('enc.pkl', 'rb')
@@ -154,38 +151,38 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_mad = p.predict(text_joined)
 
-
+'''
 	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
 	if(os.path.exists("static/data/states.csv")):
 		os.remove("static/data/states.csv")
 		print("Deleted_compare")
-
-
+'''
+	scores = {}
 	#phoenix
-	t.loc[t['id'] == '04', ['rate']] = score_phoenix
+	#t.loc[t['id'] == '04', ['rate']] = score_phoenix
+	scores['Phoenix'] = score_phoenix
 
 	#las vegas
-	t.loc[t['id'] == '32', ['rate']] = score_lv
+	#t.loc[t['id'] == '32', ['rate']] = score_lv
+	scores['Las Vegas'] = score_lv
 
 	#charlotte
-	t.loc[t['id'] == '37', ['rate']] = score_cha
+	#t.loc[t['id'] == '37', ['rate']] = score_cha
+	scores['Charlotte'] = score_cha
 
 	#pittsburgh
-	t.loc[t['id'] == '42', ['rate']] = score_pitt
+	#t.loc[t['id'] == '42', ['rate']] = score_pitt
+	scores['Pittsburgh'] = score_pitt
 
 	#madison
-	t.loc[t['id'] == '55', ['rate']] = score_mad
+	#t.loc[t['id'] == '55', ['rate']] = score_mad
+	scores['Madison'] = score_mad
+	t = pd.DataFrame.from_dict(scores)
 
 	t.to_csv("static/data/states.csv", sep=',')
 	return render_template('category.html', category=request.form['category'])
-'''
-
-	text=[request.form['text']]
-	city=request.form['city']
 
 
-
-	'''
 @app.route('/compare/', methods=['GET'])
 def compare():
 	restaurants_file = open('pickle/restaurants_min.pkl', 'rb')
@@ -233,9 +230,9 @@ def compare():
 	cat = request.args.get('category')
 	if (cities is None):
 		cities = "Phoenix-Las Vegas"
-	
+
 	city_list = cities.split("-")
-	
+
 	topic_distribution_cols = ['city']
 	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
 	tmpList_topic_distribution_cols.sort()
@@ -281,8 +278,8 @@ def compare():
 	 topic_dist=(topic_distribution.to_json(orient='records')),
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
 	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
-	   categories=categories, 
-	   category = cat)	
+	   categories=categories,
+	   category = cat)
 
 def generateSubtopic(docnames, topics, keywords, city):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
@@ -400,23 +397,23 @@ def text_process(text):
     Modified from
     http://adataanalyst.com/scikit-learn/countvectorizer-sklearn-example/
     Takes in a string of text, then performs the following:
-    1. Remove all punctuation, and digits 
+    1. Remove all punctuation, and digits
     2. Remove all stopwords
     3. Returns a list of the cleaned text
     """
     stemmer = EnglishStemmer()
-   
+
     # Check characters to see if they are in punctuation
-    clean = [char for char in text if (char not in string.punctuation) 
-            and (not char.isdigit())] 
- 
+    clean = [char for char in text if (char not in string.punctuation)
+            and (not char.isdigit())]
+
     clean = ''.join(clean)
     tokens = clean.split()
     tokens = [stemmer.stem(c) for c in tokens]
     # Join the characters again to form the string.
 
     tokens = ' '.join(tokens)
-    
+
     # Now just remove any stopwords
     return tokens
 #https://www.w3schools.com/python/ref_string_join.asp
