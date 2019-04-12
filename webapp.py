@@ -151,12 +151,6 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_mad = p.predict(text_joined)
 
-'''
-	t = pd.read_csv("static/data/states_in.csv", dtype= {'id': str})
-	if(os.path.exists("static/data/states.csv")):
-		os.remove("static/data/states.csv")
-		print("Deleted_compare")
-'''
 	scores = {}
 	#phoenix
 	#t.loc[t['id'] == '04', ['rate']] = score_phoenix
