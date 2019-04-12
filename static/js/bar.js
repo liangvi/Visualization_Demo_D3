@@ -38,11 +38,26 @@ d3.csv("/static/data/states.csv", function(data) {
   svg.selectAll(".bar")
       .data(data)
     .enter().append("rect")
-      .attr("class", "bar")
+      //.attr("class", "bar")
+      .attr("class", function(d,i) { return "pt" + data.city; })
       .attr("x", function(d) { return x(d.city); })
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.score); })
-      .attr("height", function(d) { return height - y(d.score); });
+      .attr("height", function(d) { return height - y(d.score);
+      .on("mouseover", function(d, i) {
+          d3.selectAll("circle.pt" + i)
+             .attr("fill", "Orchid")
+             .attr("r", 10)
+          d3.selectAll("rect.pt" + i)
+             .attr("fill", "Orchid")
+      })
+      .on("mouseout", function(d, i) {
+          d3.selectAll("circle.pt" + i)
+             .attr("fill", "orange")
+             .attr("r", 5)
+          d3.selectAll("rect.pt" + i)
+             .attr("fill", "orange")
+        }); });
 
   // add the x Axis
   svg.append("g")
