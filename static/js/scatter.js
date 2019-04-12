@@ -35,7 +35,6 @@ d3.csv("/static/data/review_types.csv", function(data) {
           return xScale(d.good);
      })
      .attr("cy", function(d) {
-     			console.log(d.bad);
            return yScale(d.bad);
      })
      .attr("r", 4)
