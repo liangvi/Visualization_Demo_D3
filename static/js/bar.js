@@ -22,7 +22,7 @@ var svg = d3.select("#bar")
 
 d3.csv("/static/data/states.csv", function(data) {
 
-
+  console.log(data)
   // Scale the range of the data in the domains
   x.domain(data.map(function(d) { return d.city; }));
   y.domain([0, d3.max(data, function(d) { return d.score; })]);
