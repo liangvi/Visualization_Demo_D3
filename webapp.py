@@ -152,7 +152,7 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_mad = p.predict(text_joined)
 
-	scores = {'city': ['Phoenix', 'Las Vegas', 'Charlotte', 'Pittsburgh', 'Madison'], 'score': [score_phoenix, score_lv, score_cha, score_pitt, score_mad]}
+	scores = {'city': ['Phoenix', 'Las Vegas', 'Charlotte', 'Pittsburgh', 'Madison'], 'score': [score_phoenix[0], score_lv[0], score_cha[0], score_pitt[0], score_mad[0]]}
 	#phoenix
 	#t.loc[t['id'] == '04', ['rate']] = score_phoenix
 	#scores['Phoenix'] = score_phoenix
