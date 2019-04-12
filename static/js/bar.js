@@ -8,12 +8,12 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 500 - margin.top - margin.bottom;
 
 // set the ranges
-var x = d3.scaleBand()
+/*var x = d3.scaleBand()
           .range([0, width])
           .padding(0.1);
 var y = d3.scaleLinear()
           .range([height, 0]);
-
+*/
 var svg = d3.select("#bar")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
