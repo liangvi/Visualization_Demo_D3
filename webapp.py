@@ -59,7 +59,8 @@ def category():
 	pkl_file = open('model.pkl', 'rb')
 	p = pickle.load(pkl_file)
 	category=request.form['category']
-	text = ["this is a good review"]
+
+	text = ["this is a good review"] 
 
 	city = "phoenix"
 
