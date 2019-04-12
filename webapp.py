@@ -60,7 +60,7 @@ def category():
 	p = pickle.load(pkl_file)
 	category=request.form['category']
 
-	text = ["this is a good review"] 
+	text = ["this is a good review"]
 
 	city = "phoenix"
 
@@ -152,26 +152,26 @@ def category():
 	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 	score_mad = p.predict(text_joined)
 
-	scores = {}
+	scores = {'city': ['Phoenix', 'Las Vegas', 'Charlotte', 'Pittsburgh', 'Madison'], 'score': [score_phoenix, score_lv, score_cha, score_pitt, score_mad]}
 	#phoenix
 	#t.loc[t['id'] == '04', ['rate']] = score_phoenix
-	scores['Phoenix'] = score_phoenix
+	#scores['Phoenix'] = score_phoenix
 
 	#las vegas
 	#t.loc[t['id'] == '32', ['rate']] = score_lv
-	scores['Las Vegas'] = score_lv
+	#scores['Las Vegas'] = score_lv
 
 	#charlotte
 	#t.loc[t['id'] == '37', ['rate']] = score_cha
-	scores['Charlotte'] = score_cha
+	#scores['Charlotte'] = score_cha
 
 	#pittsburgh
 	#t.loc[t['id'] == '42', ['rate']] = score_pitt
-	scores['Pittsburgh'] = score_pitt
+	#scores['Pittsburgh'] = score_pitt
 
 	#madison
 	#t.loc[t['id'] == '55', ['rate']] = score_mad
-	scores['Madison'] = score_mad
+	#scores['Madison'] = score_mad
 	t = pd.DataFrame.from_dict(scores)
 
 	t.to_csv("static/data/states.csv", sep=',')
