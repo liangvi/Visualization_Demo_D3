@@ -15,8 +15,8 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  	<!--d3 Import -->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!--d3 Import -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <script type="text/javascript" src="static/js/main.js"></script>
   <link rel="stylesheet" type="text/css" href="static/css/main.css">
@@ -26,11 +26,11 @@
   <h1>Select a category and press evaluate to see an overview</h1>
 
 
-<div class="container-flud">
+ <div class="container-flud">
 
     <!--https://getbootstrap.com/docs/4.0/components/buttons/-->
 
- <div class="btn-group btn-group-lg" role="group" aria-label="...">
+  <div class="btn-group btn-group-lg" role="group" aria-label="...">
     <a class="btn btn-primary" href="/" role="button">
         Explore
     </a>
@@ -43,7 +43,6 @@
   </div>
   </head>
   <body>
-    <svg width="960" height="300" id="scatter"></svg>
 
 <!--  </body> -->
     <!-- http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/ -->
@@ -65,7 +64,8 @@
         <button>Evaluate</button>
       </div>
     </form>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <script src="/static/js/scatter.js"></script>
   </body>
+    <svg width="960" height="300" id="scatter"></svg>
+    <script src="/static/js/scatter.js"></script>
+
 </html>
