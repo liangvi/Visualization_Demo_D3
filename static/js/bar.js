@@ -1,4 +1,6 @@
 //https://bl.ocks.org/d3noob/bdf28027e0ce70bd132edc64f1dd7ea4
+//https://stackoverflow.com/questions/46205118/how-to-sort-a-d3-bar-chart-based-on-an-array-of-objects-by-value-or-key
+
 
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
