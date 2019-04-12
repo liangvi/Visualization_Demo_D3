@@ -37,7 +37,8 @@ d3.csv("/static/data/states.csv", function(data) {
   // append the rectangles for the bar chart
   svg.selectAll(".bar")
       .data(data)
-    .enter().append("rect")
+      .enter()
+      .append("rect")
       //.attr("class", "bar")
       .attr("class", function(d,i) { return "pt" + data.city; })
       .attr("x", function(d) { return x(d.city); })
@@ -58,7 +59,6 @@ d3.csv("/static/data/states.csv", function(data) {
           d3.selectAll("rect.pt" + i)
              .attr("fill", "orange")
         });
-      });
 
   // add the x Axis
   svg.append("g")
