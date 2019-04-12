@@ -43,7 +43,7 @@ d3.csv("/static/data/states.csv", function(data) {
       .attr("x", function(d) { return x(d.city); })
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.score); })
-      .attr("height", function(d) { return height - y(d.score)
+      .attr("height", function(d) { return height - y(d.score)}
       .on("mouseover", function(d, i) {
           d3.selectAll("circle.pt" + i)
              .attr("fill", "Orchid")
