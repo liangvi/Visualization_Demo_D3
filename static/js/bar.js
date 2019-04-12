@@ -23,11 +23,16 @@ var svg = d3.select("#bar")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/states.csv", function(data) {
+  data.sort(function(a, b) {
+    return d3.descending(a.score, b.score);
+  })
+  x.domain(data.map(function(d) {
+    return d.city;
+  }));
 
-  console.log(data)
   // Scale the range of the data in the domains
   x.domain(data.map(function(d) { return d.city; }));
-  y.domain([d3.min(data, function(d) { return d.score; }), d3.max(data, function(d) { return d.score; })]);
+  y.domain([d3.min(data, function(d) { return d.score; })-.1, d3.max(data, function(d) { return d.score; })]);
 
   // append the rectangles for the bar chart
   svg.selectAll(".bar")
