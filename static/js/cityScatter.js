@@ -97,3 +97,4 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
   svg.append("text")
       .text("Cities by Review Types")
       .attr("transform","translate(" + (w-250) + " ," + (h - 210) + ")")
+  })
