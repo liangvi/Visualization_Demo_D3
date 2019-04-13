@@ -23,12 +23,12 @@ var svg = d3.select("#bar")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/states.csv", function(data) {
-  /*data.sort(function(a, b) {
+  data.sort(function(a, b) {
     return d3.descending(a.score, b.score);
   })
   x.domain(data.map(function(d) {
     return d.city;
-  }));*/
+  }));
 
   // Scale the range of the data in the domains
   x.domain(data.map(function(d) { return d.city; }));
