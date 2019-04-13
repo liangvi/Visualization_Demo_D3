@@ -38,7 +38,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
            return yScale(d.bad);
      })
      .attr("r", 4)
-     .attr("fill", "orange");
+     .attr("fill", "black");
 
      svg.selectAll("text")
       	.data(dataset)

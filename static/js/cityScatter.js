@@ -41,13 +41,17 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
            return yScale(d.bad);
      })
      .attr("r", 5)
-     .attr("fill", "orange")
+     .attr("fill", "black")
      .on("mouseover", function(d) {
         activeCity = d.index;
         d3.selectAll("circle")
         	.attr("r", function(d) {
           if ( d.index == activeCity) return 10;
           else return 5;
+        })
+        .attr("fill", function(d) {
+        if ( d.index == activeCity) return "orange";
+        else return "black";
         })
         d3.selectAll(".bar")
         	.attr("fill", function(d) {
