@@ -1,12 +1,8 @@
-//https://bl.ocks.org/d3noob/bdf28027e0ce70bd132edc64f1dd7ea4
-//https://stackoverflow.com/questions/46205118/how-to-sort-a-d3-bar-chart-based-on-an-array-of-objects-by-value-or-key
-
-
-// set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
+var barWidth = 50;
 // set the ranges
 var x = d3.scaleBand()
           .range([0, width])
@@ -41,7 +37,7 @@ d3.csv("/static/data/states.csv", function(data) {
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.city); })
-      .attr("width", x.bandwidth())
+      .attr("width", barWidth)
       .attr("y", function(d) { return y(d.score); })
       .attr("height", function(d) { return height - y(d.score) })
       .on("mouseover", function(d) {
@@ -51,9 +47,9 @@ d3.csv("/static/data/states.csv", function(data) {
           if ( d.city == activeCity) return "orange";
           else return "black";
         })
-          .attr('width', function(d) {
-          if ( d.city == activeCity) return x1.bandwidth() + 10);
-          else return x1.bandwidth();
+        .attr("width", function(d) {
+          if ( d.city == activeCity) return barWidth+15;
+          else return barWidth;
         })
 
         d3.selectAll("circle")
@@ -65,10 +61,11 @@ d3.csv("/static/data/states.csv", function(data) {
      .on("mouseout", function(d) {
         d3.selectAll("rect")
           .attr("fill", "black")
+          .attr("width", barWidth)
+
         d3.selectAll("circle")
           .attr("fill", "black")
           .attr("r", 5)
-          .attr('width', x1.bandwidth());
         })
      });
 
@@ -84,7 +81,5 @@ d3.csv("/static/data/states.csv", function(data) {
 
   // add graph label
   svg.append("text")
-        .attr("transform","translate(" + (w-450) + " ," + (h - 260) + ")")
-     		.text("Predicted Star Rating");
-
-});
+        .attr("transform","translate(" + 10 + " ," + (h - 260) + ")")
+     		.text("Predicted Star Rating by City");

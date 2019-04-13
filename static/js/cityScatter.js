@@ -5,6 +5,8 @@ var w = 500;
 var h = 250;
 var padding = 30;
 var activeCity; // Will be used for linked hovering
+var barWidth = 50;
+
 
 d3.csv("/static/data/city_review_types.csv", function(data) {
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -58,8 +60,8 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           if ( d.city == activeCity) return "orange";
           else return "black"
           .attr('width', function(d) {
-          if ( d.city == activeCity) return x1.bandwidth() + 10);
-          else return x1.bandwidth();
+          if ( d.city == activeCity) return barWidth + 15);
+          else return barWidth;
         });
         })
 
@@ -70,7 +72,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           .attr("r", 5)
         d3.selectAll(".bar")
           .attr("fill", "black")
-          .attr("width", x1.bandwidth())
+          .attr("width", barWidth
      });
 
 
