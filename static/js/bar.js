@@ -51,7 +51,6 @@ d3.csv("/static/data/states.csv", function(data) {
         d3.selectAll(".bar")
         	.attr("fill", function(d) {
           if ( d.city == activeCity) {
-          	console.log(d.score);
           	return "orange";
           }
           else return "black";
@@ -65,7 +64,13 @@ d3.csv("/static/data/states.csv", function(data) {
         	.attr("r", function(d) {
           if ( d.index == activeCity) return 10;
           else return 5;
-        })})
+        })
+        d3.selectAll("circle")
+        	.attr("fill", function(d) {
+          if ( d.index == activeCity) return "orange";
+          else return "black";
+        })
+      })
 
      .on("mouseout", function(d) {
         d3.selectAll("rect")
