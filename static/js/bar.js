@@ -22,7 +22,7 @@ var svg = d3.select("#bar")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/static/data/cities_test.csv", function(data) {
+d3.csv("/static/data/states.csv", function(data) {
   /*data.sort(function(a, b) {
     return d3.descending(a.score, b.score);
   })
@@ -46,7 +46,6 @@ d3.csv("/static/data/cities_test.csv", function(data) {
       .attr("height", function(d) { return height - y(d.score) })
       .on("mouseover", function(d) {
         activeCity = d.city;
-        console.log(activeCity)
         d3.selectAll(".bar")
         	.attr("fill", function(d) {
           if ( d.city == activeCity) return "orange";
@@ -54,7 +53,6 @@ d3.csv("/static/data/cities_test.csv", function(data) {
         })
         d3.selectAll("circle")
         	.attr("r", function(d) {
-          console.log(activeCity)
           if ( d.index == activeCity) return 10;
           else return 5;
         })})

@@ -46,7 +46,6 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
         activeCity = d.index;
         d3.selectAll("circle")
         	.attr("r", function(d) {
-          console.log(activeCity)
           if ( d.index == activeCity) return 10;
           else return 5;
         })
