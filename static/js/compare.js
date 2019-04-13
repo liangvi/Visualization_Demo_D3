@@ -1,167 +1,184 @@
 function drawChart(data, chartID, chartName) {
 
-  var margin = {
-    top: 50,
-    right: 50,
-    bottom: 50,
-    left: 50
-  };
-  var overallWidth = document.getElementById(chartID).clientWidth;
-  var overallHeight = overallWidth * 1.236;
-  var width = overallWidth - margin.left - margin.right;
-  var height = overallHeight - margin.top - margin.bottom;
+    var margin = {
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50
+    };
+    var overallWidth = document.getElementById(chartID).clientWidth;
+    var overallHeight = overallWidth * 0.8;
+    var width = overallWidth - margin.left - margin.right;
+    var height = overallHeight - margin.top - margin.bottom;
 
-  console.log(data)
-  data = JSON.parse(data)
-  cols = Object.keys(data[0])
-  var keys = cols.slice(1);
-  var groupKey = cols[0];
+    console.log(data)
+    data = JSON.parse(data)
+    cols = Object.keys(data[0])
+    var keys = cols.slice(1);
+    var groupKey = cols[0];
 
-  var svg = d3
-    .select("#" + chartID)
-    .append("svg")
-    .attr("width", overallWidth)
-    .attr("height", overallHeight)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var svg = d3
+        .select("#" + chartID)
+        .append("svg")
+        .attr("width", overallWidth)
+        .attr("height", overallHeight)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  var x0 = d3.scaleBand()
-    .domain(data.map(d => d[groupKey]))
-    .rangeRound([margin.left, width - margin.right])
-    .paddingInner(0.1)
-  var x1 = d3.scaleBand()
-    .domain(keys)
-    .rangeRound([0, x0.bandwidth()])
-    .padding(0.05)
+    var x0 = d3.scaleBand()
+        .domain(data.map(d => d[groupKey]))
+        .rangeRound([margin.left, width - margin.right])
+        .paddingInner(0.1)
+    var x1 = d3.scaleBand()
+        .domain(keys)
+        .rangeRound([0, x0.bandwidth()])
+        .padding(0.05)
 
-  var yScale = d3.scaleLinear()
-    .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
-    .range([height, margin.top]);
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d3.max(keys, key => d[key]))]).nice()
+        .range([height, margin.top]);
 
-  var xAxis = svg.append("g")
-    .attr("transform", `translate(0, ${height})`)
-    .call(d3.axisBottom(x0).tickSizeOuter(0))
-    .selectAll("text")
-    .attr("transform", "rotate(-20)");
+    var xAxis = svg.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(x0).tickSizeOuter(0))
+        .selectAll("text")
+        .attr("transform", "rotate(-20)");
 
-  var yAxis = svg.append("g")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(yScale));
+    var yAxis = svg.append("g")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(d3.axisLeft(yScale));
 
-  var color = d3.scaleOrdinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+    var color = d3.scaleOrdinal().range(["#A07A19", "#AC30C0", "#EB9A72", "#BA86F5", "#EA22A8"]);
 
-  svg.append("g")
-    .selectAll("g")
-    .data(data)
-    .join("g")
-    .attr("transform", d => `translate(${x0(d[groupKey])},0)`)
-    .selectAll("rect")
-    .data(d => keys.map(key => ({
-      key,
-      value: d[key]
-    })))
-    .join("rect")
-    .attr("x", d => x1(d.key))
-    .attr("y", d => yScale(d.value))
-    .attr("width", x1.bandwidth())
-    .attr("height", d => yScale(0) - yScale(d.value))
-    .attr("fill", d => color(d.key))
-    .on('mouseenter', function() {
-      d3.selectAll('.value')
-        .attr('opacity', 1)
+    svg.append("g")
+        .selectAll("g")
+        .data(data)
+        .join("g")
+        .attr("transform", d => `translate(${x0(d[groupKey])},0)`)
+        .selectAll("rect")
+        .data(d => keys.map(key => ({
+            key,
+            value: d[key]
+        })))
+        .join("rect")
+        .attr("x", d => x1(d.key))
+        .attr("y", d => yScale(d.value))
+        .attr("width", x1.bandwidth())
+        .attr("height", d => yScale(0) - yScale(d.value))
+        .attr("fill", d => color(d.key))
+        .on('mouseenter', function() {
+            d3.select('.value')
+                .attr('opacity', 1)
 
-      d3.select(this)
-        .transition()
-        .duration(300)
-        .attr('opacity', 0.6)
-        .attr('x', (d) => x1(d.key) - 5)
-        .attr('width', x1.bandwidth() + 10)
+            d3.select(this)
+                .transition()
+                .duration(300)
+                .attr('opacity', 0.6)
+                .attr('x', (d) => x1(d.key) - 5)
+                .attr('width', x1.bandwidth() + 10)
 
-    })
-    .on('mouseleave', function() {
-      d3.selectAll('.value')
+        })
+        .on('mouseleave', function() {
+            d3.selectAll('.value')
+                .attr('opacity', 0)
+
+            d3.select(this)
+                .transition()
+                .duration(300)
+                .attr('opacity', 1)
+                .attr('x', (d) => x1(d.key))
+                .attr('width', x1.bandwidth())
+
+        });
+
+    svg.selectAll()
+        .data(data)
+        .enter()
+        .append('g')
+        .append('text')
+        .attr('class', 'value')
+        .attr('x', (d) => x1(d.key) + x1.bandwidth() / 2)
+        .attr('y', (d) => yScale(d.value) + 30)
+        .attr('font-size', "12px")
+        .attr('fill', 'white')
+        .attr('text-anchor', 'middle')
         .attr('opacity', 0)
+        .text((d) => `${d.value}`)
 
-      d3.select(this)
-        .transition()
-        .duration(300)
-        .attr('opacity', 1)
-        .attr('x', (d) => x1(d.key))
-        .attr('width', x1.bandwidth())
 
-    });
-  legend = svg => {
-    const g = svg
-      .attr("class", "legend")
-      .attr("transform", `translate(${width}, ${margin.top})`)
-      .attr("text-anchor", "end")
-      .attr("font-family", "sans-serif")
-      .attr("font-size", 12)
-      .selectAll("g")
-      .data(color.domain().slice().reverse())
-      .join("g")
-      .attr("transform", (d, i) => `translate(0,${i * 20})`);
+    legend = svg => {
+        const g = svg
+            .attr("class", "legend")
+            .attr("transform", `translate(${width}, ${margin.top})`)
+            .attr("text-anchor", "end")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", 12)
+            .selectAll("g")
+            .data(color.domain().slice().reverse())
+            .join("g")
+            .attr("transform", (d, i) => `translate(0,${i * 20})`);
 
-    g.append("rect")
-      .attr("x", -20)
-      .attr("width", 20)
-      .attr("height", 20)
-      .attr("fill", color);
+        g.append("rect")
+            .attr("x", -20)
+            .attr("width", 20)
+            .attr("height", 20)
+            .attr("fill", color);
 
-    g.append("text")
-      .attr("x", -25)
-      .attr("y", 10)
-      .attr("dy", "0.35em")
-      .text(d => d);
-  }
+        g.append("text")
+            .attr("x", -25)
+            .attr("y", 10)
+            .attr("dy", "0.35em")
+            .text(d => d);
+    }
 
-  svg
-    .append('text')
-    .attr('class', 'ylabel')
-    .attr('x', -(height / 2) - margin.left)
-    .attr('y', 0)
-    .attr('transform', 'rotate(-90)')
-    .attr('text-anchor', 'middle')
-    .text('Frequency')
+    svg
+        .append('text')
+        .attr('class', 'ylabel')
+        .attr('x', -(height / 2) - margin.left)
+        .attr('y', 0)
+        .attr('transform', 'rotate(-90)')
+        .attr('text-anchor', 'middle')
+        .text('Frequency')
 
-  svg.append('text')
-    .attr('class', 'xlabel')
-    .attr('x', width / 2 + margin.left)
-    .attr('y', height + (margin.bottom-10))
-    .attr('text-anchor', 'middle')
-    .text('Topics')
+    svg.append('text')
+        .attr('class', 'xlabel')
+        .attr('x', width / 2 + margin.left)
+        .attr('y', height + (margin.bottom - 10))
+        .attr('text-anchor', 'middle')
+        .text('Topics')
 
-  svg.append('text')
-    .attr('class', 'title')
-    .attr('x', width / 2 + margin.left)
-    .attr('y', margin.top)
-    .attr('text-anchor', 'middle')
-    .text(chartName)
+    svg.append('text')
+        .attr('class', 'title')
+        .attr('x', width / 2 + margin.left)
+        .attr('y', margin.top)
+        .attr('text-anchor', 'middle')
+        .text(chartName)
 
-  svg.append("g")
-      .call(legend);
+    svg.append("g")
+        .call(legend);
 };
 
 function drawPage(overallData, goodData, badData) {
-  drawChart(overallData, "overallChart", 'Review Topic Comparison');
-  drawChart(goodData, "goodChart", 'Good Review Topic Comparison (4 Stars or More)');
-  drawChart(badData, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)');
+    drawChart(overallData, "overallChart", 'Review Topic Comparison');
+    drawChart(goodData, "goodChart", 'Good Review Topic Comparison (4 Stars or More)');
+    drawChart(badData, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)');
 };
 
 
 function resize(chartID) {
-  width = document.getElementById(chartID).clientWidth;
-  height = width * 1.236;
-  d3.select('#' + chartID + 'svg')
-    .attr('width', width)
-    .attr('height', height);
+    width = document.getElementById(chartID).clientWidth;
+    height = width * 0.8;
+    d3.select('#' + chartID + 'svg')
+        .attr('width', width)
+        .attr('height', height);
 };
 
 function resizePage() {
-  resize("overallChart");
-  resize("goodChart");
-  resize("badChart");
+    resize("overallChart");
+    resize("goodChart");
+    resize("badChart");
 };
 
 window.onresize = resizePage();
+
+function resetData() {}

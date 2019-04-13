@@ -32,6 +32,7 @@ import string
 import os
 
 app = Flask(__name__)
+default_cityList = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
 
 @app.route('/', methods=['GET'])
 def index():
@@ -229,12 +230,10 @@ def compare():
 	bad_topic_distribution_file.close()
 
 	categories = ['','Pizza', "Mexican", "Chinese", "Italian", "Vietnamese"]
-	cities = request.args.get('cities')
+	city_list = request.args.getlist('city_list')
 	cat = request.args.get('category')
-	if (cities is None):
-		cities = "Phoenix-Las Vegas"
-	
-	city_list = cities.split("-")
+	if (city_list is None):
+		city_list = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
 	
 	topic_distribution_cols = ['city']
 	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
@@ -282,7 +281,9 @@ def compare():
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
 	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
 	   categories=categories, 
-	   category = cat)	
+	   category = cat,
+	   cities=city_list,
+	   default_cities=default_cityList)	
 
 def generateSubtopic(docnames, topics, keywords, city):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))

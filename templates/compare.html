@@ -1,68 +1,70 @@
 <!doctype html>
-
 <html>
-  	<head>
-    	<title>Compare</title>
-    		<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+    <title>Compare</title>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--d3 Import -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-  	<!--d3 Import -->
-  	<script src="https://d3js.org/d3.v5.min.js"></script>
-
-  	</head>
-	<body>
-		
-<div class="container">
-   <div class="btn-group btn-group-lg" role="group" aria-label="...">
-    <a class="btn btn-primary" href="/" role="button">
-        Explore
-    </a>
-    <a class="btn btn-primary" href="/compare" role="button">
-        Compare
-    </a>
-    <a class="btn btn-primary" href="/analysis" role="button">
-        Analysis
-    </a>
-  </div>
-  <div class="row">
-
-    <div class="col-md-10" id="overallChart"></div>
-    <div class="col-md-2">
-        Selected Category: {{category}}
-        <form class="categorySelection" method="GET" action="/compare"> 
-        <select name= category>
-            {% for category in categories %}
-            <option value= "{{category}}">{{category}}
-            </option>"
-            {% endfor %}
-        </select>
-        <input class="btn" type="submit" value="submit">
-    </form>
+<body>
+    <div class="container">
+        <div class="btn-group btn-group-lg" role="group" aria-label="...">
+            <a class="btn btn-primary" href="/" role="button">
+                Explore
+            </a>
+            <a class="btn btn-primary" href="/compare" role="button">
+                Compare
+            </a>
+            <a class="btn btn-primary" href="/analysis" role="button">
+                Analysis
+            </a>
+        </div>
+        <div class="row">
+            <div class="col-md-10" id="overallChart"></div>
+            <div class="col-md-2">
+                <form class="compare_form" method="GET" action="{{url_for('compare')}}">
+                    <div class="form-group">
+                        <h4>Selected Category: {{category}}</h4>
+                        <select name=category>
+                            {% for category in categories %}
+                            <option value="{{category}}">{{category}}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <h4>City List</h4>
+                        {% for city in default_cities %}
+                        <div>
+                            <input type="checkbox" class="form-check-input" name="city_list" id="citiesCheck" value={{city}} {% if (city in cities) %} checked {% endif %}>
+                            <label class="form-check-label" for="citiesCheck">{{city}}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit </button>
+            </form>
+        </div>
     </div>
-  </div>
+    <div class="row">
+        <div class="col-md-6" id="goodChart"></div>
+        <div class="col-md-6" id="badChart"></div>
+    </div>
+    </div>
+</body>
+<script type="text/javascript" src="/static/js/compare.js?1">
+</script>
+<script type="text/javascript">
+drawPage({{topic_dist | tojson }}, {{ topic_dist_good | tojson }}, {{ topic_dist_bad | tojson }})
+</script>
 
-  <div class="row">
-    <div class="col-md-5" id="goodChart"></div>
-    <div class="col-md-5" id="badChart"></div>
-  </div>
-</div>
-  	</body>
-	<script type="text/javascript" src="/static/js/compare.js">
-    
-    </script>
-    <script type="text/javascript">
-        drawPage({{ topic_dist|tojson }}, 
-        {{topic_dist_good|tojson}}, 
-        {{topic_dist_bad|tojson}}
-        ) 
-    </script>
 </html>
