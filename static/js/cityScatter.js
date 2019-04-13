@@ -1,8 +1,12 @@
 //http://bl.ocks.org/kbroman/ded6a0784706a109c3a5
+//http://bl.ocks.org/mattykuch/40ba19de703632ea2afbbc5156b9471f
 
 var w = 500;
 var h = 250;
 var padding = 30;
+var activeCity; // Will be used for linked hovering
+var barWidth = 50;
+
 
 d3.csv("/static/data/city_review_types.csv", function(data) {
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -32,29 +36,45 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
      .data(dataset)
      .enter()
      .append("circle")
-     .attr("class", function(d,i) { return "pt" + i; })
      .attr("cx", function(d) {
           return xScale(d.good);
      })
      .attr("cy", function(d) {
            return yScale(d.bad);
      })
-     .attr("r", 4)
-     .attr("fill", "orange")
-     .on("mouseover", function(d, i) {
-        d3.selectAll("circle.pt" + i)
-          .attr("fill", "Orchid")
-          .attr("r", 10)
-        d3.selectAll("rect.pt" + i)
-          .attr("fill", "Orchid")
-     })
+     .attr("r", 5)
+     .attr("fill", "black")
+     .on("mouseover", function(d) {
+        activeCity = d.index;
+        d3.selectAll("circle")
+        	.attr("r", function(d) {
+          if ( d.index == activeCity) return 10;
+          else return 5;
+        })
+        .attr("fill", function(d) {
+        if ( d.index == activeCity) return "orange";
+        else return "black";
+        })
+        d3.selectAll(".bar")
+        	.attr("fill", function(d) {
+          if ( d.city == activeCity) return "orange";
+          else return "black"
+          .attr('width', function(d) {
+          if ( d.city == activeCity) return barWidth + 15;
+          else return barWidth;
+        });
+        })
+
+        })
      .on("mouseout", function(d, i) {
-        d3.selectAll("circle.pt" + i)
-          .attr("fill", "orange")
+        d3.selectAll("circle")
+          .attr("fill", "black")
           .attr("r", 5)
-        d3.selectAll("rect.pt" + i)
-          .attr("fill", "orange")
+        d3.selectAll(".bar")
+          .attr("fill", "black")
+          .attr("width", barWidth)
      });
+
 
 
      //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
