@@ -75,4 +75,9 @@ d3.csv("/static/data/states.csv", function(data) {
   svg.append("g")
       .call(d3.axisLeft(y));
 
+  // add graph label
+  svg.append("text")
+        .attr("transform","translate(" + (w-450) + " ," + (h - 250) + ")")
+     		.text("Predicted Star Rating");
+
 });

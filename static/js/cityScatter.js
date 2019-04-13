@@ -62,7 +62,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
         })
      .on("mouseout", function(d, i) {
         d3.selectAll("circle")
-          .attr("fill", "orange")
+          .attr("fill", "black")
           .attr("r", 5)
         d3.selectAll(".bar")
           .attr("fill", "black")
