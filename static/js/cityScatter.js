@@ -56,6 +56,35 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           .attr("fill", "orange")
      });
 
+     svg.selectAll("text")
+      	.data(dataset)
+      	.enter()
+      	.append("text")
+        .text(function(d) {
+           return d.index;
+        })
+       .attr("x", function(d) {
+           return xScale(d.good);
+        })
+        .attr("y", function(d) {
+           return yScale(d.bad);
+        })
+        .attr("font-size", "2px")
+        .attr("fill", "transparent")
+        .on("mouseover", function(d) {
+          d3.select(this).transition()
+       		.attr("fill", "black")
+           .attr("font-size", "12px")
+
+        })
+        .on("mouseout", function(d) {
+          d3.select(this).transition()
+       		  .attr("fill", "transparent")
+             .attr("font-size", "10px")
+
+        });
+
+
 
      //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
   svg.append("g")
