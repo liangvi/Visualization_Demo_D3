@@ -1,14 +1,12 @@
+//https://bl.ocks.org/d3noob/bdf28027e0ce70bd132edc64f1dd7ea4
+//https://stackoverflow.com/questions/46205118/how-to-sort-a-d3-bar-chart-based-on-an-array-of-objects-by-value-or-key
+
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 500 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    height = 400 - margin.top - margin.bottom;
 
 var barWidth = 50;
-// set the ranges
-var x = d3.scaleBand()
-          .range([0, width])
-          .padding(0.1);
-var y = d3.scaleLinear()
-          .range([height, 0]);
+
 
 var svg = d3.select("#bar")
     .append("svg")
@@ -19,6 +17,16 @@ var svg = d3.select("#bar")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/states.csv", function(data) {
+
+  // set the ranges
+  var x = d3.scaleBand()
+  					.domain(data.map(function(d) { return d.city; }))
+            .range([0, width])
+            .padding(0.1);
+  var y = d3.scaleLinear()
+ 					  .domain([d3.min(data, function(d) { return d.score-0.5; }), d3.max(data, function(d) { return d.score; })])
+            .range([height, 0]);
+
   data.sort(function(a, b) {
     return d3.descending(a.score, b.score);
   })
@@ -26,9 +34,7 @@ d3.csv("/static/data/states.csv", function(data) {
     return d.city;
   }));
 
-  // Scale the range of the data in the domains
-  x.domain(data.map(function(d) { return d.city; }));
-  y.domain([d3.min(data, function(d) { return d.score-0.5; }), d3.max(data, function(d) { return d.score; })]);
+
 
   // append the rectangles for the bar chart
   svg.selectAll(".bar")
@@ -44,7 +50,10 @@ d3.csv("/static/data/states.csv", function(data) {
         activeCity = d.city;
         d3.selectAll(".bar")
         	.attr("fill", function(d) {
-          if ( d.city == activeCity) return "orange";
+          if ( d.city == activeCity) {
+          	console.log(d.score);
+          	return "orange";
+          }
           else return "black";
         })
         .attr("width", function(d) {
@@ -67,8 +76,6 @@ d3.csv("/static/data/states.csv", function(data) {
           .attr("fill", "black")
           .attr("r", 5)
         })
-     });
-
 
   // add the x Axis
   svg.append("g")
@@ -83,3 +90,4 @@ d3.csv("/static/data/states.csv", function(data) {
   svg.append("text")
         .attr("transform","translate(" + 10 + " ," + (h - 260) + ")")
      		.text("Predicted Star Rating by City");
+       });
