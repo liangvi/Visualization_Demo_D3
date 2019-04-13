@@ -61,7 +61,7 @@ d3.csv("/static/data/states.csv", function(data) {
         d3.selectAll("rect")
           .attr("fill", "black")
         d3.selectAll("circle")
-          .attr("fill", "orange")
+          .attr("fill", "black")
           .attr("r", 5)
      });
 
@@ -77,7 +77,7 @@ d3.csv("/static/data/states.csv", function(data) {
 
   // add graph label
   svg.append("text")
-        .attr("transform","translate(" + (w-450) + " ," + (h - 250) + ")")
+        .attr("transform","translate(" + (w-450) + " ," + (h - 260) + ")")
      		.text("Predicted Star Rating");
 
 });
