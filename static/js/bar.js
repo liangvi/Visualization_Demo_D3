@@ -22,7 +22,7 @@ var svg = d3.select("#bar")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/static/data/states.csv", function(data) {
+d3.csv("/static/data/cities_test.csv", function(data) {
   /*data.sort(function(a, b) {
     return d3.descending(a.score, b.score);
   })
@@ -32,33 +32,41 @@ d3.csv("/static/data/states.csv", function(data) {
 
   // Scale the range of the data in the domains
   x.domain(data.map(function(d) { return d.city; }));
-  y.domain([d3.min(data, function(d) { return d.score; })-.1, d3.max(data, function(d) { return d.score; })]);
+  y.domain([d3.min(data, function(d) { return d.score-0.5; }), d3.max(data, function(d) { return d.score; })]);
 
   // append the rectangles for the bar chart
   svg.selectAll(".bar")
       .data(data)
       .enter()
       .append("rect")
-      //.attr("class", "bar")
-      .attr("class", function(d,i) { return "pt" + data.city; })
+      .attr("class", "bar")
       .attr("x", function(d) { return x(d.city); })
       .attr("width", x.bandwidth())
       .attr("y", function(d) { return y(d.score); })
       .attr("height", function(d) { return height - y(d.score) })
-      .on("mouseover", function(d, i) {
-          d3.selectAll("circle.pt" + i)
-             .attr("fill", "Orchid")
-             .attr("r", 10)
-          d3.selectAll("rect.pt" + i)
-             .attr("fill", "Orchid")
-      })
-      .on("mouseout", function(d, i) {
-          d3.selectAll("circle.pt" + i)
-             .attr("fill", "orange")
-             .attr("r", 5)
-          d3.selectAll("rect.pt" + i)
-             .attr("fill", "orange")
-        });
+      .on("mouseover", function(d) {
+        activeCity = d.city;
+        console.log(activeCity)
+        d3.selectAll(".bar")
+        	.attr("fill", function(d) {
+          if ( d.city == activeCity) return "orange";
+          else return "black";
+        })
+        d3.selectAll("circle")
+        	.attr("r", function(d) {
+          console.log(activeCity)
+          if ( d.index == activeCity) return 10;
+          else return 5;
+        })})
+
+     .on("mouseout", function(d) {
+        d3.selectAll("rect")
+          .attr("fill", "black")
+        d3.selectAll("circle")
+          .attr("fill", "orange")
+          .attr("r", 5)
+     });
+
 
   // add the x Axis
   svg.append("g")
