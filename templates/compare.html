@@ -34,7 +34,7 @@
                 <form class="compare_form" method="GET" action="{{url_for('compare')}}">
                     <div class="form-group">
                         <h4>Selected Category: {{category}}</h4>
-                        <select name=category>
+                        <select class="form-control form-control-sm" name=category>
                             {% for category in categories %}
                             <option value="{{category}}">{{category}}
                             </option>
