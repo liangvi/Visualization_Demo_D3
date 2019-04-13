@@ -80,6 +80,7 @@ d3.csv("/static/data/states.csv", function(data) {
       .call(d3.axisLeft(y));
 
   // add graph label
-  svg.append("text")
+/*  svg.append("text")
         .attr("transform","translate(" + 10 + " ," + (h - 260) + ")")
      		.text("Predicted Star Rating by City");
+*/
