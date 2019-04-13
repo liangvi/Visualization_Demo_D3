@@ -224,7 +224,7 @@ def compare():
 	categories = ['','Pizza', "Mexican", "Chinese", "Italian", "Vietnamese"]
 	city_list = request.args.getlist('city_list')
 	cat = request.args.get('category')
-	if (city_list is None):
+	if (not city_list):
 		city_list = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
 	topic_distribution_cols = ['city']
 	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
