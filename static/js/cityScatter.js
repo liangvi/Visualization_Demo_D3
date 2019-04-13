@@ -58,7 +58,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
         d3.selectAll(".bar")
         	.attr("fill", function(d) {
           if ( d.city == activeCity) return "orange";
-          else return "black"
+          else return "black";
           .attr('width', function(d) {
           if ( d.city == activeCity) return barWidth + 15;
           else return barWidth;
