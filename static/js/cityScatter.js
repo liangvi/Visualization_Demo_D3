@@ -72,7 +72,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           .attr("r", 5)
         d3.selectAll(".bar")
           .attr("fill", "black")
-          .attr("width", barWidth
+          .attr("width", barWidth)
      });
 
 
