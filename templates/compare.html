@@ -45,7 +45,7 @@
                         <h4>City List</h4>
                         {% for city in default_cities %}
                         <div>
-                            <input type="checkbox" class="form-check-input" name="city_list" id="citiesCheck" value={{city}} {% if (city in cities) %} checked {% endif %}>
+                            <input type="checkbox" class="form-check-input" name="city_list" id="citiesCheck" value={{city|replace(" ","_")}} {% if (city.replace(" ","_") in cities) %} checked {% endif %}>
                             <label class="form-check-label" for="citiesCheck">{{city}}</label>
                         </div>
                         {% endfor %}

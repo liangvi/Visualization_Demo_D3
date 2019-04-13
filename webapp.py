@@ -32,7 +32,7 @@ import string
 import os
 
 app = Flask(__name__)
-default_cityList = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
+default_cityList = ['Charlotte','Las Vegas','Madison','Phoenix','Pittsburgh']
 default_categories = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']
 @app.route('/', methods=['GET'])
 def index():
@@ -221,11 +221,12 @@ def compare():
 	bad_topic_distribution = pickle.load(bad_topic_distribution_file)
 	bad_topic_distribution_file.close()
 
-	categories = default_categories
+	categories = [''] + default_categories
 	city_list = request.args.getlist('city_list')
 	cat = request.args.get('category')
 	if (not city_list):
-		city_list = default_cityList
+		city_list = copy.deepcopy(default_cityList)
+		city_list = [city.replace(' ', '_') for city in city_list]
 	topic_distribution_cols = ['city']
 	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
 	tmpList_topic_distribution_cols.sort()
@@ -246,6 +247,7 @@ def compare():
 
 	i = 0
 	for city in city_list:
+		city = city.replace("_"," ")
 		restaurants = copy.deepcopy(restaurants_min)
 		restaurants = restaurants[restaurants['city']==city]
 
@@ -271,7 +273,7 @@ def compare():
 	 topic_dist=(topic_distribution.to_json(orient='records')),
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
 	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
-	   categories=default_categories, 
+	   categories=categories, 
 	   category = cat,
 	   cities=city_list,
 	   default_cities=default_cityList)	
