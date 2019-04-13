@@ -14,19 +14,16 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  	<!--d3 Import -->
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <!--d3 Import -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
 
   <script type="text/javascript" src="/static/js/main.js"></script>
   <link rel="stylesheet" type="text/css" href="/static/css/main.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta charset="utf-8">
+  <h1>Select a category and press evaluate to see an overview</h1>
 
-  <svg width="960" height="300" id="bar"></svg>
-  <svg width="960" height="600" id="choropleth"></svg>
-  </head>
-  <body>
 
 <div class="container-flud">
 
@@ -43,21 +40,9 @@
         Analysis
     </a>
   </div>
+  </head>
+  <body>
 
-  </body>
-    <style>
-
-      .counties {
-        fill: none;
-      }
-
-      .states {
-        fill: none;
-        stroke: #fff;
-        stroke-linejoin: round;
-      }
-
-    </style>
     <!-- http://duspviz.mit.edu/d3-workshop/mapping-data-with-d3/ -->
     <!-- https://bl.ocks.org/adamjanes/6cf85a4fd79e122695ebde7d41fe327f -->
     <!-- https://bl.ocks.org/chucklam/f628765b873d707a3d0e44ffc78deab8 -->
@@ -78,81 +63,14 @@
         <button>Evaluate</button>
       </div>
     </form>
+  </body>
 
-    <script>
+    <svg width="960" height="300" id="scatter"></svg>
+    <svg width="960" height="300" id="city"></svg>
+    <svg width="960" height="500" id="bar"></svg>
 
-        var svg = d3.select("#choropleth");
-
-        var stars = d3.map();
-
-        var path = d3.geoPath();
-
-        var x = d3.scaleLinear()
-            .domain([3.5, 4])
-            .rangeRound([600, 860]);
-        // https://stackoverflow.com/questions/45111265/choropleth-map-scale-and-legend -->
-        var color = d3.scaleThreshold()
-            .domain([3.5, 3.6, 3.7, 3.8, 3.9])
-            .range(d3.schemeBlues[5]);
-
-        var g = svg.append("g")
-            .attr("class", "key")
-            .attr("transform", "translate(0,40)");
-
-        g.selectAll("rect")
-          .data(color.range().map(function(d) {
-              d = color.invertExtent(d);
-              if (d[0] == null) d[0] = x.domain()[0];
-              if (d[1] == null) d[1] = x.domain()[1];
-              return d;
-            }))
-          .enter().append("rect")
-            .attr("height", 8)
-            .attr("x", function(d) { return x(d[0]); })
-            .attr("width", function(d) { return x(d[1]) - x(d[0]); })
-            .attr("fill", function(d) { return color(d[0]); });
-
-        g.append("text")
-            .attr("class", "caption")
-            .attr("x", x.range()[0])
-            .attr("y", -6)
-            .attr("fill", "#000")
-            .attr("text-anchor", "start")
-            .attr("font-weight", "bold")
-            .text("Stars");
-
-        g.call(d3.axisBottom(x)
-            .tickSize(13)
-            .tickFormat(function(x, i) { return i ? x : x; })
-            .tickValues(color.domain()))
-          .select(".domain")
-            .remove();
-
-        var promises = [
-          d3.json("https://d3js.org/us-10m.v1.json"),
-          d3.csv("/static/data/states.csv", function(d) { stars.set(d.id, +d.rate); })
-        ]
-
-        Promise.all(promises).then(ready)
-
-        function ready([us]) {
-          svg.append("g")
-              .attr("class", "states")
-            .selectAll("path")
-            //.data(topojson.feature(us, us.objects.counties).features)
-            .data(topojson.feature(us, us.objects.states).features)
-            .enter().append("path")
-              .attr("fill", function(d) { return color(d.rate = stars.get(d.id)); })
-              .attr("d", path)
-            .append("title")
-              .text(function(d) { return d.rate; });
-
-          svg.append("path")
-              .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
-              .attr("class", "states")
-              .attr("d", path);
-        }
-    </script>
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="/static/js/scatter.js"></script>
+    <script src="/static/js/cityScatter.js"></script>
     <script src="/static/js/bar.js"></script>
+
 </html>
