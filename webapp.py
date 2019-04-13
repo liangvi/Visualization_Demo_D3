@@ -33,7 +33,7 @@ import os
 
 app = Flask(__name__)
 default_cityList = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
-
+default_categories = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']
 @app.route('/', methods=['GET'])
 def index():
 	#https://www.w3schools.com/python/python_file_remove.asp
@@ -221,11 +221,11 @@ def compare():
 	bad_topic_distribution = pickle.load(bad_topic_distribution_file)
 	bad_topic_distribution_file.close()
 
-	categories = ['','Pizza', "Mexican", "Chinese", "Italian", "Vietnamese"]
+	categories = default_categories
 	city_list = request.args.getlist('city_list')
 	cat = request.args.get('category')
 	if (not city_list):
-		city_list = ["Charlotte","Las Vegas","Madison","Phoenix","Pittsburgh"]
+		city_list = default_cityList
 	topic_distribution_cols = ['city']
 	tmpList_topic_distribution_cols = all_topic_keywords['topic'].tolist()
 	tmpList_topic_distribution_cols.sort()
@@ -271,7 +271,7 @@ def compare():
 	 topic_dist=(topic_distribution.to_json(orient='records')),
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
 	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
-	   categories=categories, 
+	   categories=default_categories, 
 	   category = cat,
 	   cities=city_list,
 	   default_cities=default_cityList)	
@@ -301,9 +301,79 @@ def reformat(dataframe):
 	dataframe_t.columns = tmpcols
 	return dataframe_t
 
-@app.route('/analysis/', methods=['GET'])
+@app.route('/analysis/', methods=['GET', 'POST'])
 def analysis():
-	return render_template('analysis.html')
+	if (request.method == "GET"):
+		return render_template(
+			'analysis.html',
+			categories=default_categories,
+			 default_cities=default_cityList)
+
+	if (request.method == "POST"):
+		enc_file = open('enc.pkl', 'rb')
+		enc = pickle.load(enc_file)
+		enc_file.close()
+
+		vec_file = open('vec.pkl', 'rb')
+		vectorizer = pickle.load(vec_file)
+		vec_file.close()
+
+		pkl_file = open('model.pkl', 'rb')
+		p = pickle.load(pkl_file)
+		pkl_file.close()
+
+		text=[request.form['text']]
+		city=request.form['city'].lower()
+		category=request.form['category']
+
+		#encode city
+		cities = []
+		for t in enc.categories_:
+			for c in t:
+				cities.append(c)
+
+		text_enc = genCity(city, cities)
+
+		#encode Category
+		cat_row = genCat(category)
+
+		text_tf = vectorizer.transform(text)
+		text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
+		score = p.predict(text_joined)
+
+		lda_model_all_data = open("pickle/lda_model_all.pkl","rb")
+		lda_model_all = pickle.load(lda_model_all_data)
+		lda_model_all_data.close()
+
+		all_topic_keywords_file = open('pickle/all_topic_keywords.pkl', 'rb')
+		all_topic_keywords = pickle.load(all_topic_keywords_file)
+		all_topic_keywords_file.close()
+
+		count_vectorizer_data = open("pickle/count_vectorizer.pkl",'rb')
+		count_vectorizer = pickle.load(count_vectorizer_data)
+		count_vectorizer_data.close()
+
+		processed_text = text_process(text)
+		processed_text = tokenize(processed_text)
+		text_count = count_vectorizer.transform([processed_text])
+		text_count_features = count_vectorizer.get_feature_names()
+		text_count_df = pd.SparseDataFrame(text_count)
+		text_count_df.columns = text_count_features
+		text_count_df.fillna(0.0, inplace=True)
+		lda_output = lda_model_all.transform(text_count_df)
+		topicnames = ["Topic" + str(i) for i in range(lda_model_all.n_components)]
+		df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topicnames)
+		dominant_topic = np.argmax(df_document_topic.values, axis=1)
+		predict_topic = all_topic_keywords.loc['Topic ' + str(dominant_topic[0])].topic
+		return render_template(
+			'analysis.html',
+			categories=default_categories,
+			 default_cities=default_cityList,
+			 category=request.form['category'],
+			  text=request.form['text'],
+			   city=request.form['city'],
+			    score=score,
+			     predict_topic=predict_topic)
 
 def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)
@@ -321,72 +391,7 @@ def genCat(cat):
 	row = row.astype('int64')
 	row = csr_matrix(row.values)
 	return row
-
-#https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data
-@app.route('/review/', methods=['GET', 'POST'])
-def review():
-
-
-	enc_file = open('enc.pkl', 'rb')
-	enc = pickle.load(enc_file)
-	enc_file.close()
-
-	vec_file = open('vec.pkl', 'rb')
-	vectorizer = pickle.load(vec_file)
-	vec_file.close()
-
-	pkl_file = open('model.pkl', 'rb')
-	p = pickle.load(pkl_file)
-	pkl_file.close()
-
-	text=[request.form['text']]
-	city=request.form['city']
-	category=request.form['category']
-
-#encode city
-	cities = []
-	for t in enc.categories_:
-		for c in t:
-			cities.append(c)
-
-	text_enc = genCity(city, cities)
-
-
-#encode Category
-	cat_row = genCat(category)
-
-	text_tf = vectorizer.transform(text)
-
-	text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
-	score = p.predict(text_joined)
-
-	lda_model_all_data = open("pickle/lda_model_all.pkl","rb")
-	lda_model_all = pickle.load(lda_model_all_data)
-	lda_model_all_data.close()
-
-	all_topic_keywords_file = open('pickle/all_topic_keywords.pkl', 'rb')
-	all_topic_keywords = pickle.load(all_topic_keywords_file)
-	all_topic_keywords_file.close()
-
-	count_vectorizer_data = open("pickle/count_vectorizer.pkl",'rb')
-	count_vectorizer = pickle.load(count_vectorizer_data)
-	count_vectorizer_data.close()
-
-	processed_text = text_process(text)
-	processed_text = tokenize(processed_text)
-	text_count = count_vectorizer.transform([processed_text])
-	text_count_features = count_vectorizer.get_feature_names()
-	text_count_df = pd.SparseDataFrame(text_count)
-	text_count_df.columns = text_count_features
-	text_count_df.fillna(0.0, inplace=True)
-	lda_output = lda_model_all.transform(text_count_df)
-	topicnames = ["Topic" + str(i) for i in range(lda_model_all.n_components)]
-	df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topicnames)
-	dominant_topic = np.argmax(df_document_topic.values, axis=1)
-	predict_topic = all_topic_keywords.loc['Topic ' + str(dominant_topic[0])].topic
-
-	return render_template('review.html', category=request.form['category'], text=request.form['text'], city=request.form['city'], score=score, predict_topic=predict_topic)
-
+	
 def text_process(text):
     """
     Modified from

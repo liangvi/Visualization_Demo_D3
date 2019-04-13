@@ -1,68 +1,73 @@
 <!doctype html>
-
 <html>
-  	<head>
-    	<title>Analysis</title>
-    		<!-- jQuery library -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<head>
+    <title>Analysis</title>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--d3 Import -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-  	<!--d3 Import -->
-  	<script src="https://d3js.org/d3.v5.min.js"></script>
-    Enter a sample review in the "Review" form, select a city and restaurant category, and click evaluate to predict the review's star rating and main topic
-
-
-  	</head>
-	<body>
-
-
+<body>
     <div class="btn-group btn-group-lg" role="group" aria-label="...">
-     <a class="btn btn-primary" href="/" role="button">
-         Explore
-     </a>
-     <a class="btn btn-primary" href="/compare" role="button">
-         Compare
-     </a>
-     <a class="btn btn-primary" href="/analysis" role="button">
-         Analysis
-     </a>
-   </div>
-	</body>
-<!--	<script type="text/javascript" src="/static/js/explore.js"></script> -->
-  <!-- https://www.w3schools.com/html/html_forms.asp -->
-  <form action="/review/" method="post">
-    <div>
-      <label text="text">Enter Review</label>
-      <input name="text" id="text" value="Review">
+        <a class="btn btn-primary" href="/" role="button">
+            Explore
+        </a>
+        <a class="btn btn-primary" href="/compare" role="button">
+            Compare
+        </a>
+        <a class="btn btn-primary" href="/analysis" role="button">
+            Analysis
+        </a>
     </div>
-    <select name="city">
-      <option value="toronto">Toronto</option>
-      <option value="las vegas">Las Vegas</option>
-      <option value="phoenix">Phoenix</option>
-      <option value="montreal">Montreal</option>
-      <option value="calgary">Calgary</option>
-      <option value="charlotte">Charlotte</option>
-    </select>
-    <!-- 	common_cats = ['Pizza', 'Mexican', 'Chinese', 'Italian', 'Vietnamese']-->
-    <select name="category">
-     <option value="Pizza">Pizza</option>
-     <option value="Mexican">Mexican</option>
-     <option value="Chinese">Chinese</option>
-     <option value="Italian">Italian</option>
-     <option value="Vietnamese">Vietnamese</option>
-    </select>
     <div>
-      <button>Evaluate</button>
+        <p>
+            Enter a sample review in the "Review" form, select a city and restaurant category, and click evaluate to predict the review's star rating and main topic
+        </p>
     </div>
-  </form>
-
+    {% if score %}
+    <div>
+        <h2> This is the text: {{ text }} </h2>
+        <h2> This is the city: {{ city }} </h2>
+        <h2> This is the category: {{ category }} </h2>
+        <h2> This is the score: {{ score }} </h2>
+        <h2> This is the predict topic: {{ predict_topic }} </h2>
+    </div>
+    {% endif %}
+    <!--  <script type="text/javascript" src="/static/js/explore.js"></script> -->
+    <!-- https://www.w3schools.com/html/html_forms.asp -->
+    <form class="review_form" method="POST" action="{{url_for('analysis')}}">
+        <div class="form-group">
+            <label text="text">Enter Review</label>
+            <input name="text" id="text" value="Review">
+        </div>
+        <div class="form-group">
+            City:
+            <select name=city>
+                {% for city in default_cities %}
+                <option value="{{city}}">{{city}}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            Category:
+            <select name=category>
+                {% for category in categories %}
+                <option value="{{category}}">{{category}}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <button class="btn btn-primary" type="submit"> Evaluate </button>
+    </form>
+</body>
 
 </html>
