@@ -65,8 +65,6 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           else return barWidth;
         });
         })
-
-        })
      .on("mouseout", function(d, i) {
         d3.selectAll("circle")
           .attr("fill", "black")
