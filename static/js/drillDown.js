@@ -83,7 +83,7 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
 
   // add graph label
   svgD.append("text")
-        .attr("transform","translate(" + 10 + " ," + (height - 260) + ")")
+        .attr("transform","translate(" + 10 + " ," + 50 + ")")
      		.text("Star Rating Distribution by City");
        });
 
