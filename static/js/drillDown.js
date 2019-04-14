@@ -1,5 +1,3 @@
-function drawChart(category) {
-
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -113,4 +111,3 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
         .text(function(d) { return d; });
 
            });
-});
