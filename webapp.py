@@ -180,7 +180,7 @@ def category():
 	#pick category for drill down
 
 	rec_in = pd.read_csv("static/data/star_types.csv")
-	rec_in[rec_in['category'] == category]
+	rec_in = rec_in[rec_in['category'] == category]
 
 	rec_in.to_csv("static/data/star_types_filtered.csv", sep=',')
 
