@@ -1,6 +1,6 @@
 //http://bl.ocks.org/weiglemc/6185069
 //https://bl.ocks.org/sebg/6f7f1dd55e0c52ce5ee0dac2b2769f4b
-
+//https://stackoverflow.com/questions/39626858/how-to-set-fixed-no-of-ticks-on-axis-in-d3-js
 
 var w = 700;
 var h = 250;
@@ -21,7 +21,8 @@ d3.csv("/static/data/review_types.csv", function(data) {
                        .range([h - padding, padding]);
 
   var yAxis = d3.axisLeft()
-                       .scale(yScale);
+                       .scale(yScale)
+                       .ticks(5);
   var xAxis = d3.axisBottom()
                        .scale(xScale);
 
