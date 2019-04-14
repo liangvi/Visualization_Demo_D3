@@ -83,25 +83,26 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
 
   // add graph label
   svgD.append("text")
-        .attr("transform","translate(" + 10 + " ," + 50 + ")")
+        .attr("transform","translate(" + 10 + " ," + 30 + ")")
      		.text("Star Rating Distribution by City");
-       });
 
-       var legend = svg.selectAll(".legend")
-             .data(color.domain())
-             .enter().append("g")
-             .attr("class", "legend")
-             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+  var legend = svgD.selectAll(".legend")
+        .data(color.domain())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-           legend.append("rect")
-             .attr("x", w - 18)
-             .attr("width", 18)
-             .attr("height", 18)
-             .style("fill", color);
+      legend.append("rect")
+        .attr("x", w - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
 
-           legend.append("text")
-             .attr("x", w - 24)
-             .attr("y", 9)
-             .attr("dy", ".35em")
-             .style("text-anchor", "end")
-             .text(function(d) { return d; });
+      legend.append("text")
+        .attr("x", w - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+
+           });
