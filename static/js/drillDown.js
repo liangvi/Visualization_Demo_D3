@@ -2,7 +2,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-var barWidth = 50;
+var barWidth = 5;
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 var width = 600;
@@ -38,7 +38,11 @@ d3.csv("/static/data/drillDown.csv", function(data) {
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d,i) { return i* x(d.star); })
+      .attr("x", function(d,i) {
+      	console.log(i);
+        return i*5 + x(d.star);
+       })
+      //return i * ((w-yA) / posCount.length) + yA;
       .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count); })
       .style("fill", function(d) { return color(d.city);})
