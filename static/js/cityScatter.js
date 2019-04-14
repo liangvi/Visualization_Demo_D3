@@ -22,7 +22,9 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
                        .range([h - padding, padding]);
 
   var yAxis = d3.axisLeft()
-                       .scale(yScale);
+                       .scale(yScale)
+                       .ticks(5);
+
   var xAxis = d3.axisBottom()
                        .scale(xScale);
 
