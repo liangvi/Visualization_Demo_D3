@@ -4,8 +4,8 @@ key,city,category,star,count
 1,Phoenix,pizza,3,5000
 1,Phoenix,pizza,4,6000
 1,Phoenix,pizza,5,1000
-2,Madison,pizza,5.1,1000
-2,Madison,pizza,4.1,3000
-2,Madison,pizza,3.1,5000
-2,Madison,pizza,2.1,6000
-2,Madison,pizza,1.1,1000
+2,Madison,pizza,5,1000
+2,Madison,pizza,4,3000
+2,Madison,pizza,3,5000
+2,Madison,pizza,2,6000
+2,Madison,pizza,1,1000
