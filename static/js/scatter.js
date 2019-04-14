@@ -2,7 +2,7 @@
 //https://bl.ocks.org/sebg/6f7f1dd55e0c52ce5ee0dac2b2769f4b
 
 
-var w = 500;
+var w = 700;
 var h = 250;
 var padding = 30;
 
