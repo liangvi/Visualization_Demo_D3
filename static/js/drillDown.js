@@ -19,7 +19,6 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
   var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
             .range([0, width])
-            .paddingInner(0.1)
             .padding(0.1);
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
