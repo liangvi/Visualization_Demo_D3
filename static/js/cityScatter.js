@@ -83,13 +83,13 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
            .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
          legend.append("rect")
-           .attr("x", width - 60)
+           .attr("x", w - 60)
            .attr("width", 60)
            .attr("height", 18)
            .style("fill", color);
 
          legend.append("text")
-           .attr("x", width - 70)
+           .attr("x", w - 70)
            .attr("y", 9)
            .attr("dy", ".35em")
            .style("text-anchor", "end")
