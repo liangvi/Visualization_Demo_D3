@@ -6,6 +6,7 @@ var h = 250;
 var padding = 30;
 var activeCity; // Will be used for linked hovering
 var barWidth = 50;
+var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 
 d3.csv("/static/data/city_review_types.csv", function(data) {
@@ -43,7 +44,8 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
            return yScale(d.bad);
      })
      .attr("r", 5)
-     .attr("fill", "black")
+     //.attr("fill", "black")
+     .style("fill", function(d) { return color(d.city);})
      .on("mouseover", function(d) {
         activeCity = d.index;
         d3.selectAll("circle")
