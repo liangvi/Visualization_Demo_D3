@@ -1,3 +1,6 @@
+//http://bl.ocks.org/weiglemc/6185069
+//https://bl.ocks.org/sebg/6f7f1dd55e0c52ce5ee0dac2b2769f4b
+
 
 var w = 500;
 var h = 250;
@@ -6,6 +9,8 @@ var padding = 30;
 d3.csv("/static/data/review_types.csv", function(data) {
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
   const dataset = data;
+
+  var color = d3.scaleOrdinal(d3.schemeCategory10);
 
   var xScale = d3.scaleLinear()
                        .domain([0, 5000])
@@ -38,35 +43,28 @@ d3.csv("/static/data/review_types.csv", function(data) {
            return yScale(d.bad);
      })
      .attr("r", 4)
-     .attr("fill", "black");
+     .style("fill", function(d) { return color(d.index);});
 
-     svg.selectAll("text")
-      	.data(dataset)
-      	.enter()
-      	.append("text")
-        .text(function(d) {
-           return d.index;
-        })
-       .attr("x", function(d) {
-           return xScale(d.good);
-        })
-        .attr("y", function(d) {
-           return yScale(d.bad);
-        })
-        .attr("font-size", "2px")
-        .attr("fill", "transparent")
-        .on("mouseover", function(d) {
-          d3.select(this).transition()
-       		.attr("fill", "black")
-           .attr("font-size", "12px")
+  var legend = svg.selectAll(".legend")
+      .data(color.domain())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-        })
-        .on("mouseout", function(d) {
-          d3.select(this).transition()
-       		  .attr("fill", "transparent")
-             .attr("font-size", "10px")
+  legend.append("rect")
+      .attr("x", w - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
 
-        });
+  legend.append("text")
+      .attr("x", w - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+
 
 
      //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
