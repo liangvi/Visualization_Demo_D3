@@ -176,6 +176,14 @@ def category():
 	t = pd.DataFrame.from_dict(scores)
 
 	t.to_csv("static/data/states.csv", sep=',')
+
+	#pick category for drill down
+
+	rec_in = pd.read_csv("static/data/star_types.csv")
+	rec_in[rec_in['category'] == category]
+
+	rec_in.to_csv("static/data/star_types_filtered.csv", sep=',')
+
 	return render_template('category.html', category=request.form['category'])
 
 
@@ -273,10 +281,10 @@ def compare():
 	 topic_dist=(topic_distribution.to_json(orient='records')),
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
 	   topic_dist_bad=(topic_distribution_bad.to_json(orient='records')),
-	   categories=categories, 
+	   categories=categories,
 	   category = cat,
 	   cities=city_list,
-	   default_cities=default_cityList)	
+	   default_cities=default_cityList)
 
 def generateSubtopic(docnames, topics, keywords, city):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
@@ -393,7 +401,7 @@ def genCat(cat):
 	row = row.astype('int64')
 	row = csr_matrix(row.values)
 	return row
-	
+
 def text_process(text):
     """
     Modified from

@@ -1,3 +1,5 @@
+function drawChart(category) {
+
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -16,7 +18,7 @@ var svgD = d3.select("#drill")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/static/data/star_types.csv", function(data) {
+d3.csv("/static/data/star_types_filtered.csv", function(data) {
   //const dataset = data;
   const dataset = data.filter(row => row.category == "Pizza");
 
@@ -111,3 +113,4 @@ d3.csv("/static/data/star_types.csv", function(data) {
         .text(function(d) { return d; });
 
            });
+});
