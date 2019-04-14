@@ -1,7 +1,7 @@
 //http://bl.ocks.org/kbroman/ded6a0784706a109c3a5
 //http://bl.ocks.org/mattykuch/40ba19de703632ea2afbbc5156b9471f
 
-var w = 500;
+var w = 600;
 var h = 250;
 var padding = 30;
 var activeCity; // Will be used for linked hovering
