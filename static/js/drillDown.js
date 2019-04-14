@@ -56,8 +56,42 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
       .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count); })
       .style("fill", function(d) { return color(d.city);})
+      .attr("height", function(d) { return height - y(d.count) })
+      .on("mouseover", function(d) {
+        activeCity = d.city;
+        d3.selectAll(".bar")
+        	.attr("fill", function(d) {
+          if ( d.city == activeCity) {
+          	return "orange";
+          }
+          else return "black";
+        })
+        .attr("width", function(d) {
+          if ( d.city == activeCity) return barWidth+15;
+          else return barWidth;
+        })
 
-      .attr("height", function(d) { return height - y(d.count) });
+        d3.selectAll("circle")
+        	.attr("r", function(d) {
+          if ( d.index == activeCity) return 10;
+          else return 5;
+        })
+        d3.selectAll("circle")
+        	.attr("fill", function(d) {
+          if ( d.index == activeCity) return "orange";
+          else return "black";
+        })
+      })
+
+     .on("mouseout", function(d) {
+        d3.selectAll("rect")
+          .attr("fill", "black")
+          .attr("width", barWidth)
+
+        d3.selectAll("circle")
+          .attr("fill", "black")
+          .attr("r", 5)
+        });
 
   // add the x Axis
   svgD.append("g")
