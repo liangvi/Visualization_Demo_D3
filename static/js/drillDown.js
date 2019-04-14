@@ -17,7 +17,8 @@ var svgD = d3.select("#drill")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/star_types.csv", function(data) {
-  const dataset = data;
+  //const dataset = data;
+  const dataset = data.filter(row => row.category == "Pizza");
 
   // set the ranges
   var x = d3.scaleBand()
