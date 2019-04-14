@@ -1,7 +1,13 @@
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 600 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
+var barWidth = 5;
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 var width = 600;
+
+var activeCity;
 
 var svgD = d3.select("#drill")
     .append("svg")
@@ -11,9 +17,10 @@ var svgD = d3.select("#drill")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
+d3.csv("/static/data/drillDown.csv", function(data) {
 
-  const dataset = data.filter(city => data.city == c);
+  //const dataset = data.filter(city => data.city == c);
+  const dataset = data;
 
   // set the ranges
   var x = d3.scaleBand()
@@ -83,7 +90,7 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
 
   // add graph label
   svgD.append("text")
-        .attr("transform","translate(" + 10 + " ," + 30 + ")")
+        .attr("transform","translate(" + 10 + " ," + 10 + ")")
      		.text("Star Rating Distribution by City");
 
   var legend = svgD.selectAll(".legend")
@@ -93,13 +100,13 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
       legend.append("rect")
-        .attr("x", width - 18)
-        .attr("width", 18)
+        .attr("x", width - 60)
+        .attr("width", 60)
         .attr("height", 18)
         .style("fill", color);
 
       legend.append("text")
-        .attr("x", width - 24)
+        .attr("x", width - 70)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
