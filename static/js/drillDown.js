@@ -17,7 +17,8 @@ var svgD = d3.select("#drill")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("/static/data/drillDown.csv", function(data) {
+d3.csv("/static/data/star_types.csv", function(data) {
+//  d3.csv("/static/data/drillDown.csv", function(data) {
 
   //const dataset = data.filter(city => data.city == c);
   const dataset = data;
