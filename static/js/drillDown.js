@@ -24,6 +24,28 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
 
+
+  var legend = svg.selectAll(".legend")
+        .data(color.domain())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+      legend.append("rect")
+        .attr("x", w - 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+
+      legend.append("text")
+        .attr("x", w - 24)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+
+
+
   // append the rectangles for the bar chart
   svgD.selectAll(".bar")
       .data(dataset)
@@ -49,5 +71,5 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
   // add graph label
   svgD.append("text")
         .attr("transform","translate(" + 10 + " ," + (height - 260) + ")")
-     		.text("Drilldown");
+     		.text("Star Rating Distribution by City");
        });
