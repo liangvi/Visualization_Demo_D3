@@ -93,13 +93,13 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
       legend.append("rect")
-        .attr("x", w - 18)
+        .attr("x", width - 18)
         .attr("width", 18)
         .attr("height", 18)
         .style("fill", color);
 
       legend.append("text")
-        .attr("x", w - 24)
+        .attr("x", width - 24)
         .attr("y", 9)
         .attr("dy", ".35em")
         .style("text-anchor", "end")
