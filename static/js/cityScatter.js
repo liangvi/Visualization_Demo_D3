@@ -74,6 +74,24 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
           .attr("width", barWidth)
      });
 
+     var legend = svg.selectAll(".legend")
+           .data(color.domain())
+           .enter().append("g")
+           .attr("class", "legend")
+           .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+         legend.append("rect")
+           .attr("x", width - 60)
+           .attr("width", 60)
+           .attr("height", 18)
+           .style("fill", color);
+
+         legend.append("text")
+           .attr("x", width - 70)
+           .attr("y", 9)
+           .attr("dy", ".35em")
+           .style("text-anchor", "end")
+           .text(function(d) { return d; });
 
 
      //https://bl.ocks.org/d3noob/23e42c8f67210ac6c678db2cd07a747e
