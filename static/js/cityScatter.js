@@ -45,7 +45,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
      })
      .attr("r", 5)
      //.attr("fill", "black")
-     .style("fill", function(d) { return color(d.city);})
+     .style("fill", function(d) { return color(d.index);})
      .on("mouseover", function(d) {
         activeCity = d.index;
         d3.selectAll("circle")
