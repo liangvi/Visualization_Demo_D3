@@ -73,7 +73,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
       .attr("transform", "translate(40)");
 
   svg.append("text")
-      .attr("transform","translate(" + (w-450) + " ," + (h - 210) + ")")
+      .attr("transform","translate(" + 50 + " ," + (h - 210) + ")")
   		.text("Bad Review Count");
 
 
@@ -87,5 +87,5 @@ d3.csv("/static/data/review_types.csv", function(data) {
 
   svg.append("text")
       .text("Categories by Review Types")
-      .attr("transform","translate(" + (w-250) + " ," + (h - 210) + ")")
+      .attr("transform","translate(" + 250 + " ," + (h - 210) + ")")
   });
