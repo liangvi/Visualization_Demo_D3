@@ -1,5 +1,5 @@
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 600 - margin.left - margin.right,
+    width = 960 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var barWidth = 5;
@@ -17,8 +17,6 @@ var svgD = d3.select("#drill")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/star_types.csv", function(data) {
-
-  //const dataset = data.filter(city => data.city == c);
   const dataset = data;
 
   // set the ranges
@@ -29,7 +27,6 @@ d3.csv("/static/data/star_types.csv", function(data) {
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
 
-
   // append the rectangles for the bar chart
   svgD.selectAll(".bar")
       .data(dataset)
@@ -37,13 +34,12 @@ d3.csv("/static/data/star_types.csv", function(data) {
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d,i) {
-      	console.log(i);
         return i*5 + x(d.star);
        })
       .attr("width", barWidth)
-      .attr("y", function(d) { return y(d.count); })
+      .attr("y", function(d) { return y(d.count/2); })
       .style("fill", function(d) { return color(d.city);})
-      .attr("height", function(d) { return height - y(d.count) })
+      .attr("height", function(d) { return height - y(d.count/2) })
       .on("mouseover", function(d) {
         activeCity = d.city;
         d3.selectAll(".bar")
