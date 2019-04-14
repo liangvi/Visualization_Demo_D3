@@ -1,7 +1,7 @@
 
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
-
+var width = 300;
 
 var svgD = d3.select("#drill")
     .append("svg")
@@ -23,15 +23,6 @@ d3.csv("/static/data/drillDown.csv", function(data, c=activeCity) {
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
-
-  dataset.sort(function(a, b) {
-    return d3.descending(a.count, b.count);
-  })
-  x.domain(dataset.map(function(d) {
-    return d.star;
-  }));
-
-
 
   // append the rectangles for the bar chart
   svgD.selectAll(".bar")

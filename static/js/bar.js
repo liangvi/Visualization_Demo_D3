@@ -2,7 +2,7 @@
 //https://stackoverflow.com/questions/46205118/how-to-sort-a-d3-bar-chart-based-on-an-array-of-objects-by-value-or-key
 
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 500 - margin.left - margin.right,
+    width = 300 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var barWidth = 30;
