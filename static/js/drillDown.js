@@ -5,7 +5,6 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
 var barWidth = 5;
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
-var width = 600;
 
 var activeCity;
 
@@ -18,7 +17,6 @@ var svgD = d3.select("#drill")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/star_types.csv", function(data) {
-//  d3.csv("/static/data/drillDown.csv", function(data) {
 
   //const dataset = data.filter(city => data.city == c);
   const dataset = data;
@@ -26,8 +24,7 @@ d3.csv("/static/data/star_types.csv", function(data) {
   // set the ranges
   var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
-            .range([0, width])
-            .padding(0.1);
+            .range([0, width]);
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
@@ -43,7 +40,6 @@ d3.csv("/static/data/star_types.csv", function(data) {
       	console.log(i);
         return i*5 + x(d.star);
        })
-      //return i * ((w-yA) / posCount.length) + yA;
       .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count); })
       .style("fill", function(d) { return color(d.city);})
