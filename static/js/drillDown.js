@@ -2,7 +2,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-var barWidth = 5;
+var barWidth = 50;
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 var width = 600;
