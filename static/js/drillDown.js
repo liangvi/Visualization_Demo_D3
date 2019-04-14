@@ -38,9 +38,9 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
         return i*5 + x(d.star);
        })
       .attr("width", barWidth)
-      .attr("y", function(d) { return y(d.count/2); })
+      .attr("y", function(d) { return y(d.count/4); })
       .style("fill", function(d) { return color(d.city);})
-      .attr("height", function(d) { return height - y(d.count/2) })
+      .attr("height", function(d) { return height - y(d.count/4) })
       .on("mouseover", function(d) {
         activeCity = d.city;
         d3.selectAll(".bar")
