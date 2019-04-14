@@ -1,7 +1,7 @@
 
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
-var width = 300;
+var width = 500;
 
 var svgD = d3.select("#drill")
     .append("svg")
