@@ -69,12 +69,12 @@ function drawBarChart() {
                     .style("top", (d3.event.pageY - 10) + "px")
                     .style("opacity", 1)
                     .style("display", "block");
-            
+
                 var activeBar = this;
                 svg.selectAll(".bar").transition().style('opacity', function() {
                     return (this === activeBar) ? 1.0 : 0.5;
                 });
-                
+
                 d3.select("#drill")
                     .selectAll(".bar")
                     .attr("stroke", function(d) {
@@ -87,8 +87,8 @@ function drawBarChart() {
                             return 1.0
                        } else return 0.5
                     })
-
-                d3.selectAll("circle")
+                d3.select("#city")
+                    .selectAll("circle")
                     .attr("r", function(d) {
                         if (d.index == activeCity) return 10;
                         else return 5;
@@ -119,7 +119,8 @@ function drawBarChart() {
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
 
-                d3.selectAll("circle")
+                d3.select("#city")
+                    .selectAll("circle")
                     .attr("fill", "black")
                     .attr("r", 5)
                     .attr("stroke", "none")
