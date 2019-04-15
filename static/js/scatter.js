@@ -84,7 +84,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
 
   svg.append("text")
       .text("Good Review Count")
-      .attr("transform","translate(" + (w/2) + " ," + (h - 25) + ")")
+      .attr("transform","translate(" + (w-150) + " ," + (h - 25) + ")")
 
   svg.append("text")
       .text("Categories by Review Types")
