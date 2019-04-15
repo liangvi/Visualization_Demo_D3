@@ -77,8 +77,8 @@ var barWidth = 10;
 
         d3.selectAll("circle")
           .attr("fill", "black")
-          .attr("r", 5)*/
-        });
+          .attr("r", 5)
+        });*/
 
   // add the x Axis
   svgD.append("g")
