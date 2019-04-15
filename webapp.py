@@ -350,6 +350,10 @@ def analysis():
 		text_tf = vectorizer.transform(text)
 		text_joined = hstack([text_tf, text_enc, cat_row], format="csr")
 		score = p.predict(text_joined)
+		if score > 5:
+			score = 5
+		elif score < 1:
+			score = 1
 
 		lda_model_all_data = open("pickle/lda_model_all.pkl","rb")
 		lda_model_all = pickle.load(lda_model_all_data)
