@@ -113,6 +113,7 @@ var barWidth = 10;
             .attr("height", 18)
             .style("fill", color);
 
+
         legend.append("text")
             .attr("x", width - 12)
             .attr("y", 9)
