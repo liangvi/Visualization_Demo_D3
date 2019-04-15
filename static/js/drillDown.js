@@ -4,7 +4,7 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     height = 300 - margin.top - margin.bottom;
 
 
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+//var color = d3.scaleOrdinal(d3.schemeCategory10);
 
 var activeCity;
 
@@ -72,31 +72,6 @@ var barWidth = 10;
                     return "black";
                 } else return "none";
             })
-
-        /*
-        activeCity = d.city;
-        svgD.selectAll(".bar")
-        	.attr("fill", function(d) {
-          if ( d.city == activeCity) {
-          	return "orange";
-          }
-          else return "black";
-        })
-        .attr("width", function(d) {
-          if ( d.city == activeCity) return barWidth+10;
-          else return barWidth;
-        })
-
-        d3.selectAll("circle")
-        	.attr("r", function(d) {
-          if ( d.index == activeCity) return 10;
-          else return 5;
-        })
-        d3.selectAll("circle")
-        	.attr("fill", function(d) {
-          if ( d.index == activeCity) return "orange";
-          else return "black";
-        })*/
       })
 
      .on("mouseout", function(d) {
@@ -105,18 +80,9 @@ var barWidth = 10;
            .attr("opacity", 1.0)
 
        d3.selectAll("circle")
-           //.attr("fill", "black")
            .attr("r", 5)
            .attr("stroke", "none")
            .attr("opacity", 1.0)
-       /*
-        svgD.selectAll(".bar")
-          .attr("fill", "black")
-          .attr("width", barWidth)
-
-        d3.selectAll("circle")
-          .attr("fill", "black")
-          .attr("r", 5)*/
         });
 
   // add the x Axis
