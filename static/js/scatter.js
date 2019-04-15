@@ -10,7 +10,8 @@ d3.csv("/static/data/review_types.csv", function(data) {
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
   const dataset = data;
 
-  var color = d3.scaleOrdinal(d3.schemeCategory10);
+//https://observablehq.com/@d3/color-schemes
+  var color = d3.scaleOrdinal(d3.schemeAccent);
 
   var xScale = d3.scaleLinear()
                        .domain([0, 5000])
