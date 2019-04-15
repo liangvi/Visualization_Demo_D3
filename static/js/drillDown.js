@@ -57,6 +57,21 @@ var barWidth = 10;
                 return 1.0
            } else return 0.5
         })
+        d3.selectAll("circle")
+            .attr("r", function(d) {
+                if (d.index == activeCity) return 10;
+                else return 5;
+            })
+            .attr("opacity", function(d) {
+                if (d.index == activeCity) {
+                    return 1.0
+               } else return 0.5
+            })
+           .attr("stroke", function(d) {
+                if (d.index == activeCity) {
+                    return "black";
+                } else return "none";
+            })
 
         /*
         activeCity = d.city;
@@ -86,6 +101,12 @@ var barWidth = 10;
 
      .on("mouseout", function(d) {
        svgD.selectAll(".bar")
+           .attr("stroke", "none")
+           .attr("opacity", 1.0)
+
+       d3.selectAll("circle")
+           //.attr("fill", "black")
+           .attr("r", 5)
            .attr("stroke", "none")
            .attr("opacity", 1.0)
        /*
