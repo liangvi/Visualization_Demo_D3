@@ -108,13 +108,13 @@ var barWidth = 10;
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
         legend.append("rect")
-            .attr("x", w - 10)
+            .attr("x", width - 10)
             .attr("width", 10)
             .attr("height", 18)
             .style("fill", color);
 
         legend.append("text")
-            .attr("x", w - 12)
+            .attr("x", width - 12)
             .attr("y", 9)
             .attr("dy", ".35em")
             .style("text-anchor", "end")
