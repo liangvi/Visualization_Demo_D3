@@ -46,7 +46,7 @@ var barWidth = 10;
       .attr("height", function(d) { return height - y(d.count/4) })
       .on("mouseover", function(d) {
         activeCity = d.city;
-        svg.selectAll(".bar")
+        svgD.selectAll(".bar")
         	.attr("fill", function(d) {
           if ( d.city == activeCity) {
           	return "orange";
@@ -71,7 +71,7 @@ var barWidth = 10;
       })
 
      .on("mouseout", function(d) {
-        svg.selectAll(".bar")
+        svgD.selectAll(".bar")
           .attr("fill", "black")
           .attr("width", barWidth)
 
