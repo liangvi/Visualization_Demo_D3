@@ -45,6 +45,19 @@ var barWidth = 10;
       .style("fill", function(d) { return color(d.city);})
       .attr("height", function(d) { return height - y(d.count/4) })
       .on("mouseover", function(d) {
+        svgD.selectAll(".bar")
+        .attr("stroke", function(d) {
+            if (d.city == activeCity) {
+                return "black";
+            } else return "none";
+        })
+        .attr("opacity", function(d)  {
+           if (d.city == activeCity) {
+                return 1.0
+           } else return 0.5
+        })
+
+        /*
         activeCity = d.city;
         svgD.selectAll(".bar")
         	.attr("fill", function(d) {
@@ -53,10 +66,10 @@ var barWidth = 10;
           }
           else return "black";
         })
-        /*.attr("width", function(d) {
+        .attr("width", function(d) {
           if ( d.city == activeCity) return barWidth+10;
           else return barWidth;
-        })*/
+        })
 
         d3.selectAll("circle")
         	.attr("r", function(d) {
@@ -67,17 +80,21 @@ var barWidth = 10;
         	.attr("fill", function(d) {
           if ( d.index == activeCity) return "orange";
           else return "black";
-        })
+        })*/
       })
 
      .on("mouseout", function(d) {
+       svgD.selectAll(".bar")
+           .attr("stroke", "none")
+           .attr("opacity", 1.0)
+       /*
         svgD.selectAll(".bar")
           .attr("fill", "black")
           .attr("width", barWidth)
 
         d3.selectAll("circle")
           .attr("fill", "black")
-          .attr("r", 5)
+          .attr("r", 5)*/
         });
 
   // add the x Axis
