@@ -107,18 +107,18 @@ var barWidth = 10;
         .attr("class", "legend")
         .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-      legend.append("rect")
-        .attr("x", width - 60)
-        .attr("width", 60)
-        .attr("height", 18)
-        .style("fill", color);
+        legend.append("rect")
+            .attr("x", w - 10)
+            .attr("width", 10)
+            .attr("height", 18)
+            .style("fill", color);
 
-      legend.append("text")
-        .attr("x", width - 70)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d; });
+        legend.append("text")
+            .attr("x", w - 12)
+            .attr("y", 9)
+            .attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) { return d; });
 
            });
 }
