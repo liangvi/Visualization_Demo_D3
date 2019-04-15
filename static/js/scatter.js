@@ -53,18 +53,18 @@ d3.csv("/static/data/review_types.csv", function(data) {
       .attr("class", "legend")
       .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-  legend.append("rect")
-      .attr("x", w - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
+      legend.append("rect")
+          .attr("x", w - 10)
+          .attr("width", 10)
+          .attr("height", 18)
+          .style("fill", color);
 
-  legend.append("text")
-      .attr("x", w - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
+      legend.append("text")
+          .attr("x", w - 12)
+          .attr("y", 9)
+          .attr("dy", ".35em")
+          .style("text-anchor", "end")
+          .text(function(d) { return d; });
 
 
 
