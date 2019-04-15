@@ -44,7 +44,7 @@ var barWidth = 10;
       .attr("y", function(d) { return y(d.count/4); })
       .style("fill", function(d) { return color(d.city);})
       .attr("height", function(d) { return height - y(d.count/4) })
-      /*.on("mouseover", function(d) {
+      .on("mouseover", function(d) {
         activeCity = d.city;
         svgD.selectAll(".bar")
         	.attr("fill", function(d) {
@@ -53,10 +53,10 @@ var barWidth = 10;
           }
           else return "black";
         })
-        .attr("width", function(d) {
+        /*.attr("width", function(d) {
           if ( d.city == activeCity) return barWidth+10;
           else return barWidth;
-        })
+        })*/
 
         d3.selectAll("circle")
         	.attr("r", function(d) {
@@ -78,7 +78,7 @@ var barWidth = 10;
         d3.selectAll("circle")
           .attr("fill", "black")
           .attr("r", 5)
-        });*/
+        });
 
   // add the x Axis
   svgD.append("g")
