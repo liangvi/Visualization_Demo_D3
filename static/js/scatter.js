@@ -11,7 +11,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
   const dataset = data;
 
 //https://observablehq.com/@d3/color-schemes
-  var color = d3.scaleOrdinal(d3.schemeAccent);
+  var color = d3.scaleOrdinal(d3.schemeDark2);
 
   var xScale = d3.scaleLinear()
                        .domain([0, 5000])
