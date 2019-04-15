@@ -25,7 +25,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   					.domain(dataset.map(function(d) { return d.star; }))
             .range([0, width]);
   var y = d3.scaleLinear()
- 					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
+ 					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
             .range([height, 0]);
 
 
@@ -45,6 +45,7 @@ var barWidth = 10;
       .style("fill", function(d) { return color(d.city);})
       .attr("height", function(d) { return height - y(d.count/4) })
       .on("mouseover", function(d) {
+        activeCity = d.city;
         svgD.selectAll(".bar")
         .attr("stroke", function(d) {
             if (d.city == activeCity) {
