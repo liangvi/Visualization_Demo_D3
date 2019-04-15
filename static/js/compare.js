@@ -50,6 +50,12 @@ function drawChart(data, chartID, chartName) {
 
     var color = d3.scaleOrdinal().range(["#A07A19", "#AC30C0", "#EB9A72", "#BA86F5", "#EA22A8"]);
 
+
+    var format = d3.format(".3n")
+    div = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip");
+
     svg.append("g")
         .selectAll("g")
         .data(data)
@@ -66,44 +72,33 @@ function drawChart(data, chartID, chartName) {
         .attr("width", x1.bandwidth())
         .attr("height", d => yScale(0) - yScale(d.value))
         .attr("fill", d => color(d.key))
-        .on('mouseenter', function() {
-            d3.select('.value')
-                .attr('opacity', 1)
-
+        .on('mousemove', function(d) {
+            svg.selectAll("rect").transition().style('opacity',0.5)
+            div.style("display", "none");
+            div
+                .html("City:" + d.key + "</br>" + "Frequency:" + format(d.value))
+                .style("left", (d3.event.pageX + 12) + "px")
+                .style("top", (d3.event.pageY - 10) + "px")
+                .style("opacity", 1)
+                .style("display", "block");
             d3.select(this)
                 .transition()
                 .duration(300)
-                .attr('opacity', 0.6)
-                .attr('x', (d) => x1(d.key) - 5)
-                .attr('width', x1.bandwidth() + 10)
+                .attr('stroke', "black")
+                .attr('opacity', 1)
 
         })
         .on('mouseleave', function() {
-            d3.selectAll('.value')
-                .attr('opacity', 0)
-
+            svg.selectAll("rect").transition().style('opacity',1)
+            div.html(" ").style("display", "none");
             d3.select(this)
                 .transition()
                 .duration(300)
                 .attr('opacity', 1)
-                .attr('x', (d) => x1(d.key))
-                .attr('width', x1.bandwidth())
+                .attr('stroke', "none")
 
         });
 
-    svg.selectAll()
-        .data(data)
-        .enter()
-        .append('g')
-        .append('text')
-        .attr('class', 'value')
-        .attr('x', (d) => x1(d.key) + x1.bandwidth() / 2)
-        .attr('y', (d) => yScale(d.value) + 30)
-        .attr('font-size', "12px")
-        .attr('fill', 'white')
-        .attr('text-anchor', 'middle')
-        .attr('opacity', 0)
-        .text((d) => `${d.value}`)
 
 
     legend = svg => {

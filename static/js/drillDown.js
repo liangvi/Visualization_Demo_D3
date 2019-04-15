@@ -1,8 +1,8 @@
+function drawDrillDown() {
 var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-var barWidth = 5;
 
 var color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -17,7 +17,7 @@ var svgD = d3.select("#drill")
           "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("/static/data/star_types_filtered.csv", function(data) {
-  const dataset = data;
+  var dataset = data;
   //const dataset = data.filter(row => row.category == "Pizza");
 
   // set the ranges
@@ -27,6 +27,9 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
+
+
+var barWidth = 10;
 
   // append the rectangles for the bar chart
   svgD.selectAll(".bar")
@@ -43,7 +46,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
       .attr("height", function(d) { return height - y(d.count/4) })
       .on("mouseover", function(d) {
         activeCity = d.city;
-        d3.selectAll(".bar")
+        svg.selectAll(".bar")
         	.attr("fill", function(d) {
           if ( d.city == activeCity) {
           	return "orange";
@@ -51,7 +54,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
           else return "black";
         })
         .attr("width", function(d) {
-          if ( d.city == activeCity) return barWidth+15;
+          if ( d.city == activeCity) return barWidth+10;
           else return barWidth;
         })
 
@@ -68,7 +71,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
       })
 
      .on("mouseout", function(d) {
-        d3.selectAll("rect")
+        svg.selectAll(".bar")
           .attr("fill", "black")
           .attr("width", barWidth)
 
@@ -111,3 +114,4 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
         .text(function(d) { return d; });
 
            });
+}

@@ -14,7 +14,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
 
   var xScale = d3.scaleLinear()
                        .domain([0, 5000])
-  										 .range([padding, w - padding]);
+                       .range([padding, w - padding]);
 
   var yScale = d3.scaleLinear()
                        .domain([0,3000])
@@ -75,7 +75,7 @@ d3.csv("/static/data/review_types.csv", function(data) {
 
   svg.append("text")
       .attr("transform","translate(" + 50 + " ," + (h - 210) + ")")
-  		.text("Bad Review Count");
+      .text("Bad Review Count");
 
 
   svg.append("g")
@@ -84,9 +84,9 @@ d3.csv("/static/data/review_types.csv", function(data) {
 
   svg.append("text")
       .text("Good Review Count")
-      .attr("transform","translate(" + (w-150) + " ," + (h - 25) + ")")
+      .attr("transform","translate(" + (w/2) + " ," + (h - 25) + ")")
 
   svg.append("text")
       .text("Categories by Review Types")
-      .attr("transform","translate(" + 250 + " ," + (h - 210) + ")")
+      .attr("transform","translate(" + (w/2) + " ," + (h - 210) + ")")
   });
