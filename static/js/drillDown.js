@@ -57,7 +57,8 @@ var barWidth = 10;
                 return 1.0
            } else return 0.5
         })
-        d3.selectAll("circle")
+        d3.select("#city")
+            .selectAll("circle")
             .attr("r", function(d) {
                 if (d.index == activeCity) return 10;
                 else return 5;
@@ -79,7 +80,8 @@ var barWidth = 10;
            .attr("stroke", "none")
            .attr("opacity", 1.0)
 
-       d3.selectAll("circle")
+       d3.select("#city")
+           .selectAll("circle")
            .attr("r", 5)
            .attr("stroke", "none")
            .attr("opacity", 1.0)
