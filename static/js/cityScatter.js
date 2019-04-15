@@ -62,7 +62,8 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
                 .style("opacity", 1)
                 .style("display", "block");
 
-            d3.selectAll("circle")
+            d3.select("#city")
+                .selectAll("circle")
                 .attr("r", function(d) {
                     if (d.index == activeCity) return 10;
                     else return 5;
@@ -115,8 +116,8 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
         })
         .on("mouseout", function(d, i) {
 
-
-            d3.selectAll("circle")
+            d3.select("#city")
+                .selectAll("circle")
                 .attr("fill", "black")
                 .attr("r", 5)
                 .attr("stroke", "none")
