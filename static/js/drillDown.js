@@ -38,7 +38,7 @@ var barWidth = 10;
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d,i) {
-        return i*5 + x(d.star);
+        return i*2 + x(d.star);
        })
       .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count/4); })
