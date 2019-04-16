@@ -41,7 +41,7 @@ var barWidth = 10;
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x1(d.star); })
+      .attr("x", function(d) { return x(d.star); })
       /*.attr("x", function(d,i) {
         //return i*2 + x(d.star);
         return x1(d.star);
