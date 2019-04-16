@@ -118,14 +118,14 @@ var barWidth = 10;
 
   svgD.append('text')
         .attr('class', 'xlabel')
-        .attr('x', width / 2 + margin.left)
+        .attr('x', width / 2)
         .attr('y', height + (margin.bottom - 10))
         .attr('text-anchor', 'middle')
         .text('Star Rating')
 
   svgD.append('text')
         .attr('class', 'ylabel')
-        .attr('x', -(height / 2) - margin.left)
+        .attr('x', -(height / 2))
         .attr('y', 0)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
