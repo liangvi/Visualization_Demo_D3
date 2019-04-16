@@ -31,7 +31,6 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
 
   var x1 = d3.scaleBand()
         .domain([0,4])
-        .rangeRound([0, x.bandwidth()])
         .padding(0.05)
 
 var barWidth = 10;
