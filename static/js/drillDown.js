@@ -3,9 +3,6 @@ var margin = {top: 20, right: 20, bottom: 30, left: 40},
     width = 600 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
-
-//var color = d3.scaleOrdinal(d3.schemeCategory10);
-
 var activeCity;
 
 var svgD = d3.select("#drill")
@@ -31,7 +28,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
 //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
   var x1 = d3.scaleBand()
         .domain(dataset.map(function(d) { return d.city; }))
-        .rangeRound([0, x.bandwidth()]);
+        .range([0, x.bandwidth()]);
 
 var barWidth = 10;
 
@@ -42,11 +39,12 @@ var barWidth = 10;
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x(d.star); })
+      .attr("width", x1.bandwidth())
       /*.attr("x", function(d,i) {
         //return i*2 + x(d.star);
         return x1(d.star);
       })*/
-      .attr("width", barWidth)
+      //.attr("width", barWidth)
       .attr("y", function(d) { return y(d.count/4); })
       .style("fill", function(d) { return color(d.city);})
       .attr("height", function(d) { return height - y(d.count/4) })
