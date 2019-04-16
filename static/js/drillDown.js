@@ -118,7 +118,7 @@ var barWidth = 10;
   svgD.append('text')
         .attr('class', 'xlabel')
         .attr('x', width / 2)
-        .attr('y', height + 25)
+        .attr('y', height + 30)
         .attr('text-anchor', 'middle')
         .text('Star Rating')
 
