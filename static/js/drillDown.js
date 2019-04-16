@@ -65,12 +65,11 @@ var barWidth = 10;
         })
         var mouseVal = d3.mouse(this);
         div.style("display", "none");
-        div
-            .html("City:" + d.city + "</br>" + "Count:" + format(d.count))
-            .style("left", (d3.event.pageX + 12) + "px")
-            .style("top", (d3.event.pageY - 10) + "px")
-            .style("opacity", 1)
-            .style("display", "block");
+        div.html("City:" + d.city + "</br>" + "Count:" + format(d.count))
+           .style("left", (d3.event.pageX + 12) + "px")
+           .style("top", (d3.event.pageY - 10) + "px")
+           .style("opacity", 1)
+           .style("display", "block");
 
         d3.select("#city")
             .selectAll("circle")
