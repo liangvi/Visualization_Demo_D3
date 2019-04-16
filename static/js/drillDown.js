@@ -20,7 +20,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   // set the ranges
   var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
-            .range([0, width]);
+            .rangeRound([0, width]);
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
             .range([height, 0]);
@@ -28,7 +28,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
 //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
   var x_1 = d3.scaleBand()
         .domain(dataset.map(function(d) { return d.city; }))
-        .range([0, x.bandwidth()]);
+        .rangeRound([0, x.bandwidth()]);
 
 var barWidth = 10;
 
@@ -38,7 +38,7 @@ var barWidth = 10;
       .enter()
       .append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.star); })
+      .attr("x", function(d) { return x_1(d.star); })
       /*.attr("x", function(d,i) {
         //return i*2 + x(d.star);
         return x1(d.star);
@@ -118,7 +118,7 @@ var barWidth = 10;
   svgD.append('text')
         .attr('class', 'xlabel')
         .attr('x', width / 2)
-        .attr('y', height + 30)
+        .attr('y', height + 28)
         .attr('text-anchor', 'middle')
         .text('Star Rating')
 
