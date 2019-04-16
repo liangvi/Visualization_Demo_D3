@@ -28,9 +28,10 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
  					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
             .range([height, 0]);
 
-
+//https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
   var x1 = d3.scaleBand()
         .domain([0,4])
+        .range([0, xScale0.bandwidth()])
         .padding(0.05)
 
 var barWidth = 10;
