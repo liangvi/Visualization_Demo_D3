@@ -63,6 +63,15 @@ var barWidth = 10;
                 return 1.0
            } else return 0.5
         })
+        var mouseVal = d3.mouse(this);
+        div.style("display", "none");
+        div
+            .html("City:" + d.city + "</br>" + "Count:" + format(d.count))
+            .style("left", (d3.event.pageX + 12) + "px")
+            .style("top", (d3.event.pageY - 10) + "px")
+            .style("opacity", 1)
+            .style("display", "block");
+
         d3.select("#city")
             .selectAll("circle")
             .attr("r", function(d) {
@@ -86,6 +95,8 @@ var barWidth = 10;
            .attr("stroke", "none")
            .attr("opacity", 1.0)
 
+       div.html(" ").style("display", "none");
+
        d3.select("#city")
            .selectAll("circle")
            .attr("r", 5)
@@ -106,6 +117,21 @@ var barWidth = 10;
   svgD.append("text")
         .attr("transform","translate(" + 10 + " ," + 10 + ")")
      		.text("Star Rating Distribution by City");
+
+  svgD.append('text')
+        .attr('class', 'xlabel')
+        .attr('x', width / 2 + margin.left)
+        .attr('y', height + (margin.bottom - 10))
+        .attr('text-anchor', 'middle')
+        .text('Star Rating')
+
+  svgD.append('text')
+        .attr('class', 'ylabel')
+        .attr('x', -(height / 2) - margin.left)
+        .attr('y', 0)
+        .attr('transform', 'rotate(-90)')
+        .attr('text-anchor', 'middle')
+        .text('Frequency')
 
   var legend = svgD.selectAll(".legend")
         .data(color.domain())
