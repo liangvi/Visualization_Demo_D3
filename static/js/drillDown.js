@@ -18,7 +18,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   //const dataset = data.filter(row => row.category == "Pizza");
 
   // set the ranges
-  var x_0 = d3.scaleBand()
+  var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
             .range([0, width]);
   var y = d3.scaleLinear()
@@ -28,7 +28,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
 //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
   var x_1 = d3.scaleBand()
         .domain(dataset.map(function(d) { return d.city; }))
-        .range([0, x_0.bandwidth()]);
+        .range([0, x.bandwidth()]);
 
 var barWidth = 10;
 
