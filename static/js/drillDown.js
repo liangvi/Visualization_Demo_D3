@@ -10,7 +10,7 @@ var activeCity;
 
 var svgD = d3.select("#drill")
     .append("svg")
-    .attr("width", width)
+    .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",

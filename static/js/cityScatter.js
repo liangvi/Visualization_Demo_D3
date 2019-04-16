@@ -126,7 +126,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
             d3.select("#bar").selectAll(".bar")
                 .attr("fill", "black")
                 .attr("stroke", "none")
-                .attr("width", x.bandwidth())
+                //.attr("width", x.bandwidth())
             d3.select("#bar").selectAll(".bar").transition().style('opacity', 1.0);
             div.html(" ").style("display", "none");
 
