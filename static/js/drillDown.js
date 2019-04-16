@@ -10,7 +10,7 @@ var activeCity;
 
 var svgD = d3.select("#drill")
     .append("svg")
-    .attr("width", width + margin.left + margin.right)
+    .attr("width", width)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform",
@@ -23,7 +23,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   // set the ranges
   var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
-            .range([margin.left, width]);
+            .range([0, width]);
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
             .range([height, 0]);
