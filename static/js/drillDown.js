@@ -23,7 +23,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   // set the ranges
   var x = d3.scaleBand()
   					.domain(dataset.map(function(d) { return d.star; }))
-            .range([0, width + margin.left + margin.right]);
+            .range([margin.left, width]);
   var y = d3.scaleLinear()
  					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
             .range([height, 0]);
