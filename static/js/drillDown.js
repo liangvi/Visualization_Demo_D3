@@ -39,12 +39,11 @@ var barWidth = 10;
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d) { return x_1(d.star); })
-      .attr("width", x1.bandwidth())
       /*.attr("x", function(d,i) {
         //return i*2 + x(d.star);
         return x1(d.star);
       })*/
-      //.attr("width", barWidth)
+      .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count/4); })
       .style("fill", function(d) { return color(d.city);})
       .attr("height", function(d) { return height - y(d.count/4) })
