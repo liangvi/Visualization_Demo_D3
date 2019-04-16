@@ -63,6 +63,7 @@ var barWidth = 10;
                 return 1.0
            } else return 0.5
         })
+        var format = d3.format(".3n")
         var mouseVal = d3.mouse(this);
 //        div.style("display", "none");
         div.html("City:" + d.city + "</br>" + "Count:" + format(d.count))
