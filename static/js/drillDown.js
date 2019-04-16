@@ -29,6 +29,11 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
             .range([height, 0]);
 
 
+  var x1 = d3.scaleBand()
+        .domain([0,4])
+        .rangeRound([0, x.bandwidth()])
+        .padding(0.05)
+
 var barWidth = 10;
 
   // append the rectangles for the bar chart
@@ -38,7 +43,8 @@ var barWidth = 10;
       .append("rect")
       .attr("class", "bar")
       .attr("x", function(d,i) {
-        return i*2 + x(d.star);
+        //return i*2 + x(d.star);
+        return x1(d.star);
        })
       .attr("width", barWidth)
       .attr("y", function(d) { return y(d.count/4); })
