@@ -28,7 +28,7 @@ import nltk
 from nltk.stem.snowball import EnglishStemmer
 import string
 
-
+import datetime
 import os
 
 app = Flask(__name__)
@@ -366,15 +366,12 @@ def analysis():
 		count_vectorizer_data = open("pickle/count_vectorizer.pkl",'rb')
 		count_vectorizer = pickle.load(count_vectorizer_data)
 		count_vectorizer_data.close()
-
+		
 		processed_text = text_process(text)
 		processed_text = tokenize(processed_text)
 		text_count = count_vectorizer.transform([processed_text])
 		text_count_features = count_vectorizer.get_feature_names()
-		text_count_df = pd.SparseDataFrame(text_count)
-		text_count_df.columns = text_count_features
-		text_count_df.fillna(0.0, inplace=True)
-		lda_output = lda_model_all.transform(text_count_df)
+		lda_output = lda_model_all.transform(text_count)
 		topicnames = ["Topic" + str(i) for i in range(lda_model_all.n_components)]
 		df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topicnames)
 		dominant_topic = np.argmax(df_document_topic.values, axis=1)
