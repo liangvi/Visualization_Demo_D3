@@ -1,5 +1,6 @@
 var topicMap = {
-    "Good for Kids": ['hair','kid','game','book','time','floor','night','fun','life','seat']
+    "Good for Kids": ['hair','kid','game','book','time','floor','night','fun','life','seat'],
+
 };
 
 function formatWords(list) {
@@ -90,8 +91,7 @@ function drawChart(data, chartID, chartName) {
             div
                 .html("City:" + d.key + 
                     "</br>" + "Frequency:" + format(d.value) + 
-                    "</br>" + "Topic:" + d.topic +
-                    "</br>" + "Topic Words:" + formatWords(topicMap[d.topic]))
+                    "</br>" + "Topic:" + d.topic)
                 .style("left", (d3.event.pageX + 12) + "px")
                 .style("top", (d3.event.pageY - 10) + "px")
                 .style("opacity", 1)
