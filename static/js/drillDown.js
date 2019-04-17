@@ -22,7 +22,7 @@ d3.csv("/static/data/star_types_filtered.csv", function(data) {
   					.domain(dataset.map(function(d) { return d.star; }))
             .rangeRound([0, width]);
   var y = d3.scaleLinear()
- 					  .domain([0, d3.max(dataset, function(d) { return d.count/4; })])
+ 					  .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
 
 //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
@@ -44,9 +44,9 @@ var barWidth = 10;
         return x1(d.star);
       })*/
       .attr("width", barWidth)
-      .attr("y", function(d) { return y(d.count/4); })
+      .attr("y", function(d) { return y(d.count); })
       .style("fill", function(d) { return color(d.city);})
-      .attr("height", function(d) { return height - y(d.count/4) })
+      .attr("height", function(d) { return height - y(d.count) })
       .on("mouseover", function(d) {
         activeCity = d.city;
         svgD.selectAll(".bar")
@@ -125,7 +125,7 @@ var barWidth = 10;
   svgD.append('text')
         .attr('class', 'ylabel')
         .attr('x', -(height / 2))
-        .attr('y', 0)
+        .attr('y', 10)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
         .text('Frequency')
