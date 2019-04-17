@@ -72,7 +72,7 @@ function drawDrillDown() {
                 var activeBar = this;
                 svg.selectAll(".bar").transition().style('opacity', function() {
                     return (this === activeBar) ? 1.0 : 0.5;
-
+                });
 
 
                 svgD.selectAll(".bar")
