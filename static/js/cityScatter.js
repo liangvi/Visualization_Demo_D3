@@ -85,7 +85,7 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
                 .attr("fill", function(d) {
                     if (d.city == activeCity) {
                         return "orange";
-                    } else return "none";
+                    } else return "black";
                 })
                 .attr("opacity", function(d) {
                     if (d.city == activeCity) {
