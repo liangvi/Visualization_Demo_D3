@@ -34,8 +34,6 @@ function drawDrillDown() {
             .rangeRound([0, x0.bandwidth()])
             .padding(0.05);
 
-        var format = d3.format(".3n")
-
         svgD.selectAll(".bar")
             .data(dataset)
             .enter()
@@ -61,6 +59,7 @@ function drawDrillDown() {
                             return "black";
                         } else return "none";
                     })
+                var format = d3.format(".3n")
 
                 var format = d3.format(".3n")
                 var mouseVal = d3.mouse(this);
@@ -109,7 +108,19 @@ function drawDrillDown() {
                         } else return "none";
                     })
             })
-            .on("mouseout", function(d) {  
+
+            .on("mouseout", function(d) {
+              d3.select("#bar")
+                .selectAll(".bar")
+                .attr("fill", "black")
+                .attr("stroke","none")
+                .transition().style('opacity', 1.0);
+                //.attr("width", x.bandwidth())
+
+              div.html(" ").style("display", "none");
+            //  svg.selectAll(".bar").transition().style('opacity', 1.0);
+
+
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
@@ -126,7 +137,7 @@ function drawDrillDown() {
                     .selectAll(".bar")
                     .attr("fill", "black")
                     .attr("stroke", "none")
-                    .attr("width", x.bandwidth())
+                    .attr("opacity", 1.0)
             });
 
         // add the x Axis
