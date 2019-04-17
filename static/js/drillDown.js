@@ -82,7 +82,7 @@ function drawDrillDown() {
                     })
                     .attr("opacity", function(d) {
                         if (d.city == activeCity) {
-                            return 1.0
+                            return 1
                         } else return 0.5
                     })
                     .attr("stroke", function(d) {
