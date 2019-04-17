@@ -1,3 +1,16 @@
+var topicMap = {
+    "Good for Kids": ['hair','kid','game','book','time','floor','night','fun','life','seat']
+};
+
+function formatWords(list) {
+    str = ""
+    for (word in list) {
+        str += "\n"
+        str += list[word]
+    }
+    return str
+}
+
 function drawChart(data, chartID, chartName) {
 
     var margin = {
@@ -10,8 +23,7 @@ function drawChart(data, chartID, chartName) {
     var overallHeight = overallWidth * 0.8;
     var width = overallWidth - margin.left - margin.right;
     var height = overallHeight - margin.top - margin.bottom;
-
-    console.log(data)
+    
     data = JSON.parse(data)
     cols = Object.keys(data[0])
     var keys = cols.slice(1);
@@ -42,7 +54,6 @@ function drawChart(data, chartID, chartName) {
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x0).tickSizeOuter(0))
         .selectAll("text")
-        .attr("transform", "rotate(-20)");
 
     var yAxis = svg.append("g")
         .attr("transform", `translate(${margin.left},0)`)
@@ -64,7 +75,8 @@ function drawChart(data, chartID, chartName) {
         .selectAll("rect")
         .data(d => keys.map(key => ({
             key,
-            value: d[key]
+            value: d[key],
+            topic: d[groupKey]
         })))
         .join("rect")
         .attr("x", d => x1(d.key))
@@ -76,11 +88,17 @@ function drawChart(data, chartID, chartName) {
             svg.selectAll("rect").transition().style('opacity',0.5)
             div.style("display", "none");
             div
-                .html("City:" + d.key + "</br>" + "Frequency:" + format(d.value))
+                .html("City:" + d.key + 
+                    "</br>" + "Frequency:" + format(d.value) + 
+                    "</br>" + "Topic:" + d.topic +
+                    "</br>" + "Topic Words:" + formatWords(topicMap[d.topic]))
                 .style("left", (d3.event.pageX + 12) + "px")
                 .style("top", (d3.event.pageY - 10) + "px")
                 .style("opacity", 1)
-                .style("display", "block");
+                .style("display", "block")
+                .style("background-color","lightblue")
+                .style("stroke", "black")
+                .style("stroke-width",1);
             d3.select(this)
                 .transition()
                 .duration(300)

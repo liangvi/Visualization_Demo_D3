@@ -82,9 +82,9 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
 
             d3.select("#bar")
                 .selectAll(".bar")
-                .attr("stroke", function(d) {
+                .attr("fill", function(d) {
                     if (d.city == activeCity) {
-                        return "black";
+                        return "orange";
                     } else return "none";
                 })
                 .attr("opacity", function(d) {
@@ -126,8 +126,8 @@ d3.csv("/static/data/city_review_types.csv", function(data) {
             d3.select("#bar").selectAll(".bar")
                 .attr("fill", "black")
                 .attr("stroke", "none")
-                //.attr("width", x.bandwidth())
-            d3.select("#bar").selectAll(".bar").transition().style('opacity', 1.0);
+                .attr("opacity", 1.0)
+
             div.html(" ").style("display", "none");
 
             d3.select("#drill")

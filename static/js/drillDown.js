@@ -34,6 +34,8 @@ function drawDrillDown() {
             .rangeRound([0, x0.bandwidth()])
             .padding(0.05);
 
+        var format = d3.format(".3n")
+
         svgD.selectAll(".bar")
             .data(dataset)
             .enter()
@@ -47,41 +49,10 @@ function drawDrillDown() {
             .attr("height", function(d) { return height - y(d.count) })
             .on("mouseover", function(d) {
                 activeCity = d.city;
-                d3.select("#bar")
-                    .selectAll(".bar")
-                    .attr("fill", function(d) {
-                        if (d.city == activeCity) {
-                            return "orange";
-                        } else return "black";
-                    })
-                    .attr("stroke", function(d) {
-                        if (d.city == activeCity) {
-                            return "black";
-                        } else return "none";
-                    })
 
-                var mouseVal = d3.mouse(this);
-                div.style("display", "none");
-                div
-                    .html("City:" + d.city + "</br>" + "Score:" + format(d.score))
-                    .style("left", (d3.event.pageX + 12) + "px")
-                    .style("top", (d3.event.pageY - 10) + "px")
-                    .style("opacity", 1)
-                    .style("display", "block");
-
-                var activeBar = this;
-                svg.selectAll(".bar").transition().style('opacity', function() {
-                    return (this === activeBar) ? 1.0 : 0.5;
-                })
-                d3.select("#bar")
-                    .selectAll(".bar")
-                    .attr("fill", function(d) {
-                        if (d.city == activeCity) {
-                            return "orange";
-                        } else return "black";
-                    })
+                svgD.selectAll(".bar")
                     .attr("opacity", function(d) {
-                        if (d.index == activeCity) {
+                        if (d.city == activeCity) {
                             return 1.0
                         } else return 0.5
                     })
@@ -103,6 +74,24 @@ function drawDrillDown() {
                     .style("stroke", "black")
                     .style("stroke-width", 1);
 
+                d3.select("#bar")
+                    .selectAll(".bar")
+                    .attr("fill", function(d) {
+                        if (d.city == activeCity) {
+                            return "orange";
+                        } else return "black";
+                    })
+                    .attr("opacity", function(d) {
+                        if (d.city == activeCity) {
+                            return 1.0
+                        } else return 0.5
+                    })
+                    .attr("stroke", function(d) {
+                        if (d.city == activeCity) {
+                            return "black";
+                        } else return "none";
+                    })
+
                 d3.select("#city")
                     .selectAll("circle")
                     .attr("r", function(d) {
@@ -120,16 +109,7 @@ function drawDrillDown() {
                         } else return "none";
                     })
             })
-            .on("mouseout", function(d) {
-                d3.select("#bar")
-                    .selectAll(".bar")
-                    .attr("fill", "black")
-                    .attr("stroke", "none")
-                    .attr("width", x.bandwidth())
-
-                div.html(" ").style("display", "none");
-                svg.selectAll(".bar").transition().style('opacity', 1.0);
-
+            .on("mouseout", function(d) {  
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
@@ -141,6 +121,12 @@ function drawDrillDown() {
                     .attr("r", 5)
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
+
+                d3.select("#bar")
+                    .selectAll(".bar")
+                    .attr("fill", "black")
+                    .attr("stroke", "none")
+                    .attr("width", x.bandwidth())
             });
 
         // add the x Axis
