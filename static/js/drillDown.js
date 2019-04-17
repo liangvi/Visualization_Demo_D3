@@ -34,8 +34,6 @@ function drawDrillDown() {
             .rangeRound([0, x0.bandwidth()])
             .padding(0.05);
 
-        var format = d3.format(".3n")
-
         svgD.selectAll(".bar")
             .data(dataset)
             .enter()
@@ -61,6 +59,7 @@ function drawDrillDown() {
                             return "black";
                         } else return "none";
                     })
+                var format = d3.format(".3n")
 
                 var mouseVal = d3.mouse(this);
                 div.style("display", "none");
@@ -88,7 +87,6 @@ function drawDrillDown() {
                             return 1.0
                         } else return 0.5
                     })
-                var format = d3.format(".3n")
                 var mouseVal = d3.mouse(this);
                 div.style("display", "none");
                 div.html("City:" + d.city + "</br>" + "Count:" + format(d.count))
@@ -122,10 +120,11 @@ function drawDrillDown() {
                 .selectAll(".bar")
                 .attr("fill", "black")
                 .attr("stroke","none")
+                .transition().style('opacity', 1.0);
                 //.attr("width", x.bandwidth())
 
               div.html(" ").style("display", "none");
-              svg.selectAll(".bar").transition().style('opacity', 1.0);
+            //  svg.selectAll(".bar").transition().style('opacity', 1.0);
 
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
