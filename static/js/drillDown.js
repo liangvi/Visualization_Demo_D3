@@ -122,7 +122,7 @@ function drawDrillDown() {
                 .selectAll(".bar")
                 .attr("fill", "black")
                 .attr("stroke","none")
-                .attr("width", x.bandwidth())
+                //.attr("width", x.bandwidth())
 
               div.html(" ").style("display", "none");
               svg.selectAll(".bar").transition().style('opacity', 1.0);
