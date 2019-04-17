@@ -34,6 +34,8 @@ function drawDrillDown() {
             .rangeRound([0, x0.bandwidth()])
             .padding(0.05);
 
+        var format = d3.format(".3n")
+
         svgD.selectAll(".bar")
             .data(dataset)
             .enter()
