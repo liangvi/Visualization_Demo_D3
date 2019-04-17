@@ -1,12 +1,12 @@
 var topicMap = {
     "Good for Kids": ['hair','kid','game','book','time','floor','night','fun','life','seat'],
-
+    "Burger": ['burger','dog','product','love','excel','onion','stop','wonder','space','bun']
 };
 
 function formatWords(list) {
     str = ""
     for (word in list) {
-        str += "\n"
+        str += " <br /> "
         str += list[word]
     }
     return str
