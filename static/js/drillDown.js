@@ -25,8 +25,7 @@ function drawDrillDown() {
 
 //https://gist.github.com/mbostock/3887051
         var y = d3.scaleLinear()
-            .domain([0, 2000])
-            //.domain([0, d3.max(dataset, function(d) { return d3.max(d.city, function(key) { return d.city[d.count]; }); })]).nice()
+            .domain([0, 400])
             .range([height, 0]);
 
         //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
@@ -42,10 +41,6 @@ function drawDrillDown() {
             .attr("class", "bar")
             .attr("transform", d => `translate(${x0(d.star)},0)`)
             .attr("x", function(d) { return x1(d.city); })
-            /*.attr("x", function(d,i) {
-              //return i*2 + x(d.star);
-              return x1(d.star);
-            })*/
             .attr("width", x1.bandwidth())
             .attr("y", function(d) { return y(d.count); })
             .style("fill", function(d) { return color(d.city); })
