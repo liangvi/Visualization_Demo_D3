@@ -20,3 +20,8 @@ This project utilized a dataset cultivated by Yelp and made available on Kaggle 
 <u>Review:</u>
 <p></p>
 <img src="Table2.png" width="700" height="800">
+The business.json file was loaded and merged with the review.json using an inner join. The join result contained data from a wide array of establishments from nail salons to plumbers to restaurants, so it was filtered to only contain records that had the string “Restaurants” in the ‘category’ column. This filter operation left approximately 60,000 restaurant-associated text reviews.
+The business data was heavily dominated by a small number of cities. For example, there were thousands of records from Las Vegas, but none from New York City. For this reason, this study pivoted from focusing on the entire United States to specific cities with sufficient data, namely Las Vegas NV, Charlotte NC, Madison WI, Phoenix AZ, and Pittsburgh PA.
+
+<h3>Task Analysis:</h3>
+The goal of this study is to produce a model and visualization to communicate how successful a potential restaurant would be in a specific area. To do this, a model should be built whose output is an expected star rating (1-5) for a restaurant based on a list of attributes and a sample description, to serve as an analogous review, as input. The hypothesis being tested expects that these scores will vary by location, so one element of the visualization should involve entering a list of categories and producing a bar chart indicating expected star ratings in different cities. This visualization should also contain model outputs that show how much certain restaurants attributes contribute to success in different areas of the US.
