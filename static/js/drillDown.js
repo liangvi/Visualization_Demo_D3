@@ -25,7 +25,7 @@ function drawDrillDown() {
 
 //https://gist.github.com/mbostock/3887051
         var y = d3.scaleLinear()
-            .domain([0, 2000})])
+            .domain([0, 2000])
             //.domain([0, d3.max(dataset, function(d) { return d3.max(d.city, function(key) { return d.city[d.count]; }); })]).nice()
             .range([height, 0]);
 
