@@ -82,7 +82,7 @@ function drawDrillDown() {
                     })
                     .attr("opacity", function(d) {
                         if (d.city == activeCity) {
-                            return 1.0
+                            return 1
                         } else return 0.5
                     })
                     .attr("stroke", function(d) {
@@ -164,7 +164,7 @@ function drawDrillDown() {
         svgD.append('text')
             .attr('class', 'ylabel')
             .attr('x', -(height / 2))
-            .attr('y', -10)
+            .attr('y', -15)
             .attr('transform', 'rotate(-90)')
             .attr('text-anchor', 'middle')
             .text('Frequency')

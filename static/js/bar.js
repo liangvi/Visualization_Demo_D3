@@ -62,7 +62,7 @@ function drawBarChart() {
                     })
                     .attr("opacity", function(d) {
                         if (d.city == activeCity) {
-                            return 1.0
+                            return 1
                         } else return 0.5
                     })
 
@@ -111,11 +111,10 @@ function drawBarChart() {
             .on("mouseout", function(d) {
                 svg.selectAll(".bar")
                     .attr("fill", "black")
+                    .attr("opacity", 1)
                     .attr("stroke", "none")
-                    .attr("width", x.bandwidth())
 
                 div.html(" ").style("display", "none");
-                svg.selectAll(".bar").transition().style('opacity', 1.0);
 
                 d3.select("#drill")
                     .selectAll(".bar")
