@@ -164,7 +164,7 @@ function drawDrillDown() {
         svgD.append('text')
             .attr('class', 'ylabel')
             .attr('x', -(height / 2))
-            .attr('y', -25)
+            .attr('y', -30)
             .attr('transform', 'rotate(-90)')
             .attr('text-anchor', 'middle')
             .text('Frequency')
