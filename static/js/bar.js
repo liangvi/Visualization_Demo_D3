@@ -55,10 +55,15 @@ function drawBarChart() {
                             return "orange";
                         } else return "black";
                     })
-                      .attr("stroke", function(d) {
+                    .attr("stroke", function(d) {
                         if (d.city == activeCity) {
                             return "black";
                         } else return "none";
+                    })
+                    .attr("opacity", function(d) {
+                        if (d.city == activeCity) {
+                            return 1.0
+                        } else return 0.5
                     })
 
                 var mouseVal = d3.mouse(this);
@@ -71,9 +76,7 @@ function drawBarChart() {
                     .style("display", "block");
 
                 var activeBar = this;
-                svg.selectAll(".bar").transition().style('opacity', function() {
-                    return (this === activeBar) ? 1.0 : 0.5;
-                });
+
 
                 d3.select("#drill")
                     .selectAll(".bar")
@@ -82,10 +85,10 @@ function drawBarChart() {
                             return "black";
                         } else return "none";
                     })
-                    .attr("opacity", function(d)  {
-                       if (d.city == activeCity) {
+                    .attr("opacity", function(d) {
+                        if (d.city == activeCity) {
                             return 1.0
-                       } else return 0.5
+                        } else return 0.5
                     })
                 d3.select("#city")
                     .selectAll("circle")
@@ -96,9 +99,9 @@ function drawBarChart() {
                     .attr("opacity", function(d) {
                         if (d.index == activeCity) {
                             return 1.0
-                       } else return 0.5
+                        } else return 0.5
                     })
-                   .attr("stroke", function(d) {
+                    .attr("stroke", function(d) {
                         if (d.index == activeCity) {
                             return "black";
                         } else return "none";
@@ -108,7 +111,7 @@ function drawBarChart() {
             .on("mouseout", function(d) {
                 svg.selectAll(".bar")
                     .attr("fill", "black")
-                    .attr("stroke","none")
+                    .attr("stroke", "none")
                     .attr("width", x.bandwidth())
 
                 div.html(" ").style("display", "none");

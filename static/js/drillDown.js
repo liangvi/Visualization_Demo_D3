@@ -23,7 +23,7 @@ function drawDrillDown() {
             .rangeRound([0, width])
             .paddingInner(0.1);
 
-//https://gist.github.com/mbostock/3887051
+        //https://gist.github.com/mbostock/3887051
         var y = d3.scaleLinear()
             .domain([0, 400])
             .range([height, 0]);
@@ -47,47 +47,21 @@ function drawDrillDown() {
             .attr("height", function(d) { return height - y(d.count) })
             .on("mouseover", function(d) {
                 activeCity = d.city;
-                d3.select("#bar")
-                  .selectAll(".bar")
-                    .attr("fill", function(d) {
+
+                svgD.selectAll(".bar")
+                    .attr("opacity", function(d) {
                         if (d.city == activeCity) {
-                            return "orange";
-                        } else return "black";
+                            return 1.0
+                        } else return 0.5
                     })
-                      .attr("stroke", function(d) {
+                    .attr("stroke", function(d) {
                         if (d.city == activeCity) {
                             return "black";
                         } else return "none";
                     })
                 var format = d3.format(".3n")
 
-                var mouseVal = d3.mouse(this);
-                div.style("display", "none");
-                div
-                    .html("City:" + d.city + "</br>" + "Score:" + format(d.score))
-                    .style("left", (d3.event.pageX + 12) + "px")
-                    .style("top", (d3.event.pageY - 10) + "px")
-                    .style("opacity", 1)
-                    .style("display", "block");
-
-                var activeBar = this;
-                //d3.select("#bar")
-                d3.selectAll(".bar").transition().style('opacity', function() {
-                    return (this === activeBar) ? 1.0 : 0.5;
-                });
-
-
-                svgD.selectAll(".bar")
-                    .attr("stroke", function(d) {
-                        if (d.city == activeCity) {
-                            return "black";
-                        } else return "none";
-                    })
-                    .attr("opacity", function(d) {
-                        if (d.city == activeCity) {
-                            return 1.0
-                        } else return 0.5
-                    })
+                var format = d3.format(".3n")
                 var mouseVal = d3.mouse(this);
                 div.style("display", "none");
                 div.html("City:" + d.city + "</br>" + "Count:" + format(d.count))
@@ -98,6 +72,24 @@ function drawDrillDown() {
                     .style("background-color", "lightblue")
                     .style("stroke", "black")
                     .style("stroke-width", 1);
+
+               d3.select("#bar")
+                    .selectAll(".bar")
+                    .attr("fill", function(d) {
+                        if (d.city == activeCity) {
+                            return "orange";
+                        } else return "black";
+                    })
+                    .attr("opacity", function(d) {
+                        if (d.city == activeCity) {
+                            return 1.0
+                        } else return 0.5
+                    })
+                    .attr("stroke", function(d) {
+                        if (d.city == activeCity) {
+                            return "black";
+                        } else return "none";
+                    })
 
                 d3.select("#city")
                     .selectAll("circle")
@@ -116,6 +108,7 @@ function drawDrillDown() {
                         } else return "none";
                     })
             })
+
             .on("mouseout", function(d) {
               d3.select("#bar")
                 .selectAll(".bar")
@@ -127,6 +120,7 @@ function drawDrillDown() {
               div.html(" ").style("display", "none");
             //  svg.selectAll(".bar").transition().style('opacity', 1.0);
 
+
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
@@ -136,6 +130,12 @@ function drawDrillDown() {
                 d3.select("#city")
                     .selectAll("circle")
                     .attr("r", 5)
+                    .attr("stroke", "none")
+                    .attr("opacity", 1.0)
+
+                d3.select("#bar")
+                    .selectAll(".bar")
+                    .attr("fill", "black")
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
             });
@@ -164,7 +164,7 @@ function drawDrillDown() {
         svgD.append('text')
             .attr('class', 'ylabel')
             .attr('x', -(height / 2))
-            .attr('y', 10)
+            .attr('y', -10)
             .attr('transform', 'rotate(-90)')
             .attr('text-anchor', 'middle')
             .text('Frequency')
