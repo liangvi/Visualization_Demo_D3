@@ -45,6 +45,22 @@ This model was then embedded in the web interface, along with the associated tf-
 <p></p>
 <img src="Table4.png" width="300" height="300">
 <p></p>
-p></p>
+<p></p>
 <img src="Table56.png" width="300" height="400">
 <p></p>
+<i>LDA Model:</i>
+<p></p>
+Latent Dirichlet Allocation (LDA) is a unsupervised technique that can be used to discover the topics of a corpus or groups of documents. LDA aims to identify segregated clusters of words that occur together. These grouping of words becomes a “topic”. One downside of LDA is that often several adjectives can appear in the top words of the topics. However this study believes these adjectives are not needed given the star system of the reviews. Instead, in the preprocessing phase, the text was filtered down to the nouns of the review and the star system was used to infer the sentiment associated with that noun. For example, for the “service” topic, a review with 2 stars or less will reveal it is about bad service, and reviews with 4 stars or more would denote good service.
+<p></p>
+For preprocessing, the text was tokenize, punctuations and digits were removed, the text was filtered down to nouns and words were stemmed. Using grid search, it was found that the model works best trying to fit 10 topics and with a learning decay of 0.5. Three models were built, one with all of the restaurants reviews, one with good reviews (4 or more stars) and one with bad reviews (2 or less stars). Each model weight each word in a differently depending on how they are related to each topic. Below you are can see the top ten words related to each topic in the three models.
+<p></p>
+<p></p>
+<img src="Table7.png" width="800" height="700">
+<p></p>
+<p></p>
+<img src="Table8.png" width="800" height="700">
+<p></p>
+<p></p>
+<img src="Table9.png" width="800" height="700">
+<p></p>
+Using these models, we can predict the topic of each reviews. Each review would be broken down and then scored for each topic. The prevalent topic is the topics that is most heavily weighed for the review.
