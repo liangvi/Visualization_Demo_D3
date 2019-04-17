@@ -22,8 +22,9 @@ function drawDrillDown() {
             .domain(dataset.map(function(d) { return d.star; }))
             .rangeRound([0, width])
             .paddingInner(0.1);
+
         var y = d3.scaleLinear()
-            .domain([d3.min(dataset, function(d) { return d.count; }), d3.max(dataset, function(d) { return d.count; })])
+            .domain([0, d3.max(dataset, function(d) { return d.count; })])
             .range([height, 0]);
 
         //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
