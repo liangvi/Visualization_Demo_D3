@@ -47,6 +47,34 @@ function drawDrillDown() {
             .attr("height", function(d) { return height - y(d.count) })
             .on("mouseover", function(d) {
                 activeCity = d.city;
+                d3.select("#bar")
+                  .selectAll(".bar")
+                    .attr("fill", function(d) {
+                        if (d.city == activeCity) {
+                            return "orange";
+                        } else return "black";
+                    })
+                      .attr("stroke", function(d) {
+                        if (d.city == activeCity) {
+                            return "black";
+                        } else return "none";
+                    })
+
+                var mouseVal = d3.mouse(this);
+                div.style("display", "none");
+                div
+                    .html("City:" + d.city + "</br>" + "Score:" + format(d.score))
+                    .style("left", (d3.event.pageX + 12) + "px")
+                    .style("top", (d3.event.pageY - 10) + "px")
+                    .style("opacity", 1)
+                    .style("display", "block");
+
+                var activeBar = this;
+                svg.selectAll(".bar").transition().style('opacity', function() {
+                    return (this === activeBar) ? 1.0 : 0.5;
+
+
+
                 svgD.selectAll(".bar")
                     .attr("stroke", function(d) {
                         if (d.city == activeCity) {
@@ -88,6 +116,15 @@ function drawDrillDown() {
                     })
             })
             .on("mouseout", function(d) {
+              d3.select("#bar")
+                .selectAll(".bar")
+                .attr("fill", "black")
+                .attr("stroke","none")
+                .attr("width", x.bandwidth())
+
+              div.html(" ").style("display", "none");
+              svg.selectAll(".bar").transition().style('opacity', 1.0);
+
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
                     .attr("opacity", 1.0)
