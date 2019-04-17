@@ -1,4 +1,4 @@
-function drawDrillDown() {
+function drawDrillDown() { 
     var margin = { top: 20, right: 20, bottom: 30, left: 40 },
         width = 600 - margin.left - margin.right,
         height = 300 - margin.top - margin.bottom;
@@ -18,7 +18,7 @@ function drawDrillDown() {
         //const dataset = data.filter(row => row.category == "Pizza");
 
         // set the ranges
-        var x = d3.scaleBand()
+        var x0 = d3.scaleBand()
             .domain(dataset.map(function(d) { return d.star; }))
             .rangeRound([0, width])
             .paddingInner(0.1);
@@ -27,26 +27,23 @@ function drawDrillDown() {
             .range([height, 0]);
 
         //https://medium.com/@vaibhavkumar_19430/how-to-create-a-grouped-bar-chart-in-d3-js-232c54f85894
-        var x_1 = d3.scaleBand()
+        var x1 = d3.scaleBand()
             .domain(dataset.map(function(d) { return d.city; }))
-            .rangeRound([0, x.bandwidth()])
+            .rangeRound([0, x0.bandwidth()])
             .padding(0.05);
 
-        //var barWidth = 10;
-
-        // append the rectangles for the bar chart
         svgD.selectAll(".bar")
             .data(dataset)
             .enter()
             .append("rect")
             .attr("class", "bar")
-            .attr("transform", d => `translate(${x(d.star)},0)`)
-            .attr("x", function(d) { return x_1(d.city); })
+            .attr("transform", d => `translate(${x0(d.star)},0)`)
+            .attr("x", function(d) { return x1(d.city); })
             /*.attr("x", function(d,i) {
               //return i*2 + x(d.star);
               return x1(d.star);
             })*/
-            .attr("width", x_1.bandwidth())
+            .attr("width", x1.bandwidth())
             .attr("y", function(d) { return y(d.count); })
             .style("fill", function(d) { return color(d.city); })
             .attr("height", function(d) { return height - y(d.count) })
@@ -92,7 +89,6 @@ function drawDrillDown() {
                         } else return "none";
                     })
             })
-
             .on("mouseout", function(d) {
                 svgD.selectAll(".bar")
                     .attr("stroke", "none")
@@ -110,7 +106,7 @@ function drawDrillDown() {
         // add the x Axis
         svgD.append("g")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x0));
 
         // add the y Axis
         svgD.append("g")
@@ -141,6 +137,7 @@ function drawDrillDown() {
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
 
         legend.append("rect")
             .attr("x", width - 10)
