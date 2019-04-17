@@ -72,8 +72,8 @@ function drawDrillDown() {
                     .style("background-color", "lightblue")
                     .style("stroke", "black")
                     .style("stroke-width", 1);
-
-                d3.select("#bar")
+                    
+               d3.select("#bar")
                     .selectAll(".bar")
                     .attr("fill", function(d) {
                         if (d.city == activeCity) {
