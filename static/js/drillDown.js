@@ -125,7 +125,7 @@ var barWidth = 10;
   svgD.append('text')
         .attr('class', 'ylabel')
         .attr('x', -(height / 2))
-        .attr('y', 10)
+        .attr('y', 0)
         .attr('transform', 'rotate(-90)')
         .attr('text-anchor', 'middle')
         .text('Frequency')
