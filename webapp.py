@@ -277,6 +277,12 @@ def compare():
 	topic_distribution = reformat(topic_distribution)
 	topic_distribution_good = reformat(topic_distribution_good)
 	topic_distribution_bad = reformat(topic_distribution_bad)
+
+
+	all_keywords = dict(zip(all_topic_keywords.topic.tolist(), all_topic_keywords.iloc[:,:10].values.tolist()))
+	good_keywords = dict(zip(good_topic_keywords.topic.tolist(), good_topic_keywords.iloc[:,:10].values.tolist()))
+	bad_keywords = dict(zip(bad_topic_keywords.topic.tolist(), bad_topic_keywords.iloc[:,:10].values.tolist()))
+		
 	return render_template('compare.html',
 	 topic_dist=(topic_distribution.to_json(orient='records')),
 	  topic_dist_good=(topic_distribution_good.to_json(orient='records')),
@@ -284,7 +290,10 @@ def compare():
 	   categories=categories,
 	   category = cat,
 	   cities=city_list,
-	   default_cities=default_cityList)
+	   default_cities=default_cityList,
+	   all_keywords=all_keywords,
+	   good_keywords=good_keywords,
+	   bad_keywords=bad_keywords)
 
 def generateSubtopic(docnames, topics, keywords, city):
 	sub_restaurants = copy.deepcopy(topics.reindex(docnames))
@@ -372,6 +381,8 @@ def analysis():
 		text_count = count_vectorizer.transform([processed_text])
 		text_count_features = count_vectorizer.get_feature_names()
 		lda_output = lda_model_all.transform(text_count)
+		lda_topics = dict(zip(all_topic_keywords.topic.tolist(), lda_output.tolist()[0]))
+
 		topicnames = ["Topic" + str(i) for i in range(lda_model_all.n_components)]
 		df_document_topic = pd.DataFrame(np.round(lda_output, 2), columns=topicnames)
 		dominant_topic = np.argmax(df_document_topic.values, axis=1)
@@ -383,8 +394,9 @@ def analysis():
 			 category=request.form['category'],
 			  text=request.form['text'],
 			   city=request.form['city'],
-			    score=score,
-			     predict_topic=predict_topic)
+			    score=score[0],
+			     predict_topic=predict_topic,
+			     topic_dist=lda_topics)
 
 def genCity(city, cities):
 	row = pd.DataFrame(columns=cities)

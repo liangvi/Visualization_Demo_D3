@@ -1,18 +1,15 @@
-var topicMap = {
-    "Good for Kids": ['hair','kid','game','book','time','floor','night','fun','life','seat'],
-    "Burger": ['burger','dog','product','love','excel','onion','stop','wonder','space','bun']
-};
-
 function formatWords(list) {
-    str = ""
+    str = "<ul>"
     for (word in list) {
-        str += " <br /> "
+        str += " <li> "
         str += list[word]
+        str += " </li>"
     }
+    str += "</ul>"
     return str
 }
 
-function drawChart(data, chartID, chartName) {
+function drawChart(data, keywords, chartID, chartName) {
 
     var margin = {
         top: 50,
@@ -91,7 +88,8 @@ function drawChart(data, chartID, chartName) {
             div
                 .html("City:" + d.key + 
                     "</br>" + "Frequency:" + format(d.value) + 
-                    "</br>" + "Topic:" + d.topic)
+                    "</br>" + "Topic:" + d.topic + 
+                    "</br>" + "Topic Words:" + formatWords(keywords[d.topic]))
                 .style("left", (d3.event.pageX + 12) + "px")
                 .style("top", (d3.event.pageY - 10) + "px")
                 .style("opacity", 1)
@@ -171,10 +169,14 @@ function drawChart(data, chartID, chartName) {
         .call(legend);
 };
 
-function drawPage(overallData, goodData, badData) {
-    drawChart(overallData, "overallChart", 'Review Topic Comparison');
-    drawChart(goodData, "goodChart", 'Good Review Topic Comparison (4 Stars or More)');
-    drawChart(badData, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)');
+function drawPage(overallData, goodData, badData, allkeywords, goodkeywords, badkeywords) {
+    console.log(allkeywords);
+    console.log(goodkeywords);
+    console.log(badkeywords);
+    
+    drawChart(overallData, allkeywords, "overallChart", 'Review Topic Comparison');
+    drawChart(goodData, goodkeywords, "goodChart", 'Good Review Topic Comparison (4 Stars or More)');
+    drawChart(badData, badkeywords, "badChart", 'Bad Review Topic Comparison (2 Stars or Less)');
 };
 
 

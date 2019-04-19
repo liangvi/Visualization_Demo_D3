@@ -29,18 +29,25 @@
             </a>
         </div>
         <div>
-            <p class="text-center" style="padding-top: 20px">
+            <h3 class="text-center" style="padding-top: 20px">
                 Enter a sample review in the "Review" form, select a city and restaurant category, and click evaluate to predict the review's star rating and main topic
-            </p>
+            </h3>
         </div>
         {% if score %}
-        <div>
+        <div class="col-md-9">
             <h2>Predicted output: </h2>
-            <h4>Input text: {{ text }} </h4>
+            <h4>Input text: </h4>
+            <p> {{ text }} </p>
             <h4>Input city: {{ city }} </h4>
             <h4>Input category: {{ category }} </h4>
-            <h4>Predicted score: {{ score }} </h4>
+            <h4>Predicted score: {{ "%.3f"|format(score)}} </h4>
             <h4>Predicted main topic: {{ predict_topic }} </h4>
+        </div>
+        <div class="col-md-3">
+            <h4><u> Topic Distribution </u> </h4>
+            {% for key, value in topic_dist.items() %}
+                <h5>{{ "%.3f"|format(value) }} {{key}} 
+            {% endfor %}
         </div>
         {% endif %}
         <!--  <script type="text/javascript" src="/static/js/explore.js"></script> -->
